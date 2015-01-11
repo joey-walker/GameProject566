@@ -44,7 +44,7 @@ cmd> git status # check what has been added
 cmd> git commit -m "This has been changed" #Commit the code
 cmd> git status # no working changes now
 cmd> git fetch dev #Grab all changes from upstream
-cmd> git merge dev #merge changes in
+cmd> git merge dev/development #merge changes in
 CLEAN UP ALL MERGE CONFLICTS... edit...add..commit..
 Build project in your IDE to ensure tests run
 cmd> git push origin #push changes
