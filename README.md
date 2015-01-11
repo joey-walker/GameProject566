@@ -26,11 +26,11 @@ cmd> cd GameProject566
 cmd> git checkout development.
 ```
 
-5. Create a remote to our upstream project.
+Create a remote to our upstream project.
 
 ```cmd> git remote add dev https://github.com/joey-walker/GameProject566.git ```
 
-6. Configure credentials so you don't have to keep inputting username and password.
+Configure credentials so you don't have to keep inputting username and password.
 
 ```git config --global credential.helper wincred```
 
