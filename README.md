@@ -19,13 +19,12 @@
 
 4. Clone your fork.
 
-`` Grab the link of your fork on the side on github. Enter empty new directory.
-
-`` cmd> git clone https://github.com/"usernamehere"/GameProject566.git ``
-
-`` cmd> cd GameProject566``
-
-`` cmd> git checkout development.``
+`` 
+Grab the link of your fork on the side on github. Enter empty new directory.
+cmd> git clone https://github.com/"usernamehere"/GameProject566.git
+cmd> cd GameProject566
+cmd> git checkout development.
+``
 
 5. Create a remote to our upstream project.
 
@@ -37,30 +36,31 @@
 
 ##Git usage/cycle:
 
-``cmd> git status # See curent changes``
+``
+cmd> git status # See current changes
 
-``cmd> git diff # Review changes and clean up``
+cmd> git diff # Review changes and clean up
 
-``cmd> git add . # Add all modified files``
+cmd> git add . # Add all modified files
 
-``cmd> git status # check what has been added``
+cmd> git status # check what has been added
 
-``cmd> git commit -m "This has been changed" #Commit the code``
+cmd> git commit -m "This has been changed" #Commit the code
 
-``cmd> git status # no working changes now``
+cmd> git status # no working changes now
 
-``cmd> git fetch dev #Grab all changes from upstream``
+cmd> git fetch dev #Grab all changes from upstream
 
-``cmd> git merge dev #merge changes in``
+cmd> git merge dev #merge changes in
 
-`` CLEAN UP ALL MERGE CONFLICTS... edit...add..commit..``
+ CLEAN UP ALL MERGE CONFLICTS... edit...add..commit..
 
-`` Build project in your IDE to ensure tests run``
+ Build project in your IDE to ensure tests run
 
-``cmd> git push origin #push changes``
+cmd> git push origin #push changes
 
-``cmd> git status #See if branch is up to date``
-
+cmd> git status #See if branch is up to date
+``
 ____________________________
 
 ##Pull Requests
