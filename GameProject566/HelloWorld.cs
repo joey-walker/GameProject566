@@ -6,7 +6,7 @@ namespace GameProject566
 	{
 		public static void Main ()
 		{
-			Console.Write ("Hello World!");
+			Console.Write ("Hello World!" + "  Hello world 2!");
 		}
 	}
 }
