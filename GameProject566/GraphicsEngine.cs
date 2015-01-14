@@ -1,11 +1,15 @@
 ﻿using System;
+using System.Drawing;
 
 namespace GameProject566
 {
-	public class EmptyClass
+	class GraphicsEngine
 	{
-		public EmptyClass ()
-		{
+		private Graphics screen;
+
+		public GraphicsEngine(Graphics incoming) {
+			screen = incoming;
+
 		}
 	}
 }
