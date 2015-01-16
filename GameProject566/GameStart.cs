@@ -2,14 +2,12 @@
 using System.Threading;
 using System.ComponentModel;
 using System.Windows.Forms;
-using Microsoft.DirectX;
-using Microsoft.DirectX.Direct3D;
 
 namespace GameProject566
 {
 	public class GameStart : System.Windows.Forms.Form
 	{
-		private Device device;
+		
 		private IContainer container = null;
 
 		public GameStart()
@@ -54,27 +52,6 @@ namespace GameProject566
 			}
 
 			base.Dispose (disposing);
-		}
-
-
-		public void InitializeDevice(){
-			PresentParameters dx_params = new PresentParameters ();
-			/*
-
-			The runtime guarantees the implied semantics concerning buffer swap behavior. 
-			So if Windowed is set to true and SwapEffect is set to SwapEffect.Flip, 
-			the runtime creates one extra back buffer and copies whichever becomes the front buffer at presentation time.
-
-			The SwapEffect.Copy setting requires that BackBufferCount be set to 1. 
-			This setting is enforced in the debug runtime, which fills any buffer with noise after it is presented.
-			*/
-			dx_params.SwapEffect = SwapEffect.Discard;
-
-			// Make app windowed.
-			dx_params.Windowed = true;
-
-			//0 is first GPU
-			device = new Device (0, DeviceType.Hardware, this, CreateFlags.SoftwareVertexProcessing, dx_params);
 		}
 	}
 }

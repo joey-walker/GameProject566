@@ -54,7 +54,7 @@ ____________________________
 
 ##Pull Requests
 
-1. Go to https://github.com/joey-walker/GameProject566.git
+1. Go to your fork
 2. Create pull request
 3. Make title and comment on your changes.
 4. Submit pull request
