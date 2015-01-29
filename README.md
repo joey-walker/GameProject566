@@ -1,7 +1,7 @@
 #Roleplaying Game
-##Project Members: Joey, Mentu, Sarthak, Deep
+##Project Members: Joey, Mentu, Sarthak, Deep, Ori
 
-##Title: Work in Progress
+##Title: Dreadnought KamZhor
 
 #Rules:
 
@@ -54,8 +54,8 @@ ____________________________
 
 ##Pull Requests
 
-1. Go to https://github.com/joey-walker/GameProject566.git
+1. Go to your fork
 2. Create pull request
 3. Make title and comment on your changes.
 4. Submit pull request
-5. Nobody create a merge conflict......
+5. Nobody create a merge conflict.....

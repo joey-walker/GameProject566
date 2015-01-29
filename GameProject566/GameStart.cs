@@ -62,6 +62,10 @@ namespace GameProject566
 		public static void Main ()
 		{
 			//using allows cleanup of form afterwards
+			/* using -> New concept, Basically it creates objects that if disposable will
+			* get rid of the object when no longer being managed.
+			* The rest creates a standard windows form that we tell the application to run.
+			*/
 			using (RenderForm form = new RenderForm ("Dreadnought Kamzhor")) {
 				Graphics graphics = new Graphics ();
 
@@ -177,7 +181,6 @@ namespace GameProject566
 
 			sprite.Dispose ();
 			texture.Dispose ();
-
 		}
 			
 	}
