@@ -1,7 +1,7 @@
 #Roleplaying Game
-##Project Members: Joey, Mentu, Sarthak, Deep
+##Project Members: Joey, Mentu, Sarthak, Deep, Ori
 
-##Title: Work in Progress
+##Title: Dreadnought KamZhor
 
 #Rules:
 

@@ -31,54 +31,21 @@
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <Compile Include="GameStart.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System" />
+    <Reference Include="SlimDX">
+      <HintPath>..\packages\SlimDX.4.0.13.44\lib\NET40\SlimDX.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework">
+      <HintPath>..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Accessibility, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-      <SpecificVersion>False</SpecificVersion>
-      <Package>C:\Windows\Microsoft.NET\Framework64\v4.0.30319\Accessibility.dll</Package>
-    </Reference>
-    <Reference Include="Microsoft.Build, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-      <SpecificVersion>False</SpecificVersion>
-      <Package>C:\Windows\Microsoft.NET\Framework64\v4.0.30319\Microsoft.Build.dll</Package>
-    </Reference>
-    <Reference Include="Microsoft.Build.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-      <SpecificVersion>False</SpecificVersion>
-      <Package>C:\Windows\Microsoft.NET\Framework64\v4.0.30319\Microsoft.Build.Framework.dll</Package>
-    </Reference>
-    <Reference Include="Microsoft.CSharp, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-      <SpecificVersion>False</SpecificVersion>
-      <Package>C:\Windows\Microsoft.NET\Framework64\v4.0.30319\Microsoft.CSharp.dll</Package>
-    </Reference>
-    <Reference Include="System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-      <SpecificVersion>False</SpecificVersion>
-      <Package>C:\Windows\Microsoft.NET\Framework64\v4.0.30319\System.dll</Package>
-    </Reference>
-    <Reference Include="System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-      <SpecificVersion>False</SpecificVersion>
-      <Package>C:\Windows\Microsoft.NET\Framework64\v4.0.30319\System.Data.dll</Package>
-    </Reference>
-    <Reference Include="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-      <SpecificVersion>False</SpecificVersion>
-      <Package>C:\Windows\Microsoft.NET\Framework64\v4.0.30319\System.Drawing.dll</Package>
-    </Reference>
-    <Reference Include="System.Drawing.Design, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-      <SpecificVersion>False</SpecificVersion>
-      <Package>C:\Windows\Microsoft.NET\Framework64\v4.0.30319\System.Drawing.Design.dll</Package>
-    </Reference>
-    <Reference Include="System.Runtime, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-      <Package>C:\Windows\Microsoft.NET\Framework64\v4.0.30319\System.Runtime.dll</Package>
-    </Reference>
-    <Reference Include="WindowsBase" />
-    <Reference Include="WindowsFormsIntegration" />
-    <Reference Include="System.Windows, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-      <Package>C:\Windows\Microsoft.NET\Framework64\v4.0.30319\System.Windows.dll</Package>
-    </Reference>
-    <Reference Include="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-      <SpecificVersion>False</SpecificVersion>
-      <Package>C:\Windows\Microsoft.NET\Framework64\v4.0.30319\System.Windows.Forms.dll</Package>
-    </Reference>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="GameStart.cs" />
+    <Compile Include="Graphics.cs" />
   </ItemGroup>
 </Project>
