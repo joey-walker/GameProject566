@@ -5,8 +5,9 @@ using System.Windows.Forms;
 using SlimDX;
 using SlimDX.Direct3D9;
 using SlimDX.Windows;
-using System.Security.Principal;
 using SlimDX.Design;
+using SlimDX.RawInput;
+using SlimDX.Multimedia;
 
 namespace GameProject566
 {
@@ -14,7 +15,7 @@ namespace GameProject566
 	{
 
 		//Our graphics device
-		static Device device9;
+		static SlimDX.Direct3D9.Device device9;
 
 		//We use this to load sprites.
 		static Sprite sprite;
@@ -23,12 +24,12 @@ namespace GameProject566
 		static Texture texture;
 
 		//Absolute location start for sprite
-		static float x = 20;
-		static float y = 20;
-
+		static float x = 200;
+		static float y = 200;
 
 
 		//Intialize graphics
+		/*  WILL BE REMOVED
 		public static void initializeGraphics (RenderForm form)
 		{
 
@@ -45,9 +46,8 @@ namespace GameProject566
 			//Acquire the sys int that the form is bound to.
 			presentParamaters.DeviceWindowHandle = form.Handle;
 
-
 			//Our device for graphics
-			device9 = new Device (new Direct3D (), 0, DeviceType.Hardware, form.Handle, CreateFlags.HardwareVertexProcessing, presentParamaters);
+			device9 = new SlimDX.Direct3D9.Device (new Direct3D (), 0, SlimDX.Direct3D9.DeviceType.Hardware, form.Handle, CreateFlags.HardwareVertexProcessing, presentParamaters);
 
 
 
@@ -57,23 +57,37 @@ namespace GameProject566
 			//Our texture
 			texture = Texture.FromFile (device9, "..\\..\\sprites\\test2.png");
 		}
-
+		*/
 
 		public static void Main ()
 		{
 			//using allows cleanup of form afterwards
 			using (RenderForm form = new RenderForm ("Dreadnought Kamzhor")) {
+				Graphics graphics = new Graphics ();
 
 				//Window resolution is 1024 x 728
 				form.Width = 1024;
 				form.Height = 728;
 				//No resizing
 				form.FormBorderStyle = FormBorderStyle.Fixed3D;
+				form.MaximizeBox = false;
+
 
 				//Create our device, textures and sprites
-				initializeGraphics (form);
+				//initializeGraphics (form);
+				device9 = graphics.initializeGraphics (form);
+				texture = graphics.createSprite (device9);
+				sprite = new Sprite (device9);
+
+				//Gimme da keyboards
+				SlimDX.RawInput.Device.RegisterDevice (UsagePage.Generic, UsageId.Keyboard, SlimDX.RawInput.DeviceFlags.None);
+				SlimDX.RawInput.Device.KeyboardInput += new EventHandler <KeyboardInputEventArgs> (Device_keyboardInput);
+
+				//SlimDX.RawInput.Device.KeyboardInput += Device_keyboardInput;
+
 
 				//Application loop
+
 				MessagePump.Run (form, GameLoop);
 
 				//Dispose no longer in use objects.
@@ -81,25 +95,50 @@ namespace GameProject566
 			}
 		}
 
+		public static void  Device_keyboardInput (object sender, KeyboardInputEventArgs e)
+		{
+			//Runs twice for some reason....
+			Console.Out.WriteLine ("Key pressed: " + e.Key + ". x value: " + x + ". y value: " + y);
+
+			//First if is probably redundant but whatever
+			//Everything else is self explainatory.
+			if (e.State == KeyState.Pressed) {
+				if (e.Key == Keys.Down) {
+					y = y + 20f;
+				} else if (e.Key == Keys.Up) {
+					y = y - 20f;
+				} else if (e.Key == Keys.Left) {
+					x = x - 20f;
+				} else if (e.Key == Keys.Right) {
+					x = x + 20f;
+				}
+			}
+		}
+
 		private static void GameLoop ()
 		{
+
 			//Logic then render then loop
 			GameLogic ();
 			RenderFrames ();
 
 			//Example change to offset to move picture accross
-			x = x + 0.07f;
-			y = y + 0.04f;
+
 		}
 
 
 		private static void GameLogic ()
 		{
+
 			//This is where would place game logic for a game
 		}
 
+
+		//Sprites and textures CANNOT be created here, as it must retrieve textures
 		private static void RenderFrames ()
 		{
+
+
 
 			//Clear the whole screen
 			device9.Clear (ClearFlags.Target, Color.AliceBlue, 1.0f, 0);
@@ -138,6 +177,7 @@ namespace GameProject566
 
 			sprite.Dispose ();
 			texture.Dispose ();
+
 		}
 			
 	}
