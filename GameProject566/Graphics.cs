@@ -8,7 +8,7 @@ namespace GameProject566
 	{
 		public Device initializeGraphics (Form form)
 		{
-		
+
 			//Device presentation paramaters
 			PresentParameters presentParamaters = new PresentParameters ();
 			//Windowed
@@ -17,7 +17,6 @@ namespace GameProject566
 			presentParamaters.BackBufferWidth = form.ClientRectangle.Width;
 			//Forms' height
 			presentParamaters.BackBufferHeight = form.ClientRectangle.Height;
-
 
 			//Acquire the sys int that the form is bound to.
 			presentParamaters.DeviceWindowHandle = form.Handle;

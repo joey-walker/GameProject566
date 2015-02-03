@@ -8,9 +8,11 @@ using SlimDX.Windows;
 using SlimDX.Design;
 using SlimDX.RawInput;
 using SlimDX.Multimedia;
+using SlimDX.DirectSound;
 
 namespace GameProject566
 {
+
 	public class GameStart
 	{
 
@@ -19,45 +21,14 @@ namespace GameProject566
 
 		//We use this to load sprites.
 		static Sprite sprite;
-
+		static Sprite sprite2;
 		//Our texture file
 		static Texture texture;
 
 		//Absolute location start for sprite
 		static float x = 200;
 		static float y = 200;
-
-
-		//Intialize graphics
-		/*  WILL BE REMOVED
-		public static void initializeGraphics (RenderForm form)
-		{
-
-			//Device presentation paramaters
-			PresentParameters presentParamaters = new PresentParameters ();
-			//Windowed
-			presentParamaters.Windowed = true;
-			//Form's width
-			presentParamaters.BackBufferWidth = form.ClientRectangle.Width;
-			//Forms' height
-			presentParamaters.BackBufferHeight = form.ClientRectangle.Height;
-
-
-			//Acquire the sys int that the form is bound to.
-			presentParamaters.DeviceWindowHandle = form.Handle;
-
-			//Our device for graphics
-			device9 = new SlimDX.Direct3D9.Device (new Direct3D (), 0, SlimDX.Direct3D9.DeviceType.Hardware, form.Handle, CreateFlags.HardwareVertexProcessing, presentParamaters);
-
-
-
-			//sprite based off device
-			sprite = new Sprite (device9);
-
-			//Our texture
-			texture = Texture.FromFile (device9, "..\\..\\sprites\\test2.png");
-		}
-		*/
+		//static float z = 0;
 
 		public static void Main ()
 		{
@@ -76,18 +47,55 @@ namespace GameProject566
 				form.FormBorderStyle = FormBorderStyle.Fixed3D;
 				form.MaximizeBox = false;
 
-
 				//Create our device, textures and sprites
 				//initializeGraphics (form);
 				device9 = graphics.initializeGraphics (form);
 				texture = graphics.createSprite (device9);
 				sprite = new Sprite (device9);
+				sprite2 = new Sprite (device9);
 
+				//Get an icon from bitmap
+				var bitmap = new Bitmap("..\\..\\sprites\\test2.png"); // or get it from resource
+				var iconHandle = bitmap.GetHicon();
+				var icon = System.Drawing.Icon.FromHandle(iconHandle);
+				form.Icon = icon;
+
+
+
+				//form.Icon = new Icon ("..\\..\\sprites\\test2.ico");
 				//Gimme da keyboards
 				SlimDX.RawInput.Device.RegisterDevice (UsagePage.Generic, UsageId.Keyboard, SlimDX.RawInput.DeviceFlags.None);
 				SlimDX.RawInput.Device.KeyboardInput += new EventHandler <KeyboardInputEventArgs> (Device_keyboardInput);
 
 				//SlimDX.RawInput.Device.KeyboardInput += Device_keyboardInput;
+
+				//SOUND STUFF
+				DirectSound a = new DirectSound();
+				a.IsDefaultPool = false;
+				a.SetCooperativeLevel (form.Handle, CooperativeLevel.Priority);
+				WaveStream wave = new WaveStream("..\\..\\sprites\\jig.wav");
+
+				SoundBuffer b;
+
+				SoundBufferDescription description = new SoundBufferDescription();
+				description.Format = wave.Format;
+				description.SizeInBytes = (int)wave.Length;
+				description.Flags = BufferFlags.ControlVolume;
+
+				// Create the buffer.
+				b = new SecondarySoundBuffer(a, description);
+
+				byte[] data = new byte[description.SizeInBytes];
+				wave.Read(data, 0, (int)wave.Length);
+				b.Write(data, 0,SlimDX.DirectSound.LockFlags.None);
+
+
+				b.Volume = 0;
+				b.Play(0, PlayFlags.Looping);
+
+
+				//device9.SetTransform (TransformState.Projection, Matrix.PerspectiveFovLH ((float)Math.PI / 4, 1024f / 728f, 1f, 50f));
+
 
 
 				//Application loop
@@ -98,6 +106,7 @@ namespace GameProject566
 				Cleanup ();
 			}
 		}
+
 
 		public static void  Device_keyboardInput (object sender, KeyboardInputEventArgs e)
 		{
@@ -133,7 +142,7 @@ namespace GameProject566
 
 		private static void GameLogic ()
 		{
-
+			//z += 0.0001f;
 			//This is where would place game logic for a game
 		}
 
@@ -142,29 +151,43 @@ namespace GameProject566
 		private static void RenderFrames ()
 		{
 
-
-
+	
 			//Clear the whole screen
 			device9.Clear (ClearFlags.Target, Color.AliceBlue, 1.0f, 0);
 
 			//Render whole frame
 			device9.BeginScene ();
 
+
+
+			Console.Out.WriteLine("View: " +  device9.GetTransform (TransformState.View));
+
+
+			Console.Out.WriteLine("World: " +  device9.GetTransform (TransformState.World));
 			//not sure why we need this yet...
 			SlimDX.Color4 color = new SlimDX.Color4 (Color.White);
 
 			//being sprite render.
 			sprite.Begin (SpriteFlags.AlphaBlend);
-
+			sprite2.Begin(SpriteFlags.AlphaBlend);
 			//Translate the sprite with a 3d matrix with no z change.
-			sprite.Transform = Matrix.Translation (x, y, 0);
 
-			//Render sprite.
+			/*Matrix mat = Matrix.RotationZ (z); 
+			mat *= Matrix.Translation (x, y, 0);
+			sprite.Transform = mat;
+			Rotation stuff ^
+			*/
+			sprite.Transform = Matrix.Translation (x, y, 0);
 			sprite.Draw (texture, color);
 
+			sprite2.Transform = Matrix.Translation (300, 300, 0);
+			//Render sprite.
+
+			sprite.Draw (texture, color);
+			sprite2.Draw (texture, color);
 			//end render
 			sprite.End ();
-
+			sprite2.End ();
 			// End the scene.
 			device9.EndScene ();
 
@@ -180,8 +203,10 @@ namespace GameProject566
 				device9.Dispose ();
 
 			sprite.Dispose ();
+			sprite2.Dispose ();
 			texture.Dispose ();
 		}
 			
+		
 	}
 }
