@@ -34,6 +34,12 @@ namespace GameProject566
 			return Texture.FromFile (device9, "..\\..\\sprites\\test2.png");
 
 		}
+
+        public Texture drawTiles(Device device9)
+        {
+            //tiles
+            return Texture.FromFile(device9, "..\\..\\sprites\\tile1.png");
+        }
 	}
 }
 

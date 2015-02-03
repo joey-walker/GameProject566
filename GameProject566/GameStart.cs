@@ -23,10 +23,18 @@ namespace GameProject566
 		//Our texture file
 		static Texture texture;
 
-		//Absolute location start for sprite
-		static float x = 200;
-		static float y = 200;
+        //tiles
+        static Texture tiles;
 
+		//Absolute location start for sprite
+		static float characterX = 512;
+		static float characterY = 384;
+
+        //beginning location for sprite
+        static float tileX = 512;
+        static float tileY = 384;
+        // create new form
+        static RenderForm form;
 
 		//Intialize graphics
 		/*  WILL BE REMOVED
@@ -66,12 +74,12 @@ namespace GameProject566
 			* get rid of the object when no longer being managed.
 			* The rest creates a standard windows form that we tell the application to run.
 			*/
-			using (RenderForm form = new RenderForm ("Dreadnought Kamzhor")) {
+			using (form = new RenderForm ("Dreadnought Kamzhor")) {
 				Graphics graphics = new Graphics ();
 
-				//Window resolution is 1024 x 728
+				//Window resolution is 1024 x 768
 				form.Width = 1024;
-				form.Height = 728;
+				form.Height = 768;
 				//No resizing
 				form.FormBorderStyle = FormBorderStyle.Fixed3D;
 				form.MaximizeBox = false;
@@ -81,6 +89,7 @@ namespace GameProject566
 				//initializeGraphics (form);
 				device9 = graphics.initializeGraphics (form);
 				texture = graphics.createSprite (device9);
+                tiles = graphics.drawTiles(device9);
 				sprite = new Sprite (device9);
 
 				//Gimme da keyboards
@@ -102,19 +111,19 @@ namespace GameProject566
 		public static void  Device_keyboardInput (object sender, KeyboardInputEventArgs e)
 		{
 			//Runs twice for some reason....
-			Console.Out.WriteLine ("Key pressed: " + e.Key + ". x value: " + x + ". y value: " + y);
+			Console.Out.WriteLine ("Key pressed: " + e.Key + ". x value: " + characterX + ". y value: " + characterY);
 
 			//First if is probably redundant but whatever
 			//Everything else is self explainatory.
 			if (e.State == KeyState.Pressed) {
-				if (e.Key == Keys.Down) {
-					y = y + 20f;
-				} else if (e.Key == Keys.Up) {
-					y = y - 20f;
-				} else if (e.Key == Keys.Left) {
-					x = x - 20f;
-				} else if (e.Key == Keys.Right) {
-					x = x + 20f;
+				if (e.Key == Keys.Down && characterY < (form.Height - 60f)) {
+					characterY = characterY + 60f;
+				} else if (e.Key == Keys.Up && characterY > (84 + 60f)){//(0 + 60f)) {
+					characterY = characterY - 60f;
+				} else if (e.Key == Keys.Left && characterX > (212 + 60f)){//(0 + 60f)) {
+					characterX = characterX - 60f;
+				} else if (e.Key == Keys.Right && characterX < (form.Width - 60f)) {
+					characterX = characterX + 60f;
 				}
 			}
 		}
@@ -156,8 +165,11 @@ namespace GameProject566
 			//being sprite render.
 			sprite.Begin (SpriteFlags.AlphaBlend);
 
+            sprite.Transform = Matrix.Translation (tileX,tileY,0);
+
+            sprite.Draw(tiles, color);
 			//Translate the sprite with a 3d matrix with no z change.
-			sprite.Transform = Matrix.Translation (x, y, 0);
+			sprite.Transform = Matrix.Translation (characterX, characterY, 0);
 
 			//Render sprite.
 			sprite.Draw (texture, color);
