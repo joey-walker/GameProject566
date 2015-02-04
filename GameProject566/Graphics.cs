@@ -8,7 +8,7 @@ namespace GameProject566
 	{
 		public Device initializeGraphics (Form form)
 		{
-		
+
 			//Device presentation paramaters
 			PresentParameters presentParamaters = new PresentParameters ();
 			//Windowed
@@ -18,7 +18,6 @@ namespace GameProject566
 			//Forms' height
 			presentParamaters.BackBufferHeight = form.ClientRectangle.Height;
 
-
 			//Acquire the sys int that the form is bound to.
 			presentParamaters.DeviceWindowHandle = form.Handle;
 
@@ -27,17 +26,42 @@ namespace GameProject566
 
 		}
 
-		public Texture createSprite (Device device9)
+		public Texture createPlayer (Device device9)
 		{
 
 			//Our texture
-			return Texture.FromFile (device9, "..\\..\\sprites\\test2.png");
+			return Texture.FromFile (device9, "..\\..\\sprites\\test1.png");
 
 		}
 
-        public Texture drawTiles(Device device9)
+        public Texture createMonster(Device device9)
+        {
+
+            //Our texture
+            return Texture.FromFile(device9, "..\\..\\sprites\\test2.png");
+
+        }
+
+
+        //doesn't work. trying to make an array of tiles. will try again later
+        /*public Texture drawTiles(Device device9)
         {
             //tiles
+            Texture tile = Texture.FromFile(device9, "..\\..\\sprites\\tile1.png");
+            Texture[,] tiles = new Texture[40,40];
+            for (int x = 40; x > 0; x--)
+            {
+                for (int y = 40; y > 0; y--)
+                {
+                    tiles[x, y] = tile;
+                }
+            }
+
+            return tiles[40,40];
+        }*/
+
+        public Texture drawTiles(Device device9)
+        {
             return Texture.FromFile(device9, "..\\..\\sprites\\tile1.png");
         }
 	}
