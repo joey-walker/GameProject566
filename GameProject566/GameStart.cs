@@ -28,17 +28,20 @@ namespace GameProject566
         static Texture monster1;
 
         //tiles
-        //static Texture [,] tiles = new Texture[40,40];
+        
         static Texture tiles;
+
+        //array of tiles
+        static Texture[,] bgTiles = new Texture[15, 15];
 
 		//Absolute location start for player
 
-		static float characterX = 512;
-		static float characterY = 384;
+		static float characterX = 360;
+		static float characterY = 360;
 
         //beginning location for tile
-        static float tileX = 512;
-        static float tileY = 384;
+        static float tileX = 0;
+        static float tileY = 0;
 
         // Absolute location for monster
         static float monster1X = 300;
@@ -76,6 +79,15 @@ namespace GameProject566
                 //initialize tiles
                 //tiles = graphics.drawTiles(device9); //doesn't work :x
                 tiles = graphics.drawTiles(device9);
+
+                //fill the array with tiles
+                for (int x = 0; x < 10; x++)
+                {
+                    for (int y = 0; y < 15; y++)
+                    {
+                        bgTiles[x, y] = graphics.drawTiles(device9);
+                    }
+                }
 
 				sprite = new Sprite (device9);
 				sprite2 = new Sprite (device9);
@@ -136,13 +148,13 @@ namespace GameProject566
 			//First if is probably redundant but whatever
 			//Everything else is self explainatory.
 			if (e.State == KeyState.Pressed) {
-				if (e.Key == Keys.Down && characterY < (form.Height - 60f)) {
+				if (e.Key == Keys.Down && characterY < (600f)) {
 					characterY = characterY + 60f;
 				} else if (e.Key == Keys.Up && characterY > (0 + 60f)){//(0 + 60f)) {
 					characterY = characterY - 60f;
 				} else if (e.Key == Keys.Left && characterX > (0 + 60f)){//(0 + 60f)) {
 					characterX = characterX - 60f;
-				} else if (e.Key == Keys.Right && characterX < (form.Width - 60f)) {
+				} else if (e.Key == Keys.Right && characterX < (600f)) {
 					characterX = characterX + 60f;
 				}
 			}
@@ -180,10 +192,11 @@ namespace GameProject566
 
 
 
-			Console.Out.WriteLine("View: " +  device9.GetTransform (TransformState.View));
+			//Console.Out.WriteLine("View: " +  device9.GetTransform (TransformState.View));
 
 
-			Console.Out.WriteLine("World: " +  device9.GetTransform (TransformState.World));
+			//Console.Out.WriteLine("World: " +  device9.GetTransform (TransformState.World));
+
 			//not sure why we need this yet...
 			SlimDX.Color4 color = new SlimDX.Color4 (Color.White);
 
@@ -191,8 +204,7 @@ namespace GameProject566
             sprite.Begin(SpriteFlags.AlphaBlend);
 
             //renders tile texture
-            sprite.Transform = Matrix.Translation(tileX, tileY, 0);
-            sprite.Draw(tiles, color);
+            makeTiles(sprite, color);
 
 			//renders player texture
 
@@ -217,6 +229,36 @@ namespace GameProject566
 			device9.Present ();
 
 		}
+
+        private static void makeTiles(Sprite sprite, SlimDX.Color4 color)
+        {
+
+            tileX = 0;
+            tileY = 0;
+            for (int x = 0; x < 10 && (tileX < form.Width - 60) ; x++)
+            {
+                tileX += 60;
+                tileY = 0;
+                for (int y = 0; y < 10 && (tileY < form.Height - 60); y++)
+                {
+                    tileY += 60;
+                    sprite.Transform = Matrix.Translation(tileX, tileY, 0);
+                    sprite.Draw(bgTiles[x,y], color);
+                }
+            }
+            
+           /* for (int x = 60; x < (form.Width - 60); x += 60)
+            {
+                for (int y = 60; y < (form.Height - 60); y += 60)
+                {
+                    sprite.Transform = Matrix.Translation((tileX + x), (tileY + y), 0);
+                    sprite.Draw(tiles, color);
+                }
+            }*/
+            //sprite.Transform = Matrix.Translation(tileX, tileY, 0);
+            //sprite.Draw(tiles, color);
+            
+        }
 
 		//Dispose unused
 		private static void Cleanup ()
