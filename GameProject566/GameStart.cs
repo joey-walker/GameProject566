@@ -36,16 +36,19 @@ namespace GameProject566
 
 		//Absolute location start for player
 
-		static float characterX = 360;
-		static float characterY = 360;
+		static float characterX = 420;
+		static float characterY = 300;
 
         //beginning location for tile
         static float tileX = 0;
         static float tileY = 0;
 
+		static float tileX2 = 0;
+		static float tileY2 = 0;
+
         // Absolute location for monster
         static float monster1X = 300;
-        static float monster1Y = 200;
+        static float monster1Y = 300;
         // create new form
         static RenderForm form;
 
@@ -56,7 +59,7 @@ namespace GameProject566
 			* get rid of the object when no longer being managed.
 			* The rest creates a standard windows form that we tell the application to run.
 			*/
-			using (form = new RenderForm ("Dreadnought Kamzhor")) {
+			using (form = new RenderForm ("Dreadnought KamZhor")) {
 				Graphics graphics = new Graphics ();
 
 				//Window resolution is 1024 x 768
@@ -65,6 +68,12 @@ namespace GameProject566
 				//No resizing
 				form.FormBorderStyle = FormBorderStyle.Fixed3D;
 				form.MaximizeBox = false;
+
+				var bitmap = new Bitmap("..\\..\\sprites\\KZ.png");
+				var iconHandle = bitmap.GetHicon();
+				var icon = System.Drawing.Icon.FromHandle(iconHandle);
+
+				form.Icon = icon;
 
 				//Create our device, textures and sprites
 
@@ -148,14 +157,23 @@ namespace GameProject566
 			//First if is probably redundant but whatever
 			//Everything else is self explainatory.
 			if (e.State == KeyState.Pressed) {
-				if (e.Key == Keys.Down && characterY < (600f)) {
-					characterY = characterY + 60f;
-				} else if (e.Key == Keys.Up && characterY > (0 + 60f)){//(0 + 60f)) {
-					characterY = characterY - 60f;
-				} else if (e.Key == Keys.Left && characterX > (0 + 60f)){//(0 + 60f)) {
-					characterX = characterX - 60f;
-				} else if (e.Key == Keys.Right && characterX < (600f)) {
-					characterX = characterX + 60f;
+				if (e.Key == Keys.Down && tileY2 > -300f) {
+					//characterY = characterY + 60f;
+					monster1Y -= 60f;
+					tileY2 -= 60f;
+				} else if (e.Key == Keys.Up  && tileY2 < 240f){
+					//characterY = characterY - 60f;
+					monster1Y += 60f;
+					tileY2 += 60f;
+				} else if (e.Key == Keys.Left && tileX2 < 360f){
+
+					monster1X += 60f;
+					tileX2 += 60f;
+					//characterX = characterX - 60f + tileX2;
+				} else if (e.Key == Keys.Right && tileX2 > -180f) {
+					monster1X -= 60f;
+					tileX2 -= 60f;
+					//characterX = characterX + 60f - tileX2;
 				}
 			}
 		}
@@ -185,7 +203,7 @@ namespace GameProject566
 
 	
 			//Clear the whole screen
-			device9.Clear (ClearFlags.Target, Color.AliceBlue, 1.0f, 0);
+			device9.Clear (ClearFlags.Target, Color.GhostWhite, 1.0f, 0);
 
 			//Render whole frame
 			device9.BeginScene ();
@@ -235,14 +253,14 @@ namespace GameProject566
 
             tileX = 0;
             tileY = 0;
-            for (int x = 0; x < 10 && (tileX < form.Width - 60) ; x++)
+            for (int x = 0; x < 10 ; x++)
             {
                 tileX += 60;
                 tileY = 0;
-                for (int y = 0; y < 10 && (tileY < form.Height - 60); y++)
+                for (int y = 0; y < 10; y++)
                 {
                     tileY += 60;
-                    sprite.Transform = Matrix.Translation(tileX, tileY, 0);
+					sprite.Transform = Matrix.Translation(tileX + tileX2, tileY + tileY2, 0);
                     sprite.Draw(bgTiles[x,y], color);
                 }
             }
@@ -272,6 +290,7 @@ namespace GameProject566
 			player1.Dispose ();
             monster1.Dispose();
             tiles.Dispose();
+
 
 		}
 			
