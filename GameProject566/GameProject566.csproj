@@ -45,7 +45,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="character.cs" />
     <Compile Include="GameStart.cs" />
     <Compile Include="Graphics.cs" />
+    <Compile Include="monster.cs" />
+    <Compile Include="player.cs" />
   </ItemGroup>
 </Project>

@@ -26,19 +26,19 @@ namespace GameProject566
 
 		}
 
-		public Texture createPlayer (Device device9)
+        public Texture createPlayer(Device device9, string pTexture)
 		{
 
 			//Our texture
-			return Texture.FromFile (device9, "..\\..\\sprites\\test1.png");
+			return Texture.FromFile (device9, pTexture);
 
 		}
 
-        public Texture createMonster(Device device9)
+        public Texture createMonster(Device device9, string mTexture)
         {
 
             //Our texture
-            return Texture.FromFile(device9, "..\\..\\sprites\\test2.png");
+            return Texture.FromFile(device9, mTexture);
 
         }
 
