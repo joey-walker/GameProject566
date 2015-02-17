@@ -26,7 +26,7 @@ namespace GameProject566
 
 		}
 
-        public Texture createPlayer(Device device9, string pTexture)
+        /*public Texture createPlayer(Device device9, string pTexture)
 		{
 
 			//Our texture
@@ -44,26 +44,37 @@ namespace GameProject566
 
 
         //doesn't work. trying to make an array of tiles. will try again later
-        /*public Texture drawTiles(Device device9)
-        {
-            //tiles
-            Texture tile = Texture.FromFile(device9, "..\\..\\sprites\\tile1.png");
-            Texture[,] tiles = new Texture[40,40];
-            for (int x = 40; x > 0; x--)
-            {
-                for (int y = 40; y > 0; y--)
-                {
-                    tiles[x, y] = tile;
-                }
-            }
-
-            return tiles[40,40];
-        }*/
+        //public Texture drawTiles(Device device9)
+        //{
+        //    //tiles
+        //    Texture tile = Texture.FromFile(device9, "..\\..\\sprites\\tile1.png");
+        //    Texture[,] tiles = new Texture[40,40];
+        //    for (int x = 40; x > 0; x--)
+        //    {
+        //        for (int y = 40; y > 0; y--)
+        //        {
+        //            tiles[x, y] = tile;
+        //        }
+        //    }
+        //
+        //    return tiles[40,40];
+        //}
 
         public Texture drawTiles(Device device9)
         {
             return Texture.FromFile(device9, "..\\..\\sprites\\tile1.png");
         }
+        */
+        //Cleaning up the Graphic class
+        //this function will return all the tiles
+        public Texture createTexture(Device device9, string textureLocation)
+        {
+
+            //Our texture
+            return Texture.FromFile(device9, textureLocation);
+
+        }
+
 	}
 }
 

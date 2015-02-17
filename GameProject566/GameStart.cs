@@ -9,6 +9,7 @@ using SlimDX.Design;
 using SlimDX.RawInput;
 using SlimDX.Multimedia;
 using SlimDX.DirectSound;
+//using SlimDX.DirectInput;
 
 namespace GameProject566
 {
@@ -22,13 +23,18 @@ namespace GameProject566
 		//We use this to load sprites.
 		static Sprite sprite;
 		static Sprite sprite2;
+        static Sprite sprite3;
+        static Sprite sprite4;
         //static Sprite sprite3;
 		//Our texture file
 		//static Texture player1;
         //static Texture monster1;
-
+        static Texture mainMenu;
+        static Texture newGame;
+        static Texture tutorial;
+        static Texture quit;
         //tiles
-        static Texture tiles;
+        //static Texture tiles;
 
         //array of tiles
         static Texture[,] bgTiles = new Texture[15, 15];
@@ -46,6 +52,19 @@ namespace GameProject566
 		static float tileX2 = 0;
 		static float tileY2 = 0;
 
+        //location for main menu background and buttons
+        static string menuBG = "..\\..\\sprites\\background.png";
+        static string newGameButton = "..\\..\\sprites\\NewGAME.png";
+        static string newGameButton2 = "..\\..\\sprites\\NewGAME_2.png";
+        static string quitButton = "..\\..\\sprites\\Quit.png";
+        static string quitButton2 = "..\\..\\sprites\\Quit_2.png";
+        static string tutorialButton = "..\\..\\sprites\\Tutorial.png";
+        static string tutorialButton2 = "..\\..\\sprites\\Tutorial_2.png";
+
+        //fileLocation for tiles
+        static string tiles = "..\\..\\sprites\\tile1.png";
+        static string entryTile = "..\\..\\sprites\\entry.png";
+        static string exitTile = "..\\..\\sprites\\exit.png";
         // Beginning location for monster
         static float monster1X = 300;
         static float monster1Y = 300;
@@ -68,7 +87,7 @@ namespace GameProject566
         //object for monster
         static monster m1 = new monster(null, monster1X, monster1Y);
         //gets all the sprite location for the monster
-        static string m1Sprite = "..\\..\\sprites\\test2.png";
+        static string m1Sprite = "..\\..\\sprites\\monster.png";
 
         // create new form
         static RenderForm form;
@@ -78,6 +97,9 @@ namespace GameProject566
 
         //object for graphics
         static Graphics graphics = new Graphics();
+
+        //enum for status??
+        public enum status { mMenu, tutorial, quit, createCharacter, map, battleScreen };
 
 		public static void Main ()
 		{
@@ -108,40 +130,49 @@ namespace GameProject566
 
                 //initialize player
 				//player1 = graphics.createPlayer (pback, device9);
-                p1.setCharTexture(graphics.createPlayer(device9, pback));
+                p1.setCharTexture(graphics.createTexture(device9, pback));
 
                 //initialize monster
                 //monster1 = graphics.createMonster(device9);
-                m1.setCharTexture (graphics.createMonster(device9, m1Sprite));
+                m1.setCharTexture (graphics.createTexture(device9, m1Sprite));
                 //initialize tiles
                 //tiles = graphics.drawTiles(device9); //doesn't work :x
-                tiles = graphics.drawTiles(device9);
+                //tiles = graphics.drawTiles(device9);
 
                 //fill the array with tiles
                 for (int x = 0; x < 10; x++)
                 {
                     for (int y = 0; y < 15; y++)
                     {
-                        bgTiles[x, y] = graphics.drawTiles(device9);
+                        bgTiles[x, y] = graphics.createTexture(device9, tiles);
                     }
                 }
 
 				sprite = new Sprite (device9);
-				sprite2 = new Sprite (device9);
-                //sprite3 = new Sprite(device9);
+                sprite2 = new Sprite(device9);
+                sprite3 = new Sprite(device9);
+                sprite4 = new Sprite(device9);
 
-
+                //Textures for main menu
+                mainMenu = graphics.createTexture(device9, menuBG);
+                newGame = graphics.createTexture(device9, newGameButton);
+                tutorial = graphics.createTexture(device9, tutorialButton);
+                quit = graphics.createTexture(device9, quitButton);
 
 				//Gimme da keyboards
 				SlimDX.RawInput.Device.RegisterDevice (UsagePage.Generic, UsageId.Keyboard, SlimDX.RawInput.DeviceFlags.None);
 				SlimDX.RawInput.Device.KeyboardInput += new EventHandler <KeyboardInputEventArgs> (Device_keyboardInput);
 
+                //Mouse
+                //SlimDX.DirectInput.Device<MouseState> Mouse;
 				//SlimDX.RawInput.Device.KeyboardInput += Device_keyboardInput;
+                SlimDX.RawInput.Device.RegisterDevice(UsagePage.Generic, UsageId.Mouse, SlimDX.RawInput.DeviceFlags.None);
+                SlimDX.RawInput.Device.MouseInput +=new EventHandler<MouseInputEventArgs>(Device_mouseInput);
 
 				//SOUND STUFF
 				DirectSound a = new DirectSound();
 				a.IsDefaultPool = false;
-				a.SetCooperativeLevel (form.Handle, CooperativeLevel.Priority);
+				a.SetCooperativeLevel (form.Handle, SlimDX.DirectSound.CooperativeLevel.Priority);
 				WaveStream wave = new WaveStream("..\\..\\sprites\\music1.wav");
 
 				SoundBuffer b;
@@ -176,7 +207,15 @@ namespace GameProject566
 			}
 		}
 
-
+        public static void Device_mouseInput(object sender, MouseInputEventArgs m)
+        {
+            if (m.ButtonFlags == MouseButtonFlags.LeftDown)
+            {
+                Console.WriteLine("X Position: " + m.X + " Y Position: " + m.Y);
+            }
+            //Console.WriteLine ();
+            
+        }
 		public static void  Device_keyboardInput (object sender, KeyboardInputEventArgs e)
 		{
 			//Runs twice for some reason....
@@ -193,9 +232,9 @@ namespace GameProject566
                     m1.move(0, -60f);
                     tileY2 -= 60f;
                     if (changePlayerFront)
-                        p1.setCharTexture(graphics.createPlayer(device9, pfront1));
+                        p1.setCharTexture(graphics.createTexture(device9, pfront1));
                     else
-                        p1.setCharTexture(graphics.createPlayer(device9, pfront));
+                        p1.setCharTexture(graphics.createTexture(device9, pfront));
                     changePlayerFront = !changePlayerFront;
                 }
                 else if (e.Key == Keys.Up && tileY2 < 240f)
@@ -206,9 +245,9 @@ namespace GameProject566
                     m1.move(0, 60f);
                     tileY2 += 60f;
                     if (changePlayerBack)
-                        p1.setCharTexture(graphics.createPlayer(device9, pback1));
+                        p1.setCharTexture(graphics.createTexture(device9, pback1));
                     else
-                        p1.setCharTexture(graphics.createPlayer(device9, pback));
+                        p1.setCharTexture(graphics.createTexture(device9, pback));
                     changePlayerBack = !changePlayerBack;
                 }
                 else if (e.Key == Keys.Left && tileX2 < 360f)
@@ -220,9 +259,9 @@ namespace GameProject566
                     tileX2 += 60f;
                     //characterX = characterX - 60f + tileX2;
                     if (changePlayerLeft)
-                        p1.setCharTexture(graphics.createPlayer(device9, pleft1));
+                        p1.setCharTexture(graphics.createTexture(device9, pleft1));
                     else
-                        p1.setCharTexture(graphics.createPlayer(device9, pleft));
+                        p1.setCharTexture(graphics.createTexture(device9, pleft));
                     changePlayerLeft = !changePlayerLeft;
                 }
                 else if (e.Key == Keys.Right && tileX2 > -180f)
@@ -233,9 +272,9 @@ namespace GameProject566
                     tileX2 -= 60f;
                     //characterX = characterX + 60f - tileX2;
                     if (changePlayerRight)
-                        p1.setCharTexture(graphics.createPlayer(device9, pright1));
+                        p1.setCharTexture(graphics.createTexture(device9, pright1));
                     else
-                        p1.setCharTexture(graphics.createPlayer(device9, pright));
+                        p1.setCharTexture(graphics.createTexture(device9, pright));
                     changePlayerRight = !changePlayerRight;
                 }
 
@@ -250,14 +289,14 @@ namespace GameProject566
                             //monster1X -= 60f;
                             //m1.setXLocation(-60f);
                             m1.move(-60f, 0);
-                            Console.Out.WriteLine("C1: XorY: " + XorY + ". x value: " + m1.getXLocation() + ". Tile X + X2: " + (tileX + tileX2));
+                            //Console.Out.WriteLine("C1: XorY: " + XorY + ". x value: " + m1.getXLocation() + ". Tile X + X2: " + (tileX + tileX2));
                         }
                         else if (m1.getXLocation() < p1.getXLocation())// && m1.getXLocation() > (tileX + tileX2))//(monster1X < characterX && monster1X < (tileX + tileX2))
                         {
                             //monster1X += 60f;
                             //m1.setXLocation(60f);
                             m1.move(60f, 0);
-                            Console.Out.WriteLine("C2: XorY: " + XorY + ". x value: " + m1.getXLocation() + ". Tile X + X2: " + (tileX + tileX2));
+                            //Console.Out.WriteLine("C2: XorY: " + XorY + ". x value: " + m1.getXLocation() + ". Tile X + X2: " + (tileX + tileX2));
                         }
                         else
                         {
@@ -266,14 +305,14 @@ namespace GameProject566
                                 // monster1Y -= 60f;
                                 //m1.setYLocation(-60f);
                                 m1.move(0, -60f);
-                                Console.Out.WriteLine("C3: XorY: " + XorY + ". y value: " + m1.getYLocation() + ". Tile Y + Y2: " + (tileY + tileY2));
+                                //Console.Out.WriteLine("C3: XorY: " + XorY + ". y value: " + m1.getYLocation() + ". Tile Y + Y2: " + (tileY + tileY2));
                             }
                             else if (m1.getYLocation() < p1.getYLocation())// && m1.getYLocation() < (tileY + tileY2))//(monster1Y < characterY && monster1Y < (tileY + tileY2))
                             {
                                 //monster1Y += 60f;
                                 //m1.setYLocation(60f);
                                 m1.move(0, 60f);
-                                Console.Out.WriteLine("C4: XorY: " + XorY + ". y value: " + m1.getYLocation() + ". Tile Y + Y2: " + (tileY + tileY2));
+                                //Console.Out.WriteLine("C4: XorY: " + XorY + ". y value: " + m1.getYLocation() + ". Tile Y + Y2: " + (tileY + tileY2));
                             }
                         }
                     }
@@ -284,14 +323,14 @@ namespace GameProject566
                             // monster1Y -= 60f;
                             //m1.setYLocation(-60f);
                             m1.move(0, -60f);
-                            Console.Out.WriteLine("C5: XorY: " + XorY + ". y value: " + m1.getYLocation() + ". Tile Y + Y2: " + (tileY + tileY2));
+                            //Console.Out.WriteLine("C5: XorY: " + XorY + ". y value: " + m1.getYLocation() + ". Tile Y + Y2: " + (tileY + tileY2));
                         }
                         else if (m1.getYLocation() < p1.getYLocation())// && m1.getYLocation() < (tileY + tileY2))//(monster1Y < characterY && monster1Y < (tileY + tileY2))
                         {
                             //monster1Y += 60f;
                             //m1.setYLocation(60f);
                             m1.move(0, 60f);
-                            Console.Out.WriteLine("C6: XorY: " + XorY + ". y value: " + m1.getYLocation() + ". Tile Y + Y2: " + (tileY + tileY2));
+                            //Console.Out.WriteLine("C6: XorY: " + XorY + ". y value: " + m1.getYLocation() + ". Tile Y + Y2: " + (tileY + tileY2));
                         }
                         else
                         {
@@ -300,14 +339,14 @@ namespace GameProject566
                                 //monster1X -= 60f;
                                 //m1.setXLocation(-60f);
                                 m1.move(-60f, 0);
-                                Console.Out.WriteLine("C7: XorY: " + XorY + ". x value: " + m1.getXLocation() + ". Tile X + X2: " + (tileX + tileX2));
+                                //Console.Out.WriteLine("C7: XorY: " + XorY + ". x value: " + m1.getXLocation() + ". Tile X + X2: " + (tileX + tileX2));
                             }
                             else if (m1.getXLocation() < p1.getXLocation())// && m1.getXLocation() < (tileX + tileX2))//(monster1X < characterX && monster1X < (tileX + tileX2))
                             {
                                 //monster1X += 60f;
                                 //m1.setXLocation(60f);
                                 m1.move(60f, 0);
-                                Console.Out.WriteLine("C8: XorY: " + XorY + ". x value: " + m1.getXLocation() + ". Tile X + X2: " + (tileX + tileX2));
+                                //Console.Out.WriteLine("C8: XorY: " + XorY + ". x value: " + m1.getXLocation() + ". Tile X + X2: " + (tileX + tileX2));
                             }
                         }
                     }
@@ -345,7 +384,10 @@ namespace GameProject566
 			//Render whole frame
 			device9.BeginScene ();
 
-
+            sprite.Begin(SpriteFlags.AlphaBlend);
+            sprite2.Begin(SpriteFlags.AlphaBlend);
+            sprite3.Begin(SpriteFlags.AlphaBlend);
+            sprite4.Begin(SpriteFlags.AlphaBlend);
 
 			//Console.Out.WriteLine("View: " +  device9.GetTransform (TransformState.View));
 
@@ -355,28 +397,32 @@ namespace GameProject566
 			//not sure why we need this yet...
 			SlimDX.Color4 color = new SlimDX.Color4 (Color.White);
 
-            //renders sprite for tile and player
-            sprite.Begin(SpriteFlags.AlphaBlend);
+            string status = renderMainMenu(color);
+            //Console.WriteLine(status);
+            if (status == "map")   //will move to a different function
+            {
+                //renders sprite for tile and player
+                
 
-            //renders tile texture
-            makeTiles(sprite, color);
+                //renders tile texture
+                makeTiles(sprite, color);
 
-			//renders player texture
+                //renders player texture
 
-            sprite.Transform = Matrix.Translation (p1.getXLocation(),p1.getYLocation(),0);
-            sprite.Draw(p1.getCharTexture(), color);
+                sprite.Transform = Matrix.Translation(p1.getXLocation(), p1.getYLocation(), 0);
+                sprite.Draw(p1.getCharTexture(), color);
 
 
-            //renders monster sprite
-            sprite2.Begin(SpriteFlags.AlphaBlend);
-            sprite2.Transform = Matrix.Translation(m1.getXLocation(), m1.getYLocation(), 0);
-            sprite2.Draw(m1.getCharTexture(), color);
-			//Translate the sprite with a 3d matrix with no z change.
-
+                //renders monster sprite
+                sprite2.Transform = Matrix.Translation(m1.getXLocation(), m1.getYLocation(), 0);
+                sprite2.Draw(m1.getCharTexture(), color);
+                //Translate the sprite with a 3d matrix with no z change.
+            }
 			//end render
 			sprite.End ();
 			sprite2.End ();
-            //sprite3.End();
+            sprite3.End();
+            sprite4.End();
 			// End the scene.
 			device9.EndScene ();
 
@@ -384,6 +430,30 @@ namespace GameProject566
 			device9.Present ();
 
 		}
+
+        public static string renderMainMenu(SlimDX.Color4 color)
+        {
+
+            sprite.Transform = Matrix.Translation(0, 0, 0);
+            sprite.Draw(mainMenu,color);
+
+            sprite2.Transform = Matrix.Translation (500, 200, 0);
+            sprite3.Transform = Matrix.Translation(500, 330, 0);
+            sprite4.Transform = Matrix.Translation(500, 460, 0);
+
+            sprite2.Draw(newGame, color);
+            sprite3.Draw(tutorial, color);
+            sprite4.Draw(quit, color);
+
+            //string status = "";
+            return ""+status.map;
+        }
+
+        public static string renderGameRoom()
+        {
+            string status = "";
+            return status;
+        }
 
         private static void makeTiles(Sprite sprite, SlimDX.Color4 color)
         {
@@ -423,10 +493,11 @@ namespace GameProject566
 
 			sprite.Dispose ();
 			sprite2.Dispose ();
-            //sprite3.Dispose();
+            sprite3.Dispose();
+            sprite4.Dispose();
 			//player1.Dispose ();
             //monster1.Dispose();
-            tiles.Dispose();
+            //tiles.Dispose();
 		}
 
         public static Boolean arrowOrNot(KeyboardInputEventArgs e)

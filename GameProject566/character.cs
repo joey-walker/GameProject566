@@ -1,4 +1,10 @@
-﻿using System;
+﻿/*
+ * Base class for characters on the screen
+ * will be used by player and monster class
+ * two constructors, functions to set/get texture and character location on the grid
+*/
+
+using System;
 using System.Windows.Forms;
 using SlimDX.RawInput;
 using SlimDX.Direct3D9;
