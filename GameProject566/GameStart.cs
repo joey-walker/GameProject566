@@ -211,7 +211,10 @@ namespace GameProject566
         {
             if (m.ButtonFlags == MouseButtonFlags.LeftDown)
             {
-                Console.WriteLine("X Position: " + m.X + " Y Position: " + m.Y);
+				//Grab cursor location from form.
+				Point cursorlocation = form.PointToClient(RenderForm.MousePosition);
+
+				Console.WriteLine(cursorlocation);
             }
             //Console.WriteLine ();
             
