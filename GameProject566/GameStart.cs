@@ -100,6 +100,7 @@ namespace GameProject566
 
         //enum for status??
         public enum status { mMenu, tutorial, quit, createCharacter, map, battleScreen };
+        static string currStatus = status.mMenu + "";
 
 		public static void Main ()
 		{
@@ -167,7 +168,7 @@ namespace GameProject566
                 //SlimDX.DirectInput.Device<MouseState> Mouse;
 				//SlimDX.RawInput.Device.KeyboardInput += Device_keyboardInput;
                 SlimDX.RawInput.Device.RegisterDevice(UsagePage.Generic, UsageId.Mouse, SlimDX.RawInput.DeviceFlags.None);
-                SlimDX.RawInput.Device.MouseInput +=new EventHandler<MouseInputEventArgs>(Device_mouseInput);
+                //SlimDX.RawInput.Device.MouseInput +=new EventHandler<MouseInputEventArgs>(Device_mouseInput);
 
 				//SOUND STUFF
 				DirectSound a = new DirectSound();
@@ -209,13 +210,26 @@ namespace GameProject566
 
         public static void Device_mouseInput(object sender, MouseInputEventArgs m)
         {
-            if (m.ButtonFlags == MouseButtonFlags.LeftDown)
-            {
-                Console.WriteLine("X Position: " + m.X + " Y Position: " + m.Y);
-            }
-            //Console.WriteLine ();
+            //string status;
+            //
+            int cursorX = form.PointToClient(RenderForm.MousePosition).X;
+            int cursorY = form.PointToClient(RenderForm.MousePosition).Y;
             
+            if (m.ButtonFlags == MouseButtonFlags.LeftDown && cursorX >= 500 && cursorY >= 200 && cursorX <= 850 && cursorY <= 308 && (currStatus == ""+status.mMenu))
+             {
+                //Console.WriteLine("X Position: " + m.X + " Y Position: " + m.Y);
+				//Grab cursor location from form.
+				//Point cursorlocation = form.PointToClient(RenderForm.MousePosition);
+
+				Console.WriteLine("X Position: " + cursorX + "Y Position: " + cursorY);
+                 //return status.map + "";
+                 currStatus = status.map + "";
+                 Console.WriteLine(currStatus);
+             }
+            //return "";
+            //Console.WriteLine ();
         }
+
 		public static void  Device_keyboardInput (object sender, KeyboardInputEventArgs e)
 		{
 			//Runs twice for some reason....
@@ -397,26 +411,14 @@ namespace GameProject566
 			//not sure why we need this yet...
 			SlimDX.Color4 color = new SlimDX.Color4 (Color.White);
 
-            string status = renderMainMenu(color);
-            //Console.WriteLine(status);
-            if (status == "map")   //will move to a different function
+            if (currStatus == status.mMenu + "")
             {
-                //renders sprite for tile and player
-                
-
-                //renders tile texture
-                makeTiles(sprite, color);
-
-                //renders player texture
-
-                sprite.Transform = Matrix.Translation(p1.getXLocation(), p1.getYLocation(), 0);
-                sprite.Draw(p1.getCharTexture(), color);
-
-
-                //renders monster sprite
-                sprite2.Transform = Matrix.Translation(m1.getXLocation(), m1.getYLocation(), 0);
-                sprite2.Draw(m1.getCharTexture(), color);
-                //Translate the sprite with a 3d matrix with no z change.
+                renderMainMenu(color);
+            }
+            //Console.WriteLine(status);
+            if ( currStatus == status.map + "")
+            {
+                    renderGameRoom(color);
             }
 			//end render
 			sprite.End ();
@@ -431,9 +433,9 @@ namespace GameProject566
 
 		}
 
-        public static string renderMainMenu(SlimDX.Color4 color)
+        public static void renderMainMenu(SlimDX.Color4 color)
         {
-
+            //currStatus = "" + status.mMenu;
             sprite.Transform = Matrix.Translation(0, 0, 0);
             sprite.Draw(mainMenu,color);
 
@@ -444,17 +446,35 @@ namespace GameProject566
             sprite2.Draw(newGame, color);
             sprite3.Draw(tutorial, color);
             sprite4.Draw(quit, color);
-
+            SlimDX.RawInput.Device.MouseInput += new EventHandler<MouseInputEventArgs>(Device_mouseInput);
+            //Console.WriteLine("main menu status: " + currStatus);
+            //return currStatus;
             //string status = "";
-            return ""+status.map;
+            //return Device_mouseInput(
         }
 
-        public static string renderGameRoom()
+        public static void renderGameRoom(SlimDX.Color4 color)
         {
-            string status = "";
-            return status;
-        }
+            currStatus = status.map + "";
+            //renders sprite for tile and player
 
+
+            //renders tile texture
+            makeTiles(sprite, color);
+
+            //renders player texture
+
+            sprite.Transform = Matrix.Translation(p1.getXLocation(), p1.getYLocation(), 0);
+            sprite.Draw(p1.getCharTexture(), color);
+
+
+            //renders monster sprite
+            sprite2.Transform = Matrix.Translation(m1.getXLocation(), m1.getYLocation(), 0);
+            sprite2.Draw(m1.getCharTexture(), color);
+            //Translate the sprite with a 3d matrix with no z change.
+            //return currStatus;
+        }
+    
         private static void makeTiles(Sprite sprite, SlimDX.Color4 color)
         {
 
