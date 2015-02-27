@@ -26,6 +26,8 @@ namespace GameProject566
 
 		}
 
+
+
         /*public Texture createPlayer(Device device9, string pTexture)
 		{
 

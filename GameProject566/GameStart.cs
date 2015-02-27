@@ -71,7 +71,7 @@ namespace GameProject566
         static float monster1Y = 300;
 
         //object for player
-        static Player player = new Player(null, characterX, characterY);
+        static PlayerChar player = new PlayerChar(null, characterX, characterY);
         //gets all the sprite location for the player
         static string pback = "..\\..\\sprites\\pback.png";
         static string pback1 = "..\\..\\sprites\\pback1.png";
@@ -90,7 +90,7 @@ namespace GameProject566
 
 
         //object for monster
-        static Monster m1 = new Monster(null, monster1X, monster1Y);
+        static Monsterchar m1 = new Monsterchar(null, monster1X, monster1Y);
         //gets all the sprite location for the monster
         static string m1Sprite = "..\\..\\sprites\\monster.png";
 
@@ -412,7 +412,7 @@ namespace GameProject566
             //Console.WriteLine(status);
 			if (status == GameStatus.map)
             {
-                    renderGameRoom(color);
+				renderGameRoom(color);
             }
 			//end render
 			sprite.End ();

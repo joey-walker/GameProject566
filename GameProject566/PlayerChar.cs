@@ -4,15 +4,15 @@ using SlimDX.RawInput;
 using SlimDX.Direct3D9;
 namespace GameProject566
 {
-    class Player : WorldObject
+    class PlayerChar : WorldObject
     {
         private Texture pTexture;
         private float xLocation;
         private float yLocation;
 
-        public Player()
+        public PlayerChar()
         { }
-        public Player (Texture pTexture, float xLocation, float yLocation) : base (pTexture, xLocation, yLocation)
+        public PlayerChar (Texture pTexture, float xLocation, float yLocation) : base (pTexture, xLocation, yLocation)
         {
             this.pTexture = pTexture;
             this.xLocation = xLocation;
