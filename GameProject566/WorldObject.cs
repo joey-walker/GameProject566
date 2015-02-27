@@ -11,15 +11,16 @@ using SlimDX.Direct3D9;
 
 namespace GameProject566
 {
-    class character
+    public class WorldObject
     {
-        private Texture charTexture;
-        private float xLocation;
-        private float yLocation;
+		public Texture charTexture {set; get;}
+		public float xLocation {set; get;}
+		public float yLocation {set; get;}
+		public bool canMove { set; get; }
 
-        public character()
+        public WorldObject()
         { }
-        public character (Texture charTexture, float xLocation, float yLocation)
+        public WorldObject (Texture charTexture, float xLocation, float yLocation)
         {
             this.charTexture = charTexture;
             this.xLocation = xLocation;
@@ -61,5 +62,6 @@ namespace GameProject566
         {
             return yLocation;
         }
+        
     }
 }

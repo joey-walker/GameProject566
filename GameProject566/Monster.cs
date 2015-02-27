@@ -5,15 +5,15 @@ using SlimDX.Direct3D9;
 
 namespace GameProject566
 {
-    class Monster : WorldObject
+    class monster : character
     {
         private Texture mTexture;
         private float xLocation;
         private float yLocation;
 
-        public Monster()
+        public monster()
         { }
-        public Monster (Texture mTexture, float xLocation, float yLocation) : base (mTexture, xLocation, yLocation)
+        public monster (Texture mTexture, float xLocation, float yLocation) : base (mTexture, xLocation, yLocation)
         {
             this.mTexture = mTexture;
             this.xLocation = xLocation;
