@@ -43,12 +43,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <Compile Include="GameStatus.cs" />
+    <Compile Include="Tile.cs" />
+    <Compile Include="World.cs" />
+    <Compile Include="WorldObject.cs" />
+    <Compile Include="PlayerChar.cs" />
+    <Compile Include="MonsterChar.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="character.cs" />
     <Compile Include="GameStart.cs" />
     <Compile Include="Graphics.cs" />
-    <Compile Include="monster.cs" />
-    <Compile Include="player.cs" />
   </ItemGroup>
 </Project>
