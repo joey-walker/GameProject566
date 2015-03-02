@@ -223,149 +223,159 @@ namespace GameProject566
 					Console.WriteLine ("X Position: " + cursorX + " | Y Position: " + cursorY);
 					//Exit the game
 					Cleanup ();
-				}
-					
+				}	
 			}
+            if (status == GameStatus.battleScreen)
+            {
+
+            }
 
         }
 
 		public static void  Device_keyboardInput (object sender, KeyboardInputEventArgs e)
-		{
-			//Runs twice for some reason....
-			//Console.Out.WriteLine ("Key pressed: " + e.Key + ". x value: " + p1.getXLocation() + ". y value: " + p1.getYLocation());
-			//First if is probably redundant but whatever
-			//Everything else is self explainatory.
-            if (e.State == KeyState.Pressed)
+        {
+            //Runs twice for some reason....
+            //Console.Out.WriteLine ("Key pressed: " + e.Key + ". x value: " + p1.getXLocation() + ". y value: " + p1.getYLocation());
+            //First if is probably redundant but whatever
+            //Everything else is self explainatory.
+            if (status == GameStatus.map)
             {
-                if (e.Key == Keys.Down && tileY2 > -300f)
-                {
-                    //characterY = characterY + 60f;
-                    //monster1Y -= 60f;
-                    //m1.setYLocation(-60f);
-                    m1.move(0, -60f);
-                    tileY2 -= 60f;
-                    if (changePlayerFront)
-                        player.charTexture = (graphics.createTexture(device9, pfront1));
-                    else
-						player.charTexture = (graphics.createTexture(device9, pfront));
-                    changePlayerFront = !changePlayerFront;
-                }
-                else if (e.Key == Keys.Up && tileY2 < 240f)
-                {
-                    //characterY = characterY - 60f;
-                    //monster1Y += 60f;
-                    //m1.setYLocation(60f);
-                    m1.move(0, 60f);
-                    tileY2 += 60f;
-                    if (changePlayerBack)
-                        player.charTexture = (graphics.createTexture(device9, pback1));
-                    else
-                        player.charTexture =(graphics.createTexture(device9, pback));
-                    changePlayerBack = !changePlayerBack;
-                }
-                else if (e.Key == Keys.Left && tileX2 < 360f)
-                {
-
-                    //monster1X += 60f;
-                    //m1.setXLocation(60f);
-                    m1.move(60f, 0);
-                    tileX2 += 60f;
-                    //characterX = characterX - 60f + tileX2;
-                    if (changePlayerLeft)
-                        player.charTexture = graphics.createTexture(device9, pleft1);
-                    else
-                        player.charTexture = (graphics.createTexture(device9, pleft));
-                    changePlayerLeft = !changePlayerLeft;
-                }
-                else if (e.Key == Keys.Right && tileX2 > -180f)
-                {
-                    //monster1X -= 60f;
-                    //m1.setXLocation(-60f);
-                    m1.move(-60f, 0);
-                    tileX2 -= 60f;
-                    //characterX = characterX + 60f - tileX2;
-                    if (changePlayerRight)
-                        player.charTexture = (graphics.createTexture(device9, pright1));
-                    else
-                        player.charTexture = graphics.createTexture(device9, pright);
-                    changePlayerRight = !changePlayerRight;
-                }
-
-                if (arrowOrNot(e))
-                {
-                    int XorY = rand.Next(1, 3);
-                    //Console.WriteLine(XorY);
-                    if (XorY == 1)
+                    if (e.State == KeyState.Pressed)
                     {
-                        if (m1.xLocation > player.xLocation)// && m1.getXLocation() <= (tileX + tileX2))//(monster1X > characterX && monster1X <= (tileX + tileX2))
+                        if (e.Key == Keys.Down && tileY2 > -300f)
+                        {
+                            //characterY = characterY + 60f;
+                            //monster1Y -= 60f;
+                            //m1.setYLocation(-60f);
+                            m1.move(0, -60f);
+                            tileY2 -= 60f;
+                            if (changePlayerFront)
+                                player.charTexture = (graphics.createTexture(device9, pfront1));
+                            else
+                                player.charTexture = (graphics.createTexture(device9, pfront));
+                            changePlayerFront = !changePlayerFront;
+                        }
+                        else if (e.Key == Keys.Up && tileY2 < 240f)
+                        {
+                            //characterY = characterY - 60f;
+                            //monster1Y += 60f;
+                            //m1.setYLocation(60f);
+                            m1.move(0, 60f);
+                            tileY2 += 60f;
+                            if (changePlayerBack)
+                                player.charTexture = (graphics.createTexture(device9, pback1));
+                            else
+                                player.charTexture = (graphics.createTexture(device9, pback));
+                            changePlayerBack = !changePlayerBack;
+                        }
+                        else if (e.Key == Keys.Left && tileX2 < 360f)
+                        {
+
+                            //monster1X += 60f;
+                            //m1.setXLocation(60f);
+                            m1.move(60f, 0);
+                            tileX2 += 60f;
+                            //characterX = characterX - 60f + tileX2;
+                            if (changePlayerLeft)
+                                player.charTexture = graphics.createTexture(device9, pleft1);
+                            else
+                                player.charTexture = (graphics.createTexture(device9, pleft));
+                            changePlayerLeft = !changePlayerLeft;
+                        }
+                        else if (e.Key == Keys.Right && tileX2 > -180f)
                         {
                             //monster1X -= 60f;
                             //m1.setXLocation(-60f);
                             m1.move(-60f, 0);
-                            //Console.Out.WriteLine("C1: XorY: " + XorY + ". x value: " + m1.getXLocation() + ". Tile X + X2: " + (tileX + tileX2));
+                            tileX2 -= 60f;
+                            //characterX = characterX + 60f - tileX2;
+                            if (changePlayerRight)
+                                player.charTexture = (graphics.createTexture(device9, pright1));
+                            else
+                                player.charTexture = graphics.createTexture(device9, pright);
+                            changePlayerRight = !changePlayerRight;
                         }
-                        else if (m1.xLocation < player.xLocation)// && m1.getXLocation() > (tileX + tileX2))//(monster1X < characterX && monster1X < (tileX + tileX2))
+
+                        if (arrowOrNot(e))
                         {
-                            //monster1X += 60f;
-                            //m1.setXLocation(60f);
-                            m1.move(60f, 0);
-                            //Console.Out.WriteLine("C2: XorY: " + XorY + ". x value: " + m1.getXLocation() + ". Tile X + X2: " + (tileX + tileX2));
-                        }
-                        else
-                        {
-                            if (m1.yLocation > player.yLocation)// && m1.getYLocation() <= (tileY + tileY2))//(monster1Y > characterY && monster1Y <= (tileY + tileY2))
+                            int XorY = rand.Next(1, 3);
+                            //Console.WriteLine(XorY);
+                            if (XorY == 1)
                             {
-                                // monster1Y -= 60f;
-                                //m1.setYLocation(-60f);
-                                m1.move(0, -60f);
-                                //Console.Out.WriteLine("C3: XorY: " + XorY + ". y value: " + m1.getYLocation() + ". Tile Y + Y2: " + (tileY + tileY2));
+                                if (m1.xLocation > player.xLocation)// && m1.getXLocation() <= (tileX + tileX2))//(monster1X > characterX && monster1X <= (tileX + tileX2))
+                                {
+                                    //monster1X -= 60f;
+                                    //m1.setXLocation(-60f);
+                                    m1.move(-60f, 0);
+                                    //Console.Out.WriteLine("C1: XorY: " + XorY + ". x value: " + m1.getXLocation() + ". Tile X + X2: " + (tileX + tileX2));
+                                }
+                                else if (m1.xLocation < player.xLocation)// && m1.getXLocation() > (tileX + tileX2))//(monster1X < characterX && monster1X < (tileX + tileX2))
+                                {
+                                    //monster1X += 60f;
+                                    //m1.setXLocation(60f);
+                                    m1.move(60f, 0);
+                                    //Console.Out.WriteLine("C2: XorY: " + XorY + ". x value: " + m1.getXLocation() + ". Tile X + X2: " + (tileX + tileX2));
+                                }
+                                else
+                                {
+                                    if (m1.yLocation > player.yLocation)// && m1.getYLocation() <= (tileY + tileY2))//(monster1Y > characterY && monster1Y <= (tileY + tileY2))
+                                    {
+                                        // monster1Y -= 60f;
+                                        //m1.setYLocation(-60f);
+                                        m1.move(0, -60f);
+                                        //Console.Out.WriteLine("C3: XorY: " + XorY + ". y value: " + m1.getYLocation() + ". Tile Y + Y2: " + (tileY + tileY2));
+                                    }
+                                    else if (m1.yLocation < player.yLocation)// && m1.getYLocation() < (tileY + tileY2))//(monster1Y < characterY && monster1Y < (tileY + tileY2))
+                                    {
+                                        //monster1Y += 60f;
+                                        //m1.setYLocation(60f);
+                                        m1.move(0, 60f);
+                                        //Console.Out.WriteLine("C4: XorY: " + XorY + ". y value: " + m1.getYLocation() + ". Tile Y + Y2: " + (tileY + tileY2));
+                                    }
+                                }
                             }
-                            else if (m1.yLocation < player.yLocation)// && m1.getYLocation() < (tileY + tileY2))//(monster1Y < characterY && monster1Y < (tileY + tileY2))
+                            else
                             {
-                                //monster1Y += 60f;
-                                //m1.setYLocation(60f);
-                                m1.move(0, 60f);
-                                //Console.Out.WriteLine("C4: XorY: " + XorY + ". y value: " + m1.getYLocation() + ". Tile Y + Y2: " + (tileY + tileY2));
+                                if (m1.yLocation > player.yLocation)// && m1.getYLocation() <= (tileY + tileY2))//(monster1Y > characterY && monster1Y <= (tileY + tileY2))
+                                {
+                                    // monster1Y -= 60f;
+                                    //m1.setYLocation(-60f);
+                                    m1.move(0, -60f);
+                                    //Console.Out.WriteLine("C5: XorY: " + XorY + ". y value: " + m1.getYLocation() + ". Tile Y + Y2: " + (tileY + tileY2));
+                                }
+                                else if (m1.yLocation < player.yLocation)// && m1.getYLocation() < (tileY + tileY2))//(monster1Y < characterY && monster1Y < (tileY + tileY2))
+                                {
+                                    //monster1Y += 60f;
+                                    //m1.setYLocation(60f);
+                                    m1.move(0, 60f);
+                                    //Console.Out.WriteLine("C6: XorY: " + XorY + ". y value: " + m1.getYLocation() + ". Tile Y + Y2: " + (tileY + tileY2));
+                                }
+                                else
+                                {
+                                    if (m1.xLocation > player.xLocation)// && m1.getXLocation() <= (tileX + tileX2))//(monster1X > characterX && monster1X <= (tileX + tileX2))
+                                    {
+                                        //monster1X -= 60f;
+                                        //m1.setXLocation(-60f);
+                                        m1.move(-60f, 0);
+                                        //Console.Out.WriteLine("C7: XorY: " + XorY + ". x value: " + m1.getXLocation() + ". Tile X + X2: " + (tileX + tileX2));
+                                    }
+                                    else if (m1.xLocation < player.xLocation)// && m1.getXLocation() < (tileX + tileX2))//(monster1X < characterX && monster1X < (tileX + tileX2))
+                                    {
+                                        //monster1X += 60f;
+                                        //m1.setXLocation(60f);
+                                        m1.move(60f, 0);
+                                        //Console.Out.WriteLine("C8: XorY: " + XorY + ". x value: " + m1.getXLocation() + ". Tile X + X2: " + (tileX + tileX2));
+                                    }
+                                }
                             }
                         }
                     }
-                    else
+                    if (m1.xLocation == player.xLocation + 60 || m1.xLocation == player.xLocation - 60 || m1.yLocation == player.yLocation + 60 || m1.yLocation == player.xLocation - 60)
                     {
-                        if (m1.yLocation > player.yLocation)// && m1.getYLocation() <= (tileY + tileY2))//(monster1Y > characterY && monster1Y <= (tileY + tileY2))
-                        {
-                            // monster1Y -= 60f;
-                            //m1.setYLocation(-60f);
-                            m1.move(0, -60f);
-                            //Console.Out.WriteLine("C5: XorY: " + XorY + ". y value: " + m1.getYLocation() + ". Tile Y + Y2: " + (tileY + tileY2));
-                        }
-                        else if (m1.yLocation < player.yLocation)// && m1.getYLocation() < (tileY + tileY2))//(monster1Y < characterY && monster1Y < (tileY + tileY2))
-                        {
-                            //monster1Y += 60f;
-                            //m1.setYLocation(60f);
-                            m1.move(0, 60f);
-                            //Console.Out.WriteLine("C6: XorY: " + XorY + ". y value: " + m1.getYLocation() + ". Tile Y + Y2: " + (tileY + tileY2));
-                        }
-                        else
-                        {
-                            if (m1.xLocation > player.xLocation)// && m1.getXLocation() <= (tileX + tileX2))//(monster1X > characterX && monster1X <= (tileX + tileX2))
-                            {
-                                //monster1X -= 60f;
-                                //m1.setXLocation(-60f);
-                                m1.move(-60f, 0);
-                                //Console.Out.WriteLine("C7: XorY: " + XorY + ". x value: " + m1.getXLocation() + ". Tile X + X2: " + (tileX + tileX2));
-                            }
-                            else if (m1.xLocation < player.xLocation)// && m1.getXLocation() < (tileX + tileX2))//(monster1X < characterX && monster1X < (tileX + tileX2))
-                            {
-                                //monster1X += 60f;
-                                //m1.setXLocation(60f);
-                                m1.move(60f, 0);
-                                //Console.Out.WriteLine("C8: XorY: " + XorY + ". x value: " + m1.getXLocation() + ". Tile X + X2: " + (tileX + tileX2));
-                            }
-                        }
+                        status = GameStatus.battleScreen;
                     }
-                }
             }
-		}
+        }
 
 		private static void GameLoop ()
 		{
@@ -413,6 +423,12 @@ namespace GameProject566
 			if (status == GameStatus.map)
             {
 				renderGameRoom(color);
+            }
+
+            //render battle screen. About to get serious now :O
+            if (status == GameStatus.battleScreen)
+            {
+                renderBattleScreen(color);
             }
 			//end render
 			sprite.End ();
@@ -463,7 +479,23 @@ namespace GameProject566
             //Translate the sprite with a 3d matrix with no z change.
             //return currStatus;
         }
-    
+
+        public static void renderBattleScreen(SlimDX.Color4 color)
+        {
+            status = GameStatus.battleScreen;
+            player.health = 100;
+            m1.health = 100;
+            player.yLocation = 100;
+            player.xLocation = 100;
+            m1.yLocation = 500;
+            m1.xLocation = 500;
+
+            sprite.Transform = Matrix.Translation(player.xLocation, player.yLocation, 0);
+            sprite.Draw(player.charTexture, color);
+
+            sprite2.Transform = Matrix.Translation(m1.xLocation, m1.yLocation, 0);
+            sprite2.Draw(m1.charTexture, color);
+        }
         private static void makeTiles(Sprite sprite, SlimDX.Color4 color)
         {
 
