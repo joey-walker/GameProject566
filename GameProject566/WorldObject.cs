@@ -14,6 +14,7 @@ namespace GameProject566
     public class WorldObject
     {
 		public Texture charTexture {set; get;}
+        public int health { set; get; }
 		public float xLocation {set; get;}
 		public float yLocation {set; get;}
 		public bool canMove { set; get; }
@@ -33,7 +34,7 @@ namespace GameProject566
             this.yLocation += y;
         }
 
-        public void setCharTexture(Texture charTexture)
+        /*public void setCharTexture(Texture charTexture)
         {
             this.charTexture = charTexture;
         }
@@ -62,6 +63,6 @@ namespace GameProject566
         {
             return yLocation;
         }
-        
+        */
     }
 }

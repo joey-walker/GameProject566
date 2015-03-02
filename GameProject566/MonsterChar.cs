@@ -8,8 +8,8 @@ namespace GameProject566
     class Monsterchar : WorldObject
     {
         private Texture mTexture;
-        private float xLocation;
-        private float yLocation;
+        new private float xLocation;
+        new private float yLocation;
 
         public Monsterchar()
         { }
