@@ -1,0 +1,3 @@
+player attacks monster, damage amount generated on random
+monster attacks player, hit/miss probability increases by level
+amount of damages per hit increases by level
