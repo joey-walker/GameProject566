@@ -487,18 +487,20 @@ namespace GameProject566
                                 }
                             }
                         }
-                        /*
+                        
                         //Renders battle screen if player and monster are in adjacent position after monster moves
                         if (m1.health > 0 && ((m1.xLocation == player.xLocation + 60f || m1.xLocation == player.xLocation - 60f) && m1.yLocation == player.yLocation) || ((m1.yLocation == player.yLocation + 60f || m1.yLocation == player.yLocation - 60f) && m1.xLocation == player.xLocation))
                         {
                             //Console.WriteLine("Monster Location: " + m1.xLocation + "," + m1.yLocation + "\t" + "Player Location: " + player.xLocation + "," + player.yLocation);
                             if (m1.xLocation == player.xLocation) m1.xLocation -= 60f;
                             else if (m1.yLocation == player.yLocation) m1.yLocation -= 60f;
-                         * //save player's location
+                          //save player's location
                             characterX = player.xLocation;
                             characterY = player.yLocation;
+                            player.charTexture = graphics.createTexture(device9, pright);
+                            m1.charTexture = graphics.createTexture(device9, m1Left);
                             status = GameStatus.battleScreen;
-                        }*/
+                        }
                     }
 
             }
