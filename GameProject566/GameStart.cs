@@ -40,11 +40,15 @@ namespace GameProject566
         //array of tiles
         static Texture[,] bgTiles = new Texture[15, 15];
 
+        //background for map
+        static string bg = "..\\..\\sprites\\bg.png";
+        static Texture mapBg;
 		//Absolute starting location for player
 
 		static float characterX = 420;
 		static float characterY = 300;
 
+        //static float savePlayerLocation = 0.0f;
 
         //Beginning location for tile
         static float tileX = 0;
@@ -62,6 +66,9 @@ namespace GameProject566
         static string tutorialButton = "..\\..\\sprites\\Tutorial.png";
         //static string tutorialButton2 = "..\\..\\sprites\\Tutorial_2.png";
 
+        //battlescreen texture
+        static string battleScr = "..\\..\\sprites\\battlescreen_2.png";
+        static Texture battleScreen;
         //fileLocation for tiles
         static string tiles = "..\\..\\sprites\\tile1.png";
         static string entryTile = "..\\..\\sprites\\entry.png";
@@ -92,14 +99,14 @@ namespace GameProject566
         //object for monster
         static Monsterchar m1 = new Monsterchar(null, monster1X, monster1Y);
         //gets all the sprite location for the monster
-        static string m1Front = "..\\..\\sprites\\BB_front.png";
-        static string m1Front1 = "..\\..\\sprites\\BB_front2.png";
-        static string m1Back = "..\\..\\sprites\\BB_back.png";
-        static string m1Back1 = "..\\..\\sprites\\BB_back2.png";
-        static string m1Right = "..\\..\\sprites\\BB_right.png";
-        static string m1Right1 = "..\\..\\sprites\\BB_right2.png";
-        static string m1Left = "..\\..\\sprites\\BB_left.png";
-        static string m1Left1 = "..\\..\\sprites\\BB_left2.png";
+        static string m1Front = "..\\..\\sprites\\PS_front.png";
+        static string m1Front1 = "..\\..\\sprites\\PS_front2.png";
+        static string m1Back = "..\\..\\sprites\\PS_back.png";
+        static string m1Back1 = "..\\..\\sprites\\PS_back2.png";
+        static string m1Right = "..\\..\\sprites\\PS_right.png";
+        static string m1Right1 = "..\\..\\sprites\\PS_right2.png";
+        static string m1Left = "..\\..\\sprites\\PS_left.png";
+        static string m1Left1 = "..\\..\\sprites\\PS_left2.png";
         static bool changeM1Back = false;
         static bool changeM1Front = false;
         static bool changeM1Left = false;
@@ -165,6 +172,8 @@ namespace GameProject566
                     }
                 }
 
+                //background for map
+                mapBg = graphics.createTexture(device9, bg);
 				sprite = new Sprite (device9);
                 sprite2 = new Sprite(device9);
                 sprite3 = new Sprite(device9);
@@ -175,7 +184,7 @@ namespace GameProject566
                 newGame = graphics.createTexture(device9, newGameButton);
                 tutorial = graphics.createTexture(device9, tutorialButton);
                 quit = graphics.createTexture(device9, quitButton);
-
+                battleScreen = graphics.createTexture(device9, battleScr);
 				//Gimme da keyboards
 				SlimDX.RawInput.Device.RegisterDevice (UsagePage.Generic, UsageId.Keyboard, SlimDX.RawInput.DeviceFlags.None);
 				SlimDX.RawInput.Device.KeyboardInput += new EventHandler <KeyboardInputEventArgs> (Device_keyboardInput);
@@ -269,6 +278,11 @@ namespace GameProject566
                 //Console.WriteLine("Monster Location: " + m1.xLocation + "," + m1.yLocation + "\t" + "Player Location: " + player.xLocation + "," + player.yLocation);
                 if (m1.xLocation == player.xLocation) m1.xLocation -= 60f;
                 else if (m1.yLocation == player.yLocation) m1.yLocation -= 60f;
+                //save player's location
+                characterX = player.xLocation;
+                characterY = player.yLocation;
+                player.charTexture = graphics.createTexture(device9, pright);
+                m1.charTexture = graphics.createTexture(device9, m1Left);
                 status = GameStatus.battleScreen;
             }
             if (status == GameStatus.map)
@@ -335,7 +349,11 @@ namespace GameProject566
                             //Console.WriteLine("Monster Location: " + m1.xLocation + "," + m1.yLocation + "\t" + "Player Location: " + player.xLocation + "," + player.yLocation);
                             if (m1.xLocation == player.xLocation) m1.xLocation -= 60f;
                             else if (m1.yLocation == player.yLocation) m1.yLocation -= 60f;
-
+                            //save player's location
+                            characterX = player.xLocation;
+                            characterY = player.yLocation;
+                            player.charTexture = graphics.createTexture(device9, pright);
+                            m1.charTexture = graphics.createTexture(device9, m1Left);
                             status = GameStatus.battleScreen;
                         }
                         if (arrowOrNot(e) && m1.health > 0)
@@ -476,6 +494,9 @@ namespace GameProject566
                             //Console.WriteLine("Monster Location: " + m1.xLocation + "," + m1.yLocation + "\t" + "Player Location: " + player.xLocation + "," + player.yLocation);
                             if (m1.xLocation == player.xLocation) m1.xLocation -= 60f;
                             else if (m1.yLocation == player.yLocation) m1.yLocation -= 60f;
+                         * //save player's location
+                            characterX = player.xLocation;
+                            characterY = player.yLocation;
                             status = GameStatus.battleScreen;
                         }*/
                     }
@@ -569,12 +590,16 @@ namespace GameProject566
 			status = GameStatus.map;
             //renders sprite for tile and player
 
+            player.xLocation = characterX;
+            player.yLocation = characterY;
 
+            //render bg
+            sprite.Transform = Matrix.Translation(0, 0, 0);
+            sprite.Draw(mapBg, color);
             //renders tile texture
             makeTiles(sprite, color);
 
             //renders player texture
-
             sprite.Transform = Matrix.Translation(player.xLocation, player.yLocation, 0);
             sprite.Draw(player.charTexture, color);
 
@@ -589,23 +614,27 @@ namespace GameProject566
             {
                 sprite2.Transform = Matrix.Translation(0, 0, 0);
             }
+
             //Translate the sprite with a 3d matrix with no z change.
             //return currStatus;
         }
 
         public static void renderBattleScreen(SlimDX.Color4 color)
         {
-            float savePlayerXLocation = player.xLocation;
-            float savePlayerYLocation = player.yLocation;
+            /*
+             * change the player's and monster position for the battle screen
+             * save the previous screen
+             * */
             status = GameStatus.battleScreen;
             //player.health = 100;
             //m1.health = 100;
-            //player.yLocation = 100;
-            //player.xLocation = 100;
-            //m1.yLocation = 500;
-            //m1.xLocation = 500;
+            player.yLocation = 500;
+            player.xLocation = 100;
+            m1.yLocation = 500;
+            m1.xLocation = 500;
 
-            player.charTexture = graphics.createTexture(device9, pfront);
+            sprite.Transform = Matrix.Translation(0, 0, 0);
+            sprite.Draw(battleScreen, color);
             sprite.Transform = Matrix.Translation(player.xLocation, player.yLocation, 0);
             sprite.Draw(player.charTexture, color);
 
