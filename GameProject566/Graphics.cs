@@ -26,9 +26,7 @@ namespace GameProject566
 		static Texture quit;
 
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
+	
 
 
 		public Device initializeGraphics (Form form)
@@ -56,12 +54,7 @@ namespace GameProject566
 		 */
 		public static void renderMainMenu(SlimDX.Color4 color, Device device9, Sprite sprite)
 		{
-			//Sprite sprite = new Sprite (device9);
-			//Create the texture and place them into these objects to be held onto.
-			mainMenu = createTexture(device9, menuBG);
-			newGame = createTexture(device9, newGameButton);
-			tutorial = createTexture(device9, tutorialButton);
-			quit = createTexture(device9, quitButton);
+
 
 			//Paint the background of the main menu
 			sprite.Transform = Matrix.Translation(0, 0, 0);
@@ -79,6 +72,19 @@ namespace GameProject566
 			sprite.Transform = Matrix.Translation(500, 460, 0);
 			sprite.Draw (quit, color);
 		}
+
+		public static void createMainMenuTextures(Device device9){
+			//Sprite sprite = new Sprite (device9);
+			//Create the texture and place them into these objects to be held onto.
+			mainMenu = createTexture(device9, menuBG);
+			newGame = createTexture(device9, newGameButton);
+			tutorial = createTexture(device9, tutorialButton);
+			quit = createTexture(device9, quitButton);
+
+		}
+
+
+
 
 
         /*public Texture createPlayer(Device device9, string pTexture)
