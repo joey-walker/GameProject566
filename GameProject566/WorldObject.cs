@@ -15,7 +15,6 @@ namespace GameProject566
     {
 		public Texture texture {set; get;}
         public int health { set; get; }
-		public bool canMove { set; get; }
 		public float xLocation {set; get;}
 		public float yLocation {set; get;}
 		//Grid placement

@@ -16,7 +16,7 @@ namespace GameProject566
 
 		//world sections
 
-		const int initialRoomSize = 10;
+		const int initialRoomSize = 13;
 
 		//Make the whole world.
 		public Tile[,] makeWorld(int size)
@@ -26,8 +26,8 @@ namespace GameProject566
 			for (int i = 0; i < size; i++) {
 				for (int j = 0; j < size; j++) {
 					tiles [i, j] = new Tile ();
-					tiles [i, j].x = i;
-					tiles [i, j].y = j;
+					tiles [i, j].xGrid = i;
+					tiles [i, j].yGrid = j;
 				}
 			}
 			return tiles;
@@ -39,9 +39,9 @@ namespace GameProject566
 		{
 			Tile[,] tiles = new Tile [initialRoomSize, initialRoomSize];
 			WorldObject wall = new WorldObject ();
-			wall.canMove = false;
+			wall.health = -1;
 			wall.texture = this.wall;
-			int Tilex = 120;
+			int Tilex = 60;
 			int Tiley = 60;
 
 
@@ -49,15 +49,15 @@ namespace GameProject566
 
 				for (int j = 0; j < initialRoomSize; j++) {
 					tiles [i, j] = new Tile ();
-					tiles [i, j].x = i;
-					tiles [i, j].y = j;
+					tiles [i, j].xGrid = i;
+					tiles [i, j].yGrid = j;
 					tiles [i, j].wObject = new WorldObject(); // create empty world object.
 					tiles [i, j].texture = this.tile;
 					tiles [i, j].xLocation = Tilex;
 					tiles [i, j].yLocation = Tiley;
 					Tiley += 60;
 
-					if ((i == 0 || i == initialRoomSize - 1) && (j == 0 || j == initialRoomSize - 1)) 
+					if ((i == 0 || i == initialRoomSize - 1) || (j == 0 || j == initialRoomSize - 1)) 
 					{
 						tiles [i, j].wObject = wall;
 						tiles [i, j].texture = null;
@@ -94,12 +94,12 @@ namespace GameProject566
 
 				for (int j = 0; j < RoomToPlace.GetLength (1); j++) {
 
-					RoomToPlace [i, j].x = i;
-					RoomToPlace [i, j].y = j;
+					RoomToPlace [i, j].xGrid = world [startPosition + i, startPosition + j].xGrid;
+					RoomToPlace [i, j].yGrid = world [startPosition + i, startPosition + j].yGrid;
 
 					if(RoomToPlace[i,j].wObject != null){
-						RoomToPlace [i, j].wObject.xGridLocation = world [startPosition + i, startPosition + j].x;
-						RoomToPlace [i, j].wObject.yGridLocation = world [startPosition + i, startPosition + j].y;
+						RoomToPlace [i, j].wObject.xGridLocation = world [startPosition + i, startPosition + j].xGrid;
+						RoomToPlace [i, j].wObject.yGridLocation = world [startPosition + i, startPosition + j].yGrid;
 					}
 					
 					world [startPosition + i, startPosition + j] = RoomToPlace [i, j];

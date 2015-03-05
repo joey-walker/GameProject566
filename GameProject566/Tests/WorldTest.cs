@@ -16,8 +16,8 @@ namespace GameProject566
 			PlayerChar player = new PlayerChar ();
 			Tile[,] tiles = world.makeStartingRoom (player);
 
-			System.Console.Out.WriteLine (tiles[0,0].x);
-			System.Console.Out.WriteLine (tiles[9,9].y);
+			System.Console.Out.WriteLine (tiles[0,0].xGrid);
+			System.Console.Out.WriteLine (tiles[9,9].yGrid);
 			System.Console.Out.WriteLine ("end test");
 		}
 	}

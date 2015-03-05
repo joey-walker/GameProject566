@@ -9,8 +9,8 @@ namespace GameProject566
 	public class Tile
 	{
 		//coordinates on map
-		public int x{ get; set;}
-		public int y { get; set;}
+		public int xGrid{ get; set;}
+		public int yGrid { get; set;}
 
 		//graphics
 		public float xLocation {set; get;}
@@ -20,8 +20,8 @@ namespace GameProject566
 		public WorldObject wObject {get; set;}
 
 		public Tile(){
-			this.x = 0;
-			this.y = 0;
+			this.xGrid = 0;
+			this.yGrid = 0;
 			this.xLocation = 0;
 			this.yLocation = 0;
 			this.wObject = null;
