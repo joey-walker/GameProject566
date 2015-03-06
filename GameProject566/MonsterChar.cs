@@ -7,13 +7,9 @@ namespace GameProject566
 {
     class Monsterchar : WorldObject
     {
-		private Texture mTexture{ get; set; }
-		/*
-		new private float xLocation{ get; set; }
-		new private float yLocation{ get; set; }
-		private int xGridLocation{ get; set; }
-		private int yGridLocation{ get; set; }
-*/
+		public Texture mTexture{ get; set; }
+
+
 
         public Monsterchar()
         { }
@@ -29,6 +25,10 @@ namespace GameProject566
         }
 
 
+        public int attack(Random rand)
+        {
+            return rand.Next(0, 5);
+        }
 
     }
 }

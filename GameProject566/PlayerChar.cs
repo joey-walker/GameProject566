@@ -6,11 +6,7 @@ namespace GameProject566
 {
     public class PlayerChar : WorldObject
     {
-		private Texture pTexture{ get; set; }
-		/*private float xLocation { get; set; }
-		private float yLocation{ get; set; }
-		private int xGridLocation{ get; set; }
-		private int yGridLocation{ get; set; }*/
+		public Texture pTexture{ get; set; }
 
 
 
@@ -24,7 +20,12 @@ namespace GameProject566
 			this.xGridLocation = xGridLocation;
 			this.yGridLocation = yGridLocation;
         }
-			
+
+
+        public int attack(Random rand)
+        {
+            return rand.Next(5, 10);
+        }
 
     }
 }

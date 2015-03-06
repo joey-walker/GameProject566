@@ -13,21 +13,53 @@ namespace GameProject566
 		//location for main menu background and buttons
 		static string menuBG = "..\\..\\sprites\\background.png";
 		static string newGameButton = "..\\..\\sprites\\NewGAME.png";
+
 		static string newGameButton2 = "..\\..\\sprites\\NewGAME_2.png";
 		static string quitButton = "..\\..\\sprites\\Quit.png";
 		static string quitButton2 = "..\\..\\sprites\\Quit_2.png";
 		static string tutorialButton = "..\\..\\sprites\\Tutorial.png";
 		static string tutorialButton2 = "..\\..\\sprites\\Tutorial_2.png";
 
+
+
+		//background for map
+		static string bg = "..\\..\\sprites\\bg.png";
+		static Texture mapBg;
+
+
 		//textures to hold onto.
 		static Texture mainMenu;
+		static Texture CurrentNewGame;
 		static Texture newGame;
+		static Texture newGame2;
+		static Texture CurrentTutorial;
 		static Texture tutorial;
+		static Texture tutorial2;
+		static Texture CurrentQuit;
 		static Texture quit;
-
+		static Texture quit2;
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 
+		////////////////////////////////////////////    TUTORIAL STUFF  //////////////////////////////////////////////////
+
+
+		//location for tutorial screens and buttons
+		static string tutorialPicture1Location = "..\\..\\sprites\\Screen1.png";
+		static string tutorialPicture2Location = "..\\..\\sprites\\Screen2.png";
+
+		static string tutorialHomeButton = "..\\..\\sprites\\home_mainmenu.png";
+		static string tutorialNextButton = "..\\..\\sprites\\next.png";
+		static string tutorialBackButton = "..\\..\\sprites\\back.png";
+
+		static Texture tutorialPicture1;
+		static Texture tutorialPicture;
+		static Texture tutorialPicture2;
+		static Texture tutorialHome;
+		static Texture tutorialNext;
+		static Texture tutorialBack;
+
+		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 		public Device initializeGraphics (Form form)
 		{
@@ -62,29 +94,103 @@ namespace GameProject566
 
 			//Create the new game button and move it into spot.
 			sprite.Transform = Matrix.Translation (500, 200, 0);
-			sprite.Draw (newGame, color);
+			sprite.Draw (CurrentNewGame, color);
 
 			//Create the tutorial button and move it into spot.
 			sprite.Transform = Matrix.Translation(500, 330, 0);
-			sprite.Draw (tutorial, color);
+			sprite.Draw (CurrentTutorial, color);
 
 			//create the quit button and move it into spot.
 			sprite.Transform = Matrix.Translation(500, 460, 0);
-			sprite.Draw (quit, color);
+			sprite.Draw (CurrentQuit, color);
 		}
 
 		public static void createMainMenuTextures(Device device9){
 			//Sprite sprite = new Sprite (device9);
 			//Create the texture and place them into these objects to be held onto.
-			mainMenu = createTexture(device9, menuBG);
+
+			mainMenu = createTexture(device9, bg);
+
 			newGame = createTexture(device9, newGameButton);
+			CurrentNewGame = newGame;
+			newGame2 = createTexture (device9, newGameButton2);
+
 			tutorial = createTexture(device9, tutorialButton);
+			CurrentTutorial = tutorial;
+			tutorial2 = createTexture(device9, tutorialButton2);
+
 			quit = createTexture(device9, quitButton);
+			CurrentQuit = quit;
+			quit2 = createTexture(device9, quitButton2);
+		}
+
+		public static void createTutorialTextures(Device device9){
+			//Sprite sprite = new Sprite (device9);
+			//Create the texture and place them into these objects to be held onto.
+
+			tutorialPicture1 = createTexture (device9, tutorialPicture1Location);
+			tutorialPicture = tutorialPicture1;
+			tutorialPicture2 = createTexture (device9, tutorialPicture2Location);
+
+			tutorialBack = createTexture (device9, tutorialBackButton);
+			tutorialNext = createTexture (device9, tutorialNextButton);
+			tutorialHome = createTexture (device9, tutorialHomeButton);
+	
+		}
+			
+		public static void renderTutorial(SlimDX.Color4 color, Device device9, Sprite sprite)
+		{
+
+			//Paint the background of the main menu
+			sprite.Transform = Matrix.Translation(0, 0, 0);
+			sprite.Transform = Matrix.Scaling(1,.75f,1);
+			sprite.Draw(tutorialPicture,color);
+
+			//Create the new game button and move it into spot.
+			sprite.Transform = Matrix.Translation (850, 600, 0);
+			sprite.Draw (tutorialNext, color);
+
+			//Create the tutorial button and move it into spot.
+			sprite.Transform = Matrix.Translation(50, 600, 0);
+			sprite.Draw (tutorialBack, color);
+
+			//create the quit button and move it into spot.
+			sprite.Transform = Matrix.Translation(450, 650, 0);
+			sprite.Draw (tutorialHome, color);
 
 		}
 
+		public static void switchTutorialScreen(bool a){
+			if (a) {
+				tutorialPicture = tutorialPicture2;
+			} else{
+				tutorialPicture = tutorialPicture1;
+			}
+		}
 
+		public static void switchNewGameButton(bool a){
+			if (a) {
+				CurrentNewGame = newGame2;
+			} else {
+				CurrentNewGame = newGame;
+			}
+		}
 
+		public static void switchTutorialButton(bool a){
+			if (a) {
+				CurrentTutorial = tutorial2;
+			} else {
+				CurrentTutorial = tutorial;
+			}
+		}
+
+		public static void switchQuitButton(bool a){
+			if (a) {
+				CurrentQuit = quit2;
+			} else {
+				CurrentQuit = quit;
+			}
+		}
 
 
         /*public Texture createPlayer(Device device9, string pTexture)
@@ -142,6 +248,15 @@ namespace GameProject566
 			quit.Dispose ();
 		}
 
+		public static void disposeTutorial(){
+			tutorialPicture1.Dispose();
+			tutorialPicture2.Dispose();
+			tutorialBack.Dispose ();
+			tutorialNext.Dispose ();
+			tutorialHome.Dispose ();
+		}
+
+
 		//Method to create an icon.
 		public static Icon createIcon(){
 
@@ -153,8 +268,7 @@ namespace GameProject566
 			return Icon.FromHandle(iconHandle);
 
 		}
-
-
+			
 	}
 }
 
