@@ -23,8 +23,8 @@ namespace GameProject566
 
 
 		//background for map
-		static string bg = "..\\..\\sprites\\bg.png";
-		static Texture mapBg;
+		//static string bg = "..\\..\\sprites\\bg.png";
+		//static Texture mapBg;
 
 
 		//textures to hold onto.
@@ -109,7 +109,7 @@ namespace GameProject566
 			//Sprite sprite = new Sprite (device9);
 			//Create the texture and place them into these objects to be held onto.
 
-			mainMenu = createTexture(device9, bg);
+			mainMenu = createTexture(device9, menuBG);
 
 			newGame = createTexture(device9, newGameButton);
 			CurrentNewGame = newGame;

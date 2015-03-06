@@ -34,7 +34,9 @@ namespace GameProject566
 		//static Texture tiles;
 
 
-
+        //menu background
+        static string menuBG = "..\\..\\sprites\\background.png";
+        //static Texture menuBGTex
 		//background for map
 		static string bg = "..\\..\\sprites\\bg.png";
 		static Texture mapBg;
@@ -246,6 +248,9 @@ namespace GameProject566
 
 				//background for map
 				mapBg = Graphics.createTexture (device9, bg);
+
+                //background for menu
+                //menuBGTex = Graphics.createTexture(device9, menuBG)
 
 				sprite = new Sprite (device9);
 				sprite2 = new Sprite (device9);
