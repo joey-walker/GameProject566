@@ -49,9 +49,14 @@
     <Compile Include="WorldObject.cs" />
     <Compile Include="PlayerChar.cs" />
     <Compile Include="MonsterChar.cs" />
+    <Compile Include="Tests\WorldTest.cs" />
+    <Compile Include="RoomExit.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GameStart.cs" />
     <Compile Include="Graphics.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Tests\" />
   </ItemGroup>
 </Project>

@@ -7,29 +7,28 @@ namespace GameProject566
 {
     class Monsterchar : WorldObject
     {
-        private Texture mTexture;
-        new private float xLocation;
-        new private float yLocation;
+		public Texture mTexture{ get; set; }
+
+
 
         public Monsterchar()
         { }
-        public Monsterchar (Texture mTexture, float xLocation, float yLocation) : base (mTexture, xLocation, yLocation)
+
+
+		public Monsterchar (Texture mTexture, float xLocation, float yLocation, int xGridLocation, int yGridLocation) : base (mTexture, xLocation, yLocation, xGridLocation,yGridLocation)
         {
             this.mTexture = mTexture;
             this.xLocation = xLocation;
             this.yLocation = yLocation;
+			this.xGridLocation = xGridLocation;
+			this.yGridLocation = yGridLocation;
         }
+
 
         public int attack(Random rand)
         {
             return rand.Next(0, 5);
         }
-        /*
-         public void move(float x, float y)
-        {
-            this.xLocation += x;
-            this.yLocation += y;
-        }
-         */
+
     }
 }

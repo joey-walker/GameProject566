@@ -13,56 +13,38 @@ namespace GameProject566
 {
     public class WorldObject
     {
-		public Texture charTexture {set; get;}
+		public Texture texture {set; get;}
         public int health { set; get; }
 		public float xLocation {set; get;}
 		public float yLocation {set; get;}
-		public bool canMove { set; get; }
+		//Grid placement
+		public int xGridLocation { set; get;}
+		public int yGridLocation { set; get;}
 
         public WorldObject()
         { }
-        public WorldObject (Texture charTexture, float xLocation, float yLocation)
+
+		public WorldObject (Texture charTexture, float xLocation, float yLocation, int xGridLocation, int yGridLocation)
         {
-            this.charTexture = charTexture;
+            this.texture = charTexture;
             this.xLocation = xLocation;
             this.yLocation = yLocation;
+			this.xGridLocation = xGridLocation;
+			this.yGridLocation = yGridLocation;
         }
 
-        public void move(float x, float y)
+        public void moveVisually(float x, float y)
         {
             this.xLocation += x;
             this.yLocation += y;
         }
 
-        /*public void setCharTexture(Texture charTexture)
-        {
-            this.charTexture = charTexture;
-        }
+		public void moveOnGrid(int x, int y)
+		{
+			this.xGridLocation = x;
+			this.yGridLocation = y;
+		}
 
-        public void setXLocation(float xLocation)
-        {
-            this.xLocation = xLocation;
-        }
 
-        public void setYLocation(float yLocation)
-        {
-            this.yLocation = yLocation;
-        }
-
-        public Texture getCharTexture()
-        {
-            return charTexture;
-        }
-
-        public float getXLocation()
-        {
-            return xLocation;
-        }
-
-        public float getYLocation()
-        {
-            return yLocation;
-        }
-        */
     }
 }
