@@ -749,9 +749,10 @@ namespace GameProject566
 
                             m1.moveVisually(m1.xLocation, m1.yLocation);
                             worldTiles[m1.xGridLocation, m1.yGridLocation].wObject = m1;*/
+
                             worldTiles[m1.xGridLocation, m1.yGridLocation].wObject = new WorldObject();
                             m1.xGridLocation = worldTiles[m1.xGridLocation + 1, m1.yGridLocation].xGrid;
-
+                            
                             worldTiles[m1.xGridLocation, m1.yGridLocation].wObject = m1;
 						} else {
 							if (m1.yGridLocation > player.yGridLocation && (worldTiles [m1.xGridLocation, m1.yGridLocation - 1].wObject.texture == null)) {// && m1.getYLocation() <= (tileY + tileY2))//(monster1Y > characterY && monster1Y <= (tileY + tileY2))
@@ -881,16 +882,8 @@ namespace GameProject566
 									m1.mTexture = (Graphics.createTexture (device9, m1Right1));
 
 								changeM1Right = !changeM1Right;
-                                m1.moveOnGrid(m1.xGridLocation + 1, m1.yGridLocation);
-                                m1.xLocation += 60;
                                 
-                                m1.moveVisually(m1.xLocation, m1.yLocation);
-                                worldTiles[m1.xGridLocation, m1.yGridLocation].wObject = m1;
-                                /*m1.moveOnGrid(m1.xGridLocation - 1, m1.yGridLocation);
-                            m1.xLocation -= 60;
-
-                            m1.moveVisually(m1.xLocation, m1.yLocation);
-                            worldTiles[m1.xGridLocation, m1.yGridLocation].wObject = m1;*/
+                                
                                 worldTiles[m1.xGridLocation, m1.yGridLocation].wObject = new WorldObject();
                                 m1.xGridLocation = worldTiles[m1.xGridLocation + 1, m1.yGridLocation].xGrid;
 
