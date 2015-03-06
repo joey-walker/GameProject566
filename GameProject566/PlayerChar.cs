@@ -19,6 +19,10 @@ namespace GameProject566
             this.yLocation = yLocation;
         }
 
+        public int attack(Random rand)
+        {
+            return rand.Next(5, 10);
+        }
         /*public void move(float x, float y)
         {
             this.xLocation += x;
