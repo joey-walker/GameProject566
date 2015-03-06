@@ -50,6 +50,7 @@
     <Compile Include="PlayerChar.cs" />
     <Compile Include="MonsterChar.cs" />
     <Compile Include="Tests\WorldTest.cs" />
+    <Compile Include="RoomExit.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GameStart.cs" />

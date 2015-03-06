@@ -11,6 +11,7 @@ using SlimDX.Multimedia;
 using SlimDX.DirectSound;
 //using SlimDX.DirectInput;
 using SlimDX.XInput;
+using SlimDX.DirectInput;
 
 namespace GameProject566
 {
@@ -90,9 +91,13 @@ namespace GameProject566
         //enum for status
 		static GameStatus status = GameStatus.mainMenu;
 
+		//grid
 		static Tile[,] worldTiles;
 
 		const int WORLDSIZE = 100; //<- Grid size
+
+
+
 
 		public static void Main ()
 		{
@@ -141,16 +146,32 @@ namespace GameProject566
 				worldTiles = world.makeWorld (WORLDSIZE);
 
 				player.xGridLocation = 6;
-				player.yGridLocation = 8;
+				player.yGridLocation = 5;
 
 				//Make starting room.
 				Tile[,] startingRoom = world.makeStartingRoom (player);
 
 				//place the room on the world grid.
-				worldTiles = world.PlaceRoomOnWorld (worldTiles, startingRoom, 50);
+				worldTiles = world.PlaceRoomOnWorld (worldTiles, startingRoom, 30);
+
+				Tile[,] horizontalConnector = world.makeHorizontalConnector ();
+
+				worldTiles = world.connectRoom(worldTiles, horizontalConnector,world.roomExit.Dequeue());
 
 
-				//
+				Tile[,] PlusSignRoom = world.makePlusSignRoom ();
+
+				worldTiles = world.connectRoom(worldTiles, PlusSignRoom,world.roomExit.Dequeue());
+
+
+				Tile[,] horizontalConnector2= world.makeHorizontalConnector ();
+
+				worldTiles = world.connectRoom(worldTiles, horizontalConnector2,world.roomExit.Dequeue());
+
+
+				Tile[,] square = world.makeSquareRoom ();
+
+				worldTiles = world.connectRoom(worldTiles, square,world.roomExit.Dequeue());
 
 
                 //initialize tiles
@@ -292,7 +313,7 @@ namespace GameProject566
 
 
             //renders tile texture
-            makeTiles(sprite, color);
+            drawTiles(sprite, color);
 
             //renders player texture
 
@@ -309,7 +330,7 @@ namespace GameProject566
             //return currStatus;
         }
     
-        private static void makeTiles(Sprite sprite, SlimDX.Color4 color)
+        private static void drawTiles(Sprite sprite, SlimDX.Color4 color)
         {
 
             tileX = 0;
@@ -391,7 +412,7 @@ namespace GameProject566
 					//monsterChar.move(0, -60f);
 					tileY2 -= 60f;
 					if (changePlayerFront)
-						player.texture = (Graphics.createTexture(device9, pfront1));
+						player.texture = (Graphics.createTexture(device9, pfront1)); // MEMORY LEAK
 					else
 						player.texture = (Graphics.createTexture(device9, pfront));
 

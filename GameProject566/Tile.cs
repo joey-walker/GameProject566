@@ -17,6 +17,8 @@ namespace GameProject566
 		public float yLocation {set; get;}
 		public Texture texture {set; get;}
 
+		public int entranceOffset { set; get; }
+
 		public WorldObject wObject {get; set;}
 
 		public Tile(){
@@ -24,6 +26,7 @@ namespace GameProject566
 			this.yGrid = 0;
 			this.xLocation = 0;
 			this.yLocation = 0;
+			this.entranceOffset = 0;
 			this.wObject = null;
 		}
 
