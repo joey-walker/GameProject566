@@ -32,8 +32,14 @@ namespace GameProject566
         //static Texture monster1;
         static Texture mainMenu;
         static Texture newGame;
+        static Texture newGame2;
+        static Texture newGame3;
         static Texture tutorial;
+        static Texture tutorial2;
+        static Texture tutorial3;
         static Texture quit;
+        static Texture quit2;
+        static Texture quit3;
         //tiles
         //static Texture tiles;
 
@@ -60,11 +66,11 @@ namespace GameProject566
         //location for main menu background and buttons
         static string menuBG = "..\\..\\sprites\\background.png";
         static string newGameButton = "..\\..\\sprites\\NewGAME.png";
-        //static string newGameButton2 = "..\\..\\sprites\\NewGAME_2.png";
+        static string newGameButton2 = "..\\..\\sprites\\NewGAME_2.png";
         static string quitButton = "..\\..\\sprites\\Quit.png";
-        //static string quitButton2 = "..\\..\\sprites\\Quit_2.png";
+        static string quitButton2 = "..\\..\\sprites\\Quit_2.png";
         static string tutorialButton = "..\\..\\sprites\\Tutorial.png";
-        //static string tutorialButton2 = "..\\..\\sprites\\Tutorial_2.png";
+        static string tutorialButton2 = "..\\..\\sprites\\Tutorial_2.png";
 
         //battlescreen texture
         static string battleScr = "..\\..\\sprites\\battlescreen_2.png";
@@ -124,6 +130,9 @@ namespace GameProject566
         
 		static GameStatus status = GameStatus.mainMenu;
 
+        //test color
+        static SlimDX.Color4 colorTest = new SlimDX.Color4(Color.White);
+
 		public static void Main ()
 		{
 			//using allows cleanup of form afterwards
@@ -182,8 +191,16 @@ namespace GameProject566
                 //Textures for main menu
                 mainMenu = graphics.createTexture(device9, menuBG);
                 newGame = graphics.createTexture(device9, newGameButton);
+                newGame2 = graphics.createTexture(device9, newGameButton2);
+                newGame3 = graphics.createTexture(device9, newGameButton);
+
                 tutorial = graphics.createTexture(device9, tutorialButton);
+                tutorial2 = graphics.createTexture(device9, tutorialButton2);
+                tutorial3 = graphics.createTexture(device9, tutorialButton);
+
                 quit = graphics.createTexture(device9, quitButton);
+                quit2 = graphics.createTexture(device9, quitButton2);
+                quit3 = graphics.createTexture(device9, quitButton);
                 battleScreen = graphics.createTexture(device9, battleScr);
 				//Gimme da keyboards
 				SlimDX.RawInput.Device.RegisterDevice (UsagePage.Generic, UsageId.Keyboard, SlimDX.RawInput.DeviceFlags.None);
@@ -237,6 +254,26 @@ namespace GameProject566
 			if (status == GameStatus.mainMenu) {
 
 				//Button positions
+                if (cursorX >= 500 && cursorY >= 200 && cursorX <= 1000 && cursorY <= 310)
+                {
+                    //newGame = graphics.createTexture(device9, newGameButton2);
+                    //sprite2.Draw(newGame2,colorTest);
+                    newGame = newGame2;
+                }
+                else
+                {
+                    //newGame = graphics.createTexture(device9, newGameButton);                    
+                    //sprite2.Draw(newGame, colorTest);
+                    newGame = newGame3;
+                }
+                if (cursorX >= 500 && cursorY >= 470 && cursorX <= 1000 && cursorY <= 580)
+                {
+                    quit = quit2;
+                }
+                else
+                {
+                    quit = quit3;
+                }
 				if (m.ButtonFlags == MouseButtonFlags.LeftDown && cursorX >= 500 && cursorY >= 200 && cursorX <= 1000 && cursorY <= 310) {
 					Console.WriteLine ("X Position: " + cursorX + "Y Position: " + cursorY);
 					//Switch to game map
