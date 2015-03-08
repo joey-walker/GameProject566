@@ -169,12 +169,12 @@ namespace GameProject566
 				//player1 = graphics.createPlayer (pback, device9);
 
 
-				player.texture = (Graphics.createTexture (device9, pback));
-				player.health = 10;
+				//player.pTexture = (Graphics.createTexture (device9, pback));
+				//player.health = 10;
 				//initialize monster
 				//monster1 = graphics.createMonster(device9);
-				m1.texture = (Graphics.createTexture (device9, m1Front));
-                m1.health = 100;
+				//m1.texture = (Graphics.createTexture (device9, m1Front));
+               // m1.health = 100;
 
 				//Intialize the world
 				World world = new World ();
@@ -203,11 +203,11 @@ namespace GameProject566
                 //place monster
                 m1.xGridLocation = player.xGridLocation + 5;
                 m1.yGridLocation = player.yGridLocation + 5;
-                m1.xLocation = player.xLocation + 300;
-                m1.yLocation = player.yLocation + 300;
+                //m1.xLocation = player.xLocation + 300;
+                //m1.yLocation = player.yLocation + 300;
                 //monster1X = m1.xLocation;
                 //monster1Y = m1.yLocation;
-                m1.moveVisually(m1.xLocation, m1.yLocation);
+                //m1.moveVisually(m1.xLocation, m1.yLocation);
                 worldTiles[m1.xGridLocation, m1.yGridLocation].wObject = m1;
 
 
@@ -223,7 +223,7 @@ namespace GameProject566
 				changePlayerBack = !changePlayerBack;
 				//initialize monster
 				//monster1 = graphics.createMonster(device9);
-				m1.mTexture = (Graphics.createTexture (device9, m1Front1));
+				m1.texture = (Graphics.createTexture (device9, m1Front1));
 				changeM1Front = !changeM1Front;
 				//set initial health for player and monster
 				m1.health = player.health = 100;
@@ -268,29 +268,7 @@ namespace GameProject566
 
 
 
-				//SOUND STUFF/////////////////
-				DirectSound directsound = new DirectSound ();
-				directsound.IsDefaultPool = false;
-				directsound.SetCooperativeLevel (form.Handle, SlimDX.DirectSound.CooperativeLevel.Priority);
-				WaveStream wave = new WaveStream ("..\\..\\sprites\\music1.wav");
-
-				SoundBufferDescription description = new SoundBufferDescription ();
-				description.Format = wave.Format;
-				description.SizeInBytes = (int)wave.Length;
-				description.Flags = BufferFlags.ControlVolume;
-
-				// Create the buffer.
-				music = new SecondarySoundBuffer (directsound, description);
-
-				byte[] data = new byte[description.SizeInBytes];
-				wave.Read (data, 0, (int)wave.Length);
-				music.Write (data, 0, SlimDX.DirectSound.LockFlags.None);
-
-
-                //music.Volume = 0;
-				music.Play(0, PlayFlags.Looping);
-
-				////////////////////////////////////
+                playMusic();
 
 
 
@@ -315,6 +293,32 @@ namespace GameProject566
 			}
 		}
 
+        public static void playMusic()
+        {
+            //SOUND STUFF/////////////////
+            DirectSound directsound = new DirectSound();
+            directsound.IsDefaultPool = false;
+            directsound.SetCooperativeLevel(form.Handle, SlimDX.DirectSound.CooperativeLevel.Priority);
+            WaveStream wave = new WaveStream("..\\..\\sprites\\music1.wav");
+
+            SoundBufferDescription description = new SoundBufferDescription();
+            description.Format = wave.Format;
+            description.SizeInBytes = (int)wave.Length;
+            description.Flags = BufferFlags.ControlVolume;
+
+            // Create the buffer.
+            music = new SecondarySoundBuffer(directsound, description);
+
+            byte[] data = new byte[description.SizeInBytes];
+            wave.Read(data, 0, (int)wave.Length);
+            music.Write(data, 0, SlimDX.DirectSound.LockFlags.None);
+
+
+            //music.Volume = 0;
+            music.Play(0, PlayFlags.Looping);
+
+            ////////////////////////////////////
+        }
 
 		private static void GameLoop ()
 		{
@@ -405,14 +409,14 @@ namespace GameProject566
 
 			//renders player texture
 			sprite.Transform = Matrix.Translation (player.xLocation, player.yLocation, 0);
-			sprite.Draw (player.texture, color);
+			sprite.Draw (player.pTexture, color);
 
 
 			//renders monster sprite
 
 			if (m1.health > 0) {
-				sprite2.Transform = Matrix.Translation (m1.xLocation, m1.yLocation, 0);
-				//sprite2.Draw (m1.mTexture, color);
+				//sprite2.Transform = Matrix.Translation (m1.xLocation, m1.yLocation, 0);
+				//sprite2.Draw (m1.texture, color);
 			} else {
 				//sprite2.Transform = Matrix.Translation (0, 0, 0);
                 m1.texture = null;
@@ -444,7 +448,7 @@ namespace GameProject566
 
 			//m1.xLocation -= 60;
 			sprite2.Transform = Matrix.Translation (m1.xLocation, m1.yLocation, 0);
-			sprite2.Draw (m1.mTexture, color);
+			sprite2.Draw (m1.texture, color);
 			// while (m1.xLocation != player.xLocation - 60)
 			//{
 			//    m1.move(-60,0);
@@ -469,7 +473,7 @@ namespace GameProject566
 						//System.Console.Out.WriteLine (worldTiles [x, y].xLocation + " y: " + worldTiles [x, y].yLocation);
 					}
 					if (worldTiles [x, y].wObject != null) {
-						if (worldTiles [x, y].wObject.texture != null && worldTiles [x, y].wObject.texture != player.texture) {
+						if (worldTiles [x, y].wObject.texture != null && worldTiles [x, y].wObject.texture != player.pTexture) {
 							sprite.Transform = Matrix.Translation (worldTiles [x, y].xLocation + tileX2, worldTiles [x, y].yLocation + tileY2, 0);
 							sprite.Draw (worldTiles [x, y].wObject.texture, color);
 						}
@@ -493,6 +497,14 @@ namespace GameProject566
 			}
 			return false;
 		}
+
+        private static Boolean isAdjacent(int playerX, int playerY, int monsterX, int monsterY)
+        {
+            if ((playerX == monsterX || playerX - 1 == monsterX || playerX + 1 == monsterX) && (playerY == monsterY || playerY - 1 == monsterY || playerY + 1 == monsterY))
+                return true;
+
+            return false;
+        }
 
 		public static void Device_mouseInput (object sender, MouseInputEventArgs m)
 		{
@@ -577,7 +589,6 @@ namespace GameProject566
 
 		}
 
-
 		public static void  Device_keyboardInput (object sender, KeyboardInputEventArgs e)
 		{
 			//Runs twice for some reason....
@@ -588,7 +599,7 @@ namespace GameProject566
 			//if (m1.health > 0 && (((m1.xGridLocation + 1 == player.xGridLocation) || (m1.xGridLocation - 1 == player.xGridLocation) && m1.yGridLocation == player.yGridLocation)
 			  //  || ((m1.yGridLocation + 1 == player.yGridLocation) || (m1.yGridLocation - 1 == player.yGridLocation)) && m1.xGridLocation == player.xGridLocation)) {
 				//Console.WriteLine("Monster Location: " + m1.xLocation + "," + m1.yLocation + "\t" + "Player Location: " + player.xLocation + "," + player.yLocation);
-            if ((m1.health > 0 && status == GameStatus.map) && ((m1.xGridLocation == player.xGridLocation || m1.xGridLocation == player.xGridLocation + 1 || m1.xGridLocation == player.xGridLocation - 1) && ((m1.yGridLocation == player.yGridLocation + 1) || m1.yGridLocation == player.yGridLocation - 1) || ((m1.yGridLocation == player.yGridLocation || m1.yGridLocation == player.yGridLocation + 1 || m1.yGridLocation == player.yGridLocation - 1) && ((m1.xGridLocation == player.xGridLocation + 1) || (m1.xGridLocation == player.xGridLocation - 1)))))
+            if ((m1.health > 0 && status == GameStatus.map && isAdjacent(player.xGridLocation, player.yGridLocation,m1.xGridLocation,m1.yGridLocation)))//) && ((m1.xGridLocation == player.xGridLocation || m1.xGridLocation == player.xGridLocation + 1 || m1.xGridLocation == player.xGridLocation - 1) && ((m1.yGridLocation == player.yGridLocation + 1) || m1.yGridLocation == player.yGridLocation - 1) || ((m1.yGridLocation == player.yGridLocation || m1.yGridLocation == player.yGridLocation + 1 || m1.yGridLocation == player.yGridLocation - 1) && ((m1.xGridLocation == player.xGridLocation + 1) || (m1.xGridLocation == player.xGridLocation - 1)))))
             {
                 /*if (m1.xLocation == player.xLocation)
 					m1.xLocation -= 60f;
@@ -598,12 +609,12 @@ namespace GameProject566
 				characterX = player.xLocation;
 				characterY = player.yLocation;
 				player.pTexture = Graphics.createTexture (device9, pright);
-				m1.mTexture = Graphics.createTexture (device9, m1Left);
+				m1.texture = Graphics.createTexture (device9, m1Left);
 				//if (m1.health > 0) 
                 status = GameStatus.battleScreen;
 			}
 
-			if (e.State == KeyState.Pressed) {
+			if (e.State == KeyState.Pressed && status == GameStatus.map) {
                 //Console.WriteLine("X: " + player.xGridLocation + " Y: " + player.yGridLocation);
 				if (e.Key == Keys.Down && worldTiles [player.xGridLocation, player.yGridLocation - 1].wObject.texture == null
 				    && worldTiles [player.xGridLocation, player.yGridLocation - 1].wObject != null) {
@@ -613,12 +624,13 @@ namespace GameProject566
 					//m1.setYLocation(-60f);
 					//monsterChar.move(0, -60f);
 
-					if (m1.health > 0) m1.moveVisually(0, 60f);
-					tileY2 -= 60f;
+				    tileY2 -= 60f;
+                    if (m1.health > 0) m1.moveVisually(0, -60f);
+
 					if (changePlayerFront)
-						player.texture = (Graphics.createTexture (device9, pfront1)); // MEMORY LEAK
+						player.pTexture = (Graphics.createTexture (device9, pfront1)); // MEMORY LEAK
 					else
-						player.texture = (Graphics.createTexture (device9, pfront));
+						player.pTexture = (Graphics.createTexture (device9, pfront));
 
 					worldTiles [player.xGridLocation, player.yGridLocation].wObject = new WorldObject ();
 					player.yGridLocation = worldTiles [player.xGridLocation, player.yGridLocation - 1].yGrid;
@@ -634,10 +646,12 @@ namespace GameProject566
 					//	monsterChar.move(0, 60f);
 					//if (m1.health > 0) m1.moveVisually(0, 60f);
 					tileY2 += 60f;
+                    if (m1.health > 0) m1.moveVisually(0, 60f);
+
 					if (changePlayerBack)
-						player.texture = (Graphics.createTexture (device9, pback1));
+						player.pTexture = (Graphics.createTexture (device9, pback1));
 					else
-						player.texture = (Graphics.createTexture (device9, pback));
+						player.pTexture = (Graphics.createTexture (device9, pback));
 
 					worldTiles [player.xGridLocation, player.yGridLocation].wObject = new WorldObject ();
 					player.yGridLocation = worldTiles [player.xGridLocation, player.yGridLocation + 1].yGrid;
@@ -653,12 +667,14 @@ namespace GameProject566
 					//m1.setXLocation(60f);
 					//	monsterChar.move(60f, 0);
 					tileX2 += 60f;
+                    if (m1.health > 0) m1.moveVisually(60f, 0);
+
 					//if (m1.health > 0) m1.moveVisually(60f, 0);
 					//characterX = characterX - 60f + tileX2;
 					if (changePlayerLeft)
-						player.texture = (Graphics.createTexture (device9, pleft1));
+						player.pTexture = (Graphics.createTexture (device9, pleft1));
 					else
-						player.texture = (Graphics.createTexture (device9, pleft));
+						player.pTexture = (Graphics.createTexture (device9, pleft));
 					changePlayerLeft = !changePlayerLeft;
 
 					worldTiles [player.xGridLocation, player.yGridLocation].wObject = new WorldObject ();
@@ -672,12 +688,13 @@ namespace GameProject566
 					//m1.setXLocation(-60f);
 					//	monsterChar.move(-60f, 0);
 					tileX2 -= 60f;
+                    if (m1.health > 0) m1.moveVisually(-60f, 0);
 					//if (m1.health > 0) m1.moveVisually(-60f, 0);
 					//characterX = characterX + 60f - tileX2;
 					if (changePlayerRight)
-						player.texture = (Graphics.createTexture (device9, pright1));
+						player.pTexture = (Graphics.createTexture (device9, pright1));
 					else
-						player.texture = (Graphics.createTexture (device9, pright));
+						player.pTexture = (Graphics.createTexture (device9, pright));
 					changePlayerRight = !changePlayerRight;
 
 					worldTiles [player.xGridLocation, player.yGridLocation].wObject = new WorldObject ();
@@ -687,7 +704,8 @@ namespace GameProject566
 
 				}
 
-                if ((m1.health > 0 && status == GameStatus.map) && ((m1.xGridLocation == player.xGridLocation || m1.xGridLocation == player.xGridLocation + 1 || m1.xGridLocation == player.xGridLocation - 1) && ((m1.yGridLocation == player.yGridLocation + 1) || m1.yGridLocation == player.yGridLocation - 1) || ((m1.yGridLocation == player.yGridLocation || m1.yGridLocation == player.yGridLocation + 1 || m1.yGridLocation == player.yGridLocation - 1) && ((m1.xGridLocation == player.xGridLocation + 1) || (m1.xGridLocation == player.xGridLocation - 1)))))
+                //if ((m1.health > 0 && status == GameStatus.map) && ((m1.xGridLocation == player.xGridLocation || m1.xGridLocation == player.xGridLocation + 1 || m1.xGridLocation == player.xGridLocation - 1) && ((m1.yGridLocation == player.yGridLocation + 1) || m1.yGridLocation == player.yGridLocation - 1) || ((m1.yGridLocation == player.yGridLocation || m1.yGridLocation == player.yGridLocation + 1 || m1.yGridLocation == player.yGridLocation - 1) && ((m1.xGridLocation == player.xGridLocation + 1) || (m1.xGridLocation == player.xGridLocation - 1)))))
+                if ((m1.health > 0 && status == GameStatus.map && isAdjacent(player.xGridLocation, player.yGridLocation, m1.xGridLocation, m1.yGridLocation)))
                 {
                     //Console.WriteLine("Monster Location: " + m1.xLocation + "," + m1.yLocation + "\t" + "Player Location: " + player.xLocation + "," + player.yLocation);
                     /*if (m1.xLocation == player.xLocation)
@@ -698,7 +716,7 @@ namespace GameProject566
                     characterX = player.xLocation;
                     characterY = player.yLocation;
                     player.pTexture = Graphics.createTexture (device9, pright);
-                    m1.mTexture = Graphics.createTexture (device9, m1Left);
+                    m1.texture = Graphics.createTexture (device9, m1Left);
                     //if (m1.health > 0) 
                     status = GameStatus.battleScreen;
                 }
@@ -716,9 +734,9 @@ namespace GameProject566
 
 							//change monster Texture
 							if (changeM1Left)
-								m1.mTexture = (Graphics.createTexture (device9, m1Left));
+								m1.texture = (Graphics.createTexture (device9, m1Left));
 							else
-								m1.mTexture = (Graphics.createTexture (device9, m1Left1));
+								m1.texture = (Graphics.createTexture (device9, m1Left1));
 
 							changeM1Left = !changeM1Left;
                             /*m1.moveOnGrid(m1.xGridLocation - 1, m1.yGridLocation);
@@ -739,9 +757,9 @@ namespace GameProject566
 
 							//change monster texture
 							if (changeM1Right)
-								m1.mTexture = (Graphics.createTexture (device9, m1Right));
+								m1.texture = (Graphics.createTexture (device9, m1Right));
 							else
-								m1.mTexture = (Graphics.createTexture (device9, m1Right1));
+								m1.texture = (Graphics.createTexture (device9, m1Right1));
 
 							changeM1Right = !changeM1Right;
                             /*m1.moveOnGrid(m1.xGridLocation - 1, m1.yGridLocation);
@@ -762,9 +780,9 @@ namespace GameProject566
 								//m1.move(0, -60f);
 								//change monster texture
 								if (changeM1Back)
-									m1.mTexture = (Graphics.createTexture (device9, m1Back));
+									m1.texture = (Graphics.createTexture (device9, m1Back));
 								else
-									m1.mTexture = (Graphics.createTexture (device9, m1Back1));
+									m1.texture = (Graphics.createTexture (device9, m1Back1));
 
 								changeM1Back = !changeM1Back;
                                 /*m1.moveOnGrid(m1.xGridLocation - 1, m1.yGridLocation);
@@ -784,9 +802,9 @@ namespace GameProject566
 								//m1.move(0, 60f);
 								//change monster texture
 								if (changeM1Front)
-									m1.mTexture = (Graphics.createTexture (device9, m1Front));
+									m1.texture = (Graphics.createTexture (device9, m1Front));
 								else
-									m1.mTexture = (Graphics.createTexture (device9, m1Front1));
+									m1.texture = (Graphics.createTexture (device9, m1Front1));
 
 								changeM1Front = !changeM1Front;
                                 /*m1.moveOnGrid(m1.xGridLocation - 1, m1.yGridLocation);
@@ -809,9 +827,9 @@ namespace GameProject566
 							//m1.move(0, -60f);
 							//change monster texture
 							if (changeM1Back)
-								m1.mTexture = (Graphics.createTexture (device9, m1Back));
+								m1.texture = (Graphics.createTexture (device9, m1Back));
 							else
-								m1.mTexture = (Graphics.createTexture (device9, m1Back1));
+								m1.texture = (Graphics.createTexture (device9, m1Back1));
 
 							changeM1Back = !changeM1Back;
 
@@ -832,9 +850,9 @@ namespace GameProject566
 							//m1.move(0, 60f);
 							//change monster texture
 							if (changeM1Front)
-								m1.mTexture = (Graphics.createTexture (device9, m1Front));
+								m1.texture = (Graphics.createTexture (device9, m1Front));
 							else
-								m1.mTexture = (Graphics.createTexture (device9, m1Front1));
+								m1.texture = (Graphics.createTexture (device9, m1Front1));
 
 							changeM1Front = !changeM1Front;
                             /*m1.moveOnGrid(m1.xGridLocation - 1, m1.yGridLocation);
@@ -855,9 +873,9 @@ namespace GameProject566
 								//m1.move(-60f, 0);
 								//change monster Texture
 								if (changeM1Left)
-									m1.mTexture = (Graphics.createTexture (device9, m1Left));
+									m1.texture = (Graphics.createTexture (device9, m1Left));
 								else
-									m1.mTexture = (Graphics.createTexture (device9, m1Left1));
+									m1.texture = (Graphics.createTexture (device9, m1Left1));
 
 								changeM1Left = !changeM1Left;
                                 /*m1.moveOnGrid(m1.xGridLocation - 1, m1.yGridLocation);
@@ -877,9 +895,9 @@ namespace GameProject566
 								//m1.move(60f, 0);
 								//change monster texture
 								if (changeM1Right)
-									m1.mTexture = (Graphics.createTexture (device9, m1Right));
+									m1.texture = (Graphics.createTexture (device9, m1Right));
 								else
-									m1.mTexture = (Graphics.createTexture (device9, m1Right1));
+									m1.texture = (Graphics.createTexture (device9, m1Right1));
 
 								changeM1Right = !changeM1Right;
                                 
@@ -904,7 +922,7 @@ namespace GameProject566
 					characterX = player.xLocation;
 					characterY = player.yLocation;
 					player.pTexture = Graphics.createTexture(device9, pright);
-					m1.mTexture = Graphics.createTexture(device9, m1Left);
+					m1.texture = Graphics.createTexture(device9, m1Left);
 					status = GameStatus.battleScreen;
 				}*/
 			}

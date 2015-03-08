@@ -6,8 +6,7 @@ namespace GameProject566
 {
     public class PlayerChar : WorldObject
     {
-		public Texture pTexture{ get; set; }
-
+        public Texture pTexture { get; set; }
 
 
         public PlayerChar()
