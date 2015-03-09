@@ -7,7 +7,7 @@ namespace GameProject566
 {
     class Monsterchar : WorldObject
     {
-		public Texture mTexture{ get; set; }
+        public Texture mTexture { get; set; }
 
 
 
