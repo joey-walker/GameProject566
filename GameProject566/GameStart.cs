@@ -27,8 +27,7 @@ namespace GameProject566
 		static Sprite sprite;
 		static Sprite sprite2;
 		static Sprite sprite3;
-
-		static Sprite sprite4;
+	
 
 		//tiles
 		//static Texture tiles;
@@ -71,10 +70,10 @@ namespace GameProject566
 		static float monster1X = 300;
 		static float monster1Y = 240;
 
-		//object for player
+		//object representing the player on the grid
 		static PlayerChar player = new PlayerChar (null, characterX, characterY, 0, 0);
 
-		//gets all the sprite location for the player
+		//gets all the sprite file locations for the player
 		static string pback = "..\\..\\sprites\\pback.png";
 		static string pback1 = "..\\..\\sprites\\pback1.png";
 		static string pfront = "..\\..\\sprites\\pfront.png";
@@ -83,20 +82,23 @@ namespace GameProject566
 		static string pleft1 = "..\\..\\sprites\\pleft1.png";
 		static string pright = "..\\..\\sprites\\pright.png";
 		static string pright1 = "..\\..\\sprites\\pright1.png";
+		//Determines which way the player is facing.
 		static bool changePlayerBack = false;
 		static bool changePlayerFront = false;
 		static bool changePlayerLeft = false;
 		static bool changePlayerRight = false;
 
+		//Sound buffer to hold onto the music.
 		static SoundBuffer music;
 
 
-		//object for monster
+		//object represenitng the monster
 		static Monsterchar m1 = new Monsterchar (null, monster1X, monster1Y, 0, 0);
-		//gets all the sprite location for the monster
+
+
+		//gets all the sprite file locations for the monster
 
 		static string monsterCharSprite = "..\\..\\sprites\\monster.png";
-
 
 		static string m1Front = "..\\..\\sprites\\PS_front.png";
 		static string m1Front1 = "..\\..\\sprites\\PS_front2.png";
@@ -106,13 +108,14 @@ namespace GameProject566
 		static string m1Right1 = "..\\..\\sprites\\PS_right2.png";
 		static string m1Left = "..\\..\\sprites\\PS_left.png";
 		static string m1Left1 = "..\\..\\sprites\\PS_left2.png";
+		//Determines which way the monster is facing.
 		static bool changeM1Back = false;
 		static bool changeM1Front = false;
 		static bool changeM1Left = false;
 		static bool changeM1Right = false;
 
 
-		// create new form
+		// create new form to hold onto our game
 		static RenderForm form;
 
 		//Random Number Generator
@@ -121,7 +124,7 @@ namespace GameProject566
 		//object for graphics
 		static Graphics graphics = new Graphics ();
 
-		//enum for status
+		//enum for status, default is main menu.
 		static GameStatus status = GameStatus.mainMenu;
 
 
@@ -130,13 +133,6 @@ namespace GameProject566
 
 		const int WORLDSIZE = 100;
 		//<- Grid size
-
-
-
-
-		//test color
-		//static SlimDX.Color4 colorTest = new SlimDX.Color4 (Color.White);
-
 
 		public static void Main ()
 		{
@@ -151,30 +147,19 @@ namespace GameProject566
 				//Window resolution is 1024 x 768
 				form.Width = 1024;
 				form.Height = 768;
+
 				//No resizing
 				form.FormBorderStyle = FormBorderStyle.Fixed3D;
 				form.MaximizeBox = false;
 
-
+				//Create our icon
 				Icon icon = Graphics.createIcon ();
 
 				//set the form's icon.
 				form.Icon = icon;
 
 				//Create our device, textures and sprites
-
 				device9 = graphics.initializeGraphics (form);
-
-				//initialize player
-				//player1 = graphics.createPlayer (pback, device9);
-
-
-				//player.pTexture = (Graphics.createTexture (device9, pback));
-				//player.health = 10;
-				//initialize monster
-				//monster1 = graphics.createMonster(device9);
-				//m1.texture = (Graphics.createTexture (device9, m1Front));
-               // m1.health = 100;
 
 				//Intialize the world
 				World world = new World ();
@@ -185,33 +170,23 @@ namespace GameProject566
 				//create world grid
 				worldTiles = world.makeWorld (WORLDSIZE);
 
+				//Player's initial position on the grid.
 				player.xGridLocation = 6;
 				player.yGridLocation = 5;
-
 
 
 				//Make starting room.
 				Tile[,] startingRoom = world.makeStartingRoom (player);
 
-
-
-
-
 				//place the room on the world grid.
 				worldTiles = world.PlaceRoomOnWorld (worldTiles, startingRoom, 30);
 
-                //place monster
+                //place initial monster on the grid
                 m1.xGridLocation = player.xGridLocation + 5;
                 m1.yGridLocation = player.yGridLocation + 5;
-                //m1.xLocation = player.xLocation + 300;
-                //m1.yLocation = player.yLocation + 300;
-                //monster1X = m1.xLocation;
-                //monster1Y = m1.yLocation;
-                //m1.moveVisually(m1.xLocation, m1.yLocation);
                 worldTiles[m1.xGridLocation, m1.yGridLocation].wObject = m1;
 
-
-
+				//create horizontal connector
 				Tile[,] horizontalConnector = world.makeHorizontalConnector ();
 
 				worldTiles = world.connectRoom (worldTiles, horizontalConnector, world.roomExit.Dequeue ());
@@ -219,11 +194,11 @@ namespace GameProject566
 
 				Tile[,] PlusSignRoom = world.makePlusSignRoom ();
 
-				player.pTexture = (Graphics.createTexture (device9, pback));
+				player.pTexture = Graphics.createTexture (device9, pback);
 				changePlayerBack = !changePlayerBack;
 				//initialize monster
-				//monster1 = graphics.createMonster(device9);
-				m1.texture = (Graphics.createTexture (device9, m1Front1));
+
+				m1.texture = Graphics.createTexture (device9, m1Front1);
 				changeM1Front = !changeM1Front;
 				//set initial health for player and monster
 				m1.health = player.health = 100;
@@ -242,7 +217,6 @@ namespace GameProject566
 				worldTiles = world.connectRoom (worldTiles, square, world.roomExit.Dequeue ());
 
 
-				//initialize tiles
 						
 
 
@@ -255,19 +229,17 @@ namespace GameProject566
 				sprite = new Sprite (device9);
 				sprite2 = new Sprite (device9);
 				sprite3 = new Sprite (device9);
-				sprite4 = new Sprite (device9);
-
 
 				//Gimme da keyboards
 				SlimDX.RawInput.Device.RegisterDevice (UsagePage.Generic, UsageId.Keyboard, SlimDX.RawInput.DeviceFlags.None);
 				SlimDX.RawInput.Device.KeyboardInput += new EventHandler <KeyboardInputEventArgs> (Device_keyboardInput);
 
-				//Mouse
+				//Mouse initializaton
 				SlimDX.RawInput.Device.RegisterDevice (UsagePage.Generic, UsageId.Mouse, SlimDX.RawInput.DeviceFlags.None);
 				SlimDX.RawInput.Device.MouseInput += new EventHandler<MouseInputEventArgs> (Device_mouseInput);
 
 
-
+				//play music
                 playMusic();
 
 
@@ -349,26 +321,28 @@ namespace GameProject566
 			//Render whole frame
 			device9.BeginScene ();
 
+			//hold onto our sprites
 			sprite.Begin (SpriteFlags.AlphaBlend);
 			sprite2.Begin (SpriteFlags.AlphaBlend);
 			sprite3.Begin (SpriteFlags.AlphaBlend);
-			sprite4.Begin (SpriteFlags.AlphaBlend);
 
-			//not sure why we need this yet...
 			SlimDX.Color4 color = new SlimDX.Color4 (Color.White);
 
+			//Change to Main Menu
 			if (status == GameStatus.mainMenu) {
 				Graphics.renderMainMenu (color, device9, sprite);
 			}
 
-			//Console.WriteLine(status);
+			//Change to the game map.
 			if (status == GameStatus.map) {
 				renderGameRoom (color);
 			}
 
+			//Change to the tutorial screen.
 			if (status == GameStatus.tutorial) {
 				Graphics.renderTutorial (color, device9, sprite);
 			}
+
 
 			//render battle screen. About to get serious now :O
 			if (status == GameStatus.battleScreen) {
@@ -380,7 +354,7 @@ namespace GameProject566
 			sprite.End ();
 			sprite2.End ();
 			sprite3.End ();
-			sprite4.End ();
+
 
 			// End the scene.
 			device9.EndScene ();
@@ -937,7 +911,6 @@ namespace GameProject566
 			sprite.Dispose ();
 			sprite2.Dispose ();
 			sprite3.Dispose ();
-			sprite4.Dispose ();
 
 			Graphics.disposeMainMenu ();
 			Graphics.disposeTutorial ();
