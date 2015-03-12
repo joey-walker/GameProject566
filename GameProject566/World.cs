@@ -56,16 +56,16 @@ namespace GameProject566
 					tiles [i, j] = new Tile ();
 					tiles [i, j].xGrid = i;
 					tiles [i, j].yGrid = j;
-					tiles [i, j].wObject = new WorldObject(); // create empty world object.
+					tiles [i, j].worldObject = new WorldObject(); // create empty world object.
 					tiles [i, j].texture = this.tile;
-					tiles [i, j].xLocation = Tilex;
-					tiles [i, j].yLocation = Tiley;
+					tiles [i, j].xVisualLocation = Tilex;
+					tiles [i, j].yVisualLocation = Tiley;
 					Tiley -= 60;
 
 					if ((i == 0 || i == initialRoomSize - 1) || (j == 0 || j == initialRoomSize - 1)) 
 					{
 						if ( i != initialRoomSize - 1 || (j != 6 && j != 7)) { // exit
-							tiles [i, j].wObject = wall;
+							tiles [i, j].worldObject = wall;
 							tiles [i, j].texture = null;
 						}
 
@@ -81,7 +81,7 @@ namespace GameProject566
 			roomExit.Enqueue(exit);
 
 
-			tiles [player.xGridLocation, player.yGridLocation].wObject = player;
+			tiles [player.xGridLocation, player.yGridLocation].worldObject = player;
 
 			return tiles;
 		}
@@ -99,8 +99,8 @@ namespace GameProject566
 					RoomToPlace [i, j].xGrid = world [startPosition + i, startPosition + j].xGrid;
 					RoomToPlace [i, j].yGrid = world [startPosition + i, startPosition + j].yGrid;
 
-					if(RoomToPlace[i,j].wObject != null){
-						RoomToPlace [i, j].wObject.moveOnGrid (world [startPosition + i, startPosition + j].xGrid, world [startPosition + i, startPosition + j].yGrid);
+					if(RoomToPlace[i,j].worldObject != null){
+						RoomToPlace [i, j].worldObject.moveOnGrid (world [startPosition + i, startPosition + j].xGrid, world [startPosition + i, startPosition + j].yGrid);
 					}
 					
 					world [startPosition + i, startPosition + j] = RoomToPlace [i, j];
@@ -130,15 +130,15 @@ namespace GameProject566
 					tiles [i, j] = new Tile ();
 					tiles [i, j].xGrid = i;
 					tiles [i, j].yGrid = j;
-					tiles [i, j].wObject = new WorldObject(); // create empty world object.
+					tiles [i, j].worldObject = new WorldObject(); // create empty world object.
 					tiles [i, j].texture = this.tile;
-					tiles [i, j].xLocation = Tilex;
-					tiles [i, j].yLocation = Tiley;
+					tiles [i, j].xVisualLocation = Tilex;
+					tiles [i, j].yVisualLocation = Tiley;
 
 
 					if (j == 0 || j ==  3) 
 					{
-						tiles [i, j].wObject = wall;
+						tiles [i, j].worldObject = wall;
 						tiles [i, j].texture = null;
 					}
 				}
@@ -163,7 +163,7 @@ namespace GameProject566
 
 				for (int j = 0; j < roomToConnect.GetLength (1); j++) {
 
-					if (world [exit.tileA.xGrid+ 1 + i, exit.tileA.yGrid + j - exit.ConnectorStart].wObject != null) {
+					if (world [exit.tileA.xGrid+ 1 + i, exit.tileA.yGrid + j - exit.ConnectorStart].worldObject != null) {
 						return world;
 					}
 					if (roomToConnect [i, j].entranceOffset != 0) {
@@ -184,10 +184,10 @@ namespace GameProject566
 					roomToConnect [i, j].xGrid = world[exit.tileA.xGrid+ 1 + i, exit.tileA.yGrid + j - exit.ConnectorStart].xGrid;
 					roomToConnect [i, j].yGrid = world[exit.tileA.xGrid+ 1 + i, exit.tileA.yGrid + j - exit.ConnectorStart].yGrid;
 
-					roomToConnect [i, j].xLocation = world[exit.tileA.xGrid, exit.tileA.yGrid].xLocation+(60*i)+60;
-					roomToConnect [i, j].yLocation = world[exit.tileA.xGrid, exit.tileA.yGrid].yLocation-(60*j)+(60*(exit.ConnectorStart));
+					roomToConnect [i, j].xVisualLocation = world[exit.tileA.xGrid, exit.tileA.yGrid].xVisualLocation+(60*i)+60;
+					roomToConnect [i, j].yVisualLocation = world[exit.tileA.xGrid, exit.tileA.yGrid].yVisualLocation-(60*j)+(60*(exit.ConnectorStart));
 
-					if(roomToConnect[i,j].wObject.texture != null){
+					if(roomToConnect[i,j].worldObject.texture != null){
 					/*	roomToConnect [i, j].wObject.moveOnGrid (world[a.tileA.xGrid+ 1 + i, a.tileA.yGrid + j - a.ConnectorStart].xGrid,
 							world[a.tileA.xGrid+ 1 + i, a.tileA.yGrid + j - a.ConnectorStart].yGrid);
 
@@ -222,41 +222,41 @@ namespace GameProject566
 					tiles [i, j] = new Tile ();
 					tiles [i, j].xGrid = i;
 					tiles [i, j].yGrid = j;
-					tiles [i, j].wObject = new WorldObject(); // create empty world object.
+					tiles [i, j].worldObject = new WorldObject(); // create empty world object.
 					tiles [i, j].texture = this.tile;
-					tiles [i, j].xLocation = Tilex;
-					tiles [i, j].yLocation = Tiley;
+					tiles [i, j].xVisualLocation = Tilex;
+					tiles [i, j].yVisualLocation = Tiley;
 
 
 				
 					if((i==3 && j== 2) || (i==3 && j==4)){ //vertical centerpiece
-						tiles [i, j].wObject = wall;
+						tiles [i, j].worldObject = wall;
 						tiles [i, j].texture = null;
 					}
 
 					if ((i == 2 || i == 3 || i == 4 || i ==5) && j == 3) { //horizontal centerpiece
-						tiles [i, j].wObject = wall;
+						tiles [i, j].worldObject = wall;
 						tiles [i, j].texture = null;
 					}
 
 					if (i == 0 && !(j==2 || j==3)) { //left wall opening
-						tiles [i, j].wObject = wall;
+						tiles [i, j].worldObject = wall;
 						tiles [i, j].texture = null;
 					}
 
 
 					if (i == 7 && !(j==2 || j==3)) { //right wall opening
-						tiles [i, j].wObject = wall;
+						tiles [i, j].worldObject = wall;
 						tiles [i, j].texture = null;
 					}
 
 					if (j == 6 && !(i==3 || i==4)) { //top wall
-						tiles [i, j].wObject = wall;
+						tiles [i, j].worldObject = wall;
 						tiles [i, j].texture = null;
 					}
 
 					if (j == 0 && !(i==3 || i==4)) { //bottom wall
-						tiles [i, j].wObject = wall;
+						tiles [i, j].worldObject = wall;
 						tiles [i, j].texture = null;
 					}
 
@@ -289,18 +289,18 @@ namespace GameProject566
 					tiles [i, j] = new Tile ();
 					tiles [i, j].xGrid = i;
 					tiles [i, j].yGrid = j;
-					tiles [i, j].wObject = new WorldObject(); // create empty world object.
+					tiles [i, j].worldObject = new WorldObject(); // create empty world object.
 					tiles [i, j].texture = this.tile;
 
 					tiles [i, j].entranceOffset = 5;
 					//Tiley -= 60;
 
 					if ((i == 0 || i == 7) && !(j== 3 || j== 4)) {
-						tiles [i, j].wObject = wall;
+						tiles [i, j].worldObject = wall;
 						tiles [i, j].texture = null;
 					}
 					if (j == 0 || j == 7) {
-						tiles [i, j].wObject = wall;
+						tiles [i, j].worldObject = wall;
 						tiles [i, j].texture = null;
 					}
 

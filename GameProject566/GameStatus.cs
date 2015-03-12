@@ -2,6 +2,7 @@
 
 namespace GameProject566
 {
+	//Determines what state the game is in.
 	public enum GameStatus
 	{
 		mainMenu,
