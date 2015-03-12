@@ -6,14 +6,11 @@ namespace GameProject566
 {
     public class PlayerChar : WorldObject
     {
-        public Texture pTexture { get; set; }
-
-
         public PlayerChar()
         { }
 		public PlayerChar (Texture pTexture, float xLocation, float yLocation,int xGridLocation, int yGridLocation) : base (pTexture, xLocation, yLocation, xGridLocation,yGridLocation)
         {
-            this.pTexture = pTexture;
+			this.texture = pTexture;
             this.xLocation = xLocation;
             this.yLocation = yLocation;
 			this.xGridLocation = xGridLocation;

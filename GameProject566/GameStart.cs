@@ -194,7 +194,7 @@ namespace GameProject566
 
 				Tile[,] PlusSignRoom = world.makePlusSignRoom ();
 
-				player.pTexture = Graphics.createTexture (device9, pback);
+				player.texture = Graphics.createTexture (device9, pback);
 				changePlayerBack = !changePlayerBack;
 				//initialize monster
 
@@ -384,7 +384,7 @@ namespace GameProject566
 
 			//renders player texture
 			sprite.Transform = Matrix.Translation (player.xLocation, player.yLocation, 0);
-			sprite.Draw (player.pTexture, color);
+			sprite.Draw (player.texture, color);
 
 
 			//should monster
@@ -412,7 +412,7 @@ namespace GameProject566
 			sprite.Transform = Matrix.Translation (0, 0, 0);
 			sprite.Draw (battleScreen, color);
 			sprite.Transform = Matrix.Translation (player.xLocation, player.yLocation, 0);
-			sprite.Draw (player.pTexture, color);
+			sprite.Draw (player.texture, color);
 
 
 			sprite2.Transform = Matrix.Translation (m1.xLocation, m1.yLocation, 0);
@@ -439,7 +439,7 @@ namespace GameProject566
 						//System.Console.Out.WriteLine (worldTiles [x, y].xLocation + " y: " + worldTiles [x, y].yLocation);
 					}
 					if (worldTiles [x, y].wObject != null) {
-						if (worldTiles [x, y].wObject.texture != null && worldTiles [x, y].wObject.texture != player.pTexture) {
+						if (worldTiles [x, y].wObject.texture != null && worldTiles [x, y].wObject.texture != player.texture) {
 							sprite.Transform = Matrix.Translation (worldTiles [x, y].xLocation + tileX2, worldTiles [x, y].yLocation + tileY2, 0);
 							sprite.Draw (worldTiles [x, y].wObject.texture, color);
 						}
@@ -568,7 +568,7 @@ namespace GameProject566
 				//save player's location
 				characterX = player.xLocation;
 				characterY = player.yLocation;
-				player.pTexture = Graphics.createTexture (device9, pright);
+				player.texture = Graphics.createTexture (device9, pright);
 				m1.texture = Graphics.createTexture (device9, m1Left);
 
                 status = GameStatus.battleScreen;
@@ -583,9 +583,9 @@ namespace GameProject566
                     if (m1.health > 0) m1.moveVisually(0, -60f);
 
 					if (changePlayerFront)
-						player.pTexture = (Graphics.createTexture (device9, pfront1)); // MEMORY LEAK
+						player.texture = (Graphics.createTexture (device9, pfront1)); // MEMORY LEAK
 					else
-						player.pTexture = (Graphics.createTexture (device9, pfront));
+						player.texture = (Graphics.createTexture (device9, pfront));
 
 					worldTiles [player.xGridLocation, player.yGridLocation].wObject = new WorldObject ();
 					player.yGridLocation = worldTiles [player.xGridLocation, player.yGridLocation - 1].yGrid;
@@ -600,9 +600,9 @@ namespace GameProject566
                     if (m1.health > 0) m1.moveVisually(0, 60f);
 
 					if (changePlayerBack)
-						player.pTexture = (Graphics.createTexture (device9, pback1));
+						player.texture = (Graphics.createTexture (device9, pback1));
 					else
-						player.pTexture = (Graphics.createTexture (device9, pback));
+						player.texture = (Graphics.createTexture (device9, pback));
 
 					worldTiles [player.xGridLocation, player.yGridLocation].wObject = new WorldObject ();
 					player.yGridLocation = worldTiles [player.xGridLocation, player.yGridLocation + 1].yGrid;
@@ -619,9 +619,9 @@ namespace GameProject566
                     if (m1.health > 0) m1.moveVisually(60f, 0);
 
 					if (changePlayerLeft)
-						player.pTexture = (Graphics.createTexture (device9, pleft1));
+						player.texture = (Graphics.createTexture (device9, pleft1));
 					else
-						player.pTexture = (Graphics.createTexture (device9, pleft));
+						player.texture = (Graphics.createTexture (device9, pleft));
 					changePlayerLeft = !changePlayerLeft;
 
 					worldTiles [player.xGridLocation, player.yGridLocation].wObject = new WorldObject ();
@@ -636,9 +636,9 @@ namespace GameProject566
                     if (m1.health > 0) m1.moveVisually(-60f, 0);
 
 					if (changePlayerRight)
-						player.pTexture = (Graphics.createTexture (device9, pright1));
+						player.texture = (Graphics.createTexture (device9, pright1));
 					else
-						player.pTexture = (Graphics.createTexture (device9, pright));
+						player.texture = (Graphics.createTexture (device9, pright));
 					changePlayerRight = !changePlayerRight;
 
 					worldTiles [player.xGridLocation, player.yGridLocation].wObject = new WorldObject ();
@@ -653,7 +653,7 @@ namespace GameProject566
                     //save player's location
                     characterX = player.xLocation;
                     characterY = player.yLocation;
-                    player.pTexture = Graphics.createTexture (device9, pright);
+					player.texture = Graphics.createTexture (device9, pright);
                     m1.texture = Graphics.createTexture (device9, m1Left);
                     //if (m1.health > 0) 
                     status = GameStatus.battleScreen;
