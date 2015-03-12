@@ -192,47 +192,6 @@ namespace GameProject566
 			}
 		}
 
-
-        /*public Texture createPlayer(Device device9, string pTexture)
-		{
-
-			//Our texture
-			return Texture.FromFile (device9, pTexture);
-
-		}
-
-        public Texture createMonster(Device device9, string mTexture)
-        {
-
-            //Our texture
-            return Texture.FromFile(device9, mTexture);
-
-        }
-
-
-        //doesn't work. trying to make an array of tiles. will try again later
-        //public Texture drawTiles(Device device9)
-        //{
-        //    //tiles
-        //    Texture tile = Texture.FromFile(device9, "..\\..\\sprites\\tile1.png");
-        //    Texture[,] tiles = new Texture[40,40];
-        //    for (int x = 40; x > 0; x--)
-        //    {
-        //        for (int y = 40; y > 0; y--)
-        //        {
-        //            tiles[x, y] = tile;
-        //        }
-        //    }
-        //
-        //    return tiles[40,40];
-        //}
-
-        public Texture drawTiles(Device device9)
-        {
-            return Texture.FromFile(device9, "..\\..\\sprites\\tile1.png");
-        }
-        */
-
 		//  Create texture object and return it.
         public static Texture createTexture(Device device9, string textureLocation)
         {
