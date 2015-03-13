@@ -131,8 +131,11 @@ namespace GameProject566
 		//grid
 		static Tile[,] worldTiles;
 
-		const int WORLDSIZE = 100;
+		const int WORLDSIZE = 135;
 		//<- Grid size
+
+		const int MAXROOMS = 8;
+
 
 		public static void Main ()
 		{
@@ -142,7 +145,6 @@ namespace GameProject566
 			* The rest creates a standard windows form that we tell the application to run.
 			*/
 			using (form = new RenderForm ("Dreadnought KamZhor")) {
-				
 
 				//Window resolution is 1024 x 768
 				form.Width = 1024;
@@ -187,6 +189,10 @@ namespace GameProject566
                 worldTiles[m1.xGridLocation, m1.yGridLocation].worldObject = m1;
 
 
+
+				worldTiles = world.generateLevel(worldTiles,world,MAXROOMS);
+
+				/*
 				//create horizontal connector
 				Tile[,] horizontalConnector = world.makeHorizontalConnector ();
 
@@ -212,16 +218,6 @@ namespace GameProject566
 
 				worldTiles = world.connectRoom (worldTiles, horizontalConnector3, world.roomExit.Dequeue ());
 
-
-				Tile[,] square2 = world.makeSquareRoom ();
-
-				worldTiles = world.connectRoom (worldTiles, square2, world.roomExit.Dequeue ());		
-
-
-				Tile[,] horizontalConnector4 = world.makeHorizontalConnector ();
-
-				worldTiles = world.connectRoom (worldTiles, horizontalConnector4, world.roomExit.Dequeue ());
-
 				Tile[,] divider = world.makeMiddleDividerRoom ();
 
 				worldTiles = world.connectRoom (worldTiles, divider, world.roomExit.Dequeue ());	
@@ -236,6 +232,27 @@ namespace GameProject566
 
 				//Connect room
 				worldTiles = world.connectRoom (worldTiles, PlusSignRoom2, world.roomExit.Dequeue ());
+
+
+				Tile[,] horizontalConnector6 = world.makeHorizontalConnector ();
+
+				worldTiles = world.connectRoom (worldTiles, horizontalConnector6, world.roomExit.Dequeue ());
+
+
+				Tile[,] xRoom = world.makeXRoom ();
+
+				worldTiles = world.connectRoom (worldTiles, xRoom, world.roomExit.Dequeue ());
+
+
+				Tile[,] horizontalConnector7 = world.makeHorizontalConnector ();
+
+				worldTiles = world.connectRoom (worldTiles, horizontalConnector7, world.roomExit.Dequeue ());
+
+				Tile[,] deadEnd = world.makeDeadEndRoom ();
+
+				worldTiles = world.connectRoom (worldTiles, deadEnd, world.roomExit.Dequeue ());
+				*/
+
 
 
 

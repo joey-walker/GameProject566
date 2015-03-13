@@ -375,6 +375,207 @@ namespace GameProject566
 
 		/////////////////////////////////////////////////////////
 
+
+		/////////////////////////////////////////////////////////
+		//X room 
+		public Tile[,] makeXRoom(){
+			Tile[,] tiles = new Tile [9, 9];
+			WorldObject wall = new WorldObject ();
+			wall.health = -1;
+			wall.texture = this.wall;
+
+			for (int i = 0; i < 9; i++) {
+
+				for (int j = 0; j < 9; j++) {
+					tiles [i, j] = new Tile ();
+					tiles [i, j].xGrid = i;
+					tiles [i, j].yGrid = j;
+					tiles [i, j].worldObject = new WorldObject(); // create empty world object.
+					tiles [i, j].texture = this.tile;
+					tiles [i, j].exitlocationx = 0;
+					tiles [i, j].exitlocationy = 1; // Always square right below lower most exit.
+
+					//outside walls with exits
+					if (((i == 0 || i==8) && !(j==2 || j==3)) || (j == 0 || j == 8)){
+						tiles [i, j].worldObject = wall;
+						tiles [i, j].texture = null;
+					}
+
+					//Top segment of x
+					if(i==2 && (j==2 || j==6)){
+						tiles [i, j].worldObject = wall;
+						tiles [i, j].texture = null;
+					}
+					if(i==3 && (j==3 || j==5)){
+						tiles [i, j].worldObject = wall;
+						tiles [i, j].texture = null;
+					}
+					if(i==4 && j==4){
+						tiles [i, j].worldObject = wall;
+						tiles [i, j].texture = null;
+					}
+					if(i==5 && (j==3 || j==5)){
+						tiles [i, j].worldObject = wall;
+						tiles [i, j].texture = null;
+					}
+					if(i==6 && (j==2 || j==6)){
+						tiles [i, j].worldObject = wall;
+						tiles [i, j].texture = null;
+					}
+
+
+				}
+
+			}
+
+			RoomExit exit = new RoomExit (tiles [8,1], false);
+			roomExit.Enqueue(exit);
+
+
+			return tiles;
+		}
+
+
+		/////////////////////////////////////////////////////////
+		/// 
+
+		/////////////////////////////////////////////////////////
+		//DeadEnd room 
+		public Tile[,] makeDeadEndRoom(){
+			Tile[,] tiles = new Tile [8, 8];
+			WorldObject wall = new WorldObject ();
+			wall.health = -1;
+			wall.texture = this.wall;
+
+			for (int i = 0; i < 8; i++) {
+
+				for (int j = 0; j < 8; j++) {
+					tiles [i, j] = new Tile ();
+					tiles [i, j].xGrid = i;
+					tiles [i, j].yGrid = j;
+					tiles [i, j].worldObject = new WorldObject(); // create empty world object.
+					tiles [i, j].texture = this.tile;
+					tiles [i, j].exitlocationx = 0;
+					tiles [i, j].exitlocationy = 1; // Always square right below lower most exit.
+
+					//outside walls with exits
+					if (((i == 0 && !(j==2 || j==3)) || i== 7)  || (j == 0 || j == 7)){
+						tiles [i, j].worldObject = wall;
+						tiles [i, j].texture = null;
+					}
+
+				}
+
+			}
+
+			RoomExit exit = new RoomExit (tiles [4,3], false);
+			roomExit.Enqueue(exit);
+
+
+			return tiles;
+		}
+
+
+		/////////////////////////////////////////////////////////
+		/// Block room
+		public Tile[,] makeBlockRoom(){
+			Tile[,] tiles = new Tile [8, 8];
+			WorldObject wall = new WorldObject ();
+			wall.health = -1;
+			wall.texture = this.wall;
+
+			for (int i = 0; i < 8; i++) {
+
+				for (int j = 0; j < 8; j++) {
+					tiles [i, j] = new Tile ();
+					tiles [i, j].xGrid = i;
+					tiles [i, j].yGrid = j;
+					tiles [i, j].worldObject = new WorldObject(); // create empty world object.
+					tiles [i, j].texture = this.tile;
+					tiles [i, j].exitlocationx = 0;
+					tiles [i, j].exitlocationy = 2; // Always square right below lower most exit.
+
+					//outside walls with exits
+					if (((i == 0 && !(j==3 || j==4) || (i == 7 && !(j==3 || j==4))) || (j == 0 || j == 7))){
+						tiles [i, j].worldObject = wall;
+						tiles [i, j].texture = null;
+					}
+
+					if ((i == 3 || i == 4) && (j==3 || j==4)) {
+						tiles [i, j].worldObject = wall;
+						tiles [i, j].texture = null;
+					}
+
+				}
+
+			}
+
+			RoomExit exit = new RoomExit (tiles [7,2], false);
+			roomExit.Enqueue(exit);
+
+
+			return tiles;
+		}
+
+
+		/////////////////////////////////////////////////////////
+		/// 
+	
+
+		//create the level
+		public Tile[,] generateLevel(Tile[,] worldTiles,World world ,int roomCount){
+
+			Random rand = new Random ();
+
+			for (int i = 0; i < roomCount; i++) {
+
+				Tile[,] horizontalconnector = makeHorizontalConnector ();
+
+				worldTiles= connectRoom (worldTiles, horizontalconnector, world.roomExit.Dequeue());
+
+
+				switch (rand.Next(0,5)) {
+
+				case 0: 
+					Tile[,] plusRoom = makePlusSignRoom ();
+					worldTiles= connectRoom (worldTiles, plusRoom, world.roomExit.Dequeue());
+					break;
+
+				case 1: 
+					Tile[,] squareRoom = makeSquareRoom ();
+					worldTiles= connectRoom (worldTiles, squareRoom, world.roomExit.Dequeue());
+					break;
+				
+				case 2: 
+					Tile[,] middleDividerRoom = makeMiddleDividerRoom ();
+					worldTiles= connectRoom (worldTiles, middleDividerRoom, world.roomExit.Dequeue());
+					break;
+
+				case 3: 
+					Tile[,] xRoom = makeXRoom ();
+					worldTiles= connectRoom (worldTiles, xRoom, world.roomExit.Dequeue());
+					break;
+
+				case 4: 
+					Tile[,] blockRoom = makeBlockRoom ();
+					worldTiles= connectRoom (worldTiles, blockRoom, world.roomExit.Dequeue());
+					break;
+
+				default:
+					break;
+				}
+
+
+
+			}
+
+
+
+
+			return worldTiles;
+		}
+
+		//Generated
 	}
 }
 
