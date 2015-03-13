@@ -87,21 +87,21 @@ namespace GameProject566
 		}
 
 		//Place the room onto the world grid.
-		public Tile[,] PlaceRoomOnWorld(Tile[,] world, Tile[,] RoomToPlace, int startPosition){
+		public Tile[,] PlaceRoomOnWorld(Tile[,] world, Tile[,] RoomToPlace, int startPositionx, int startPositiony){
 
 			//Place room.  Start at a same x,y coord location.  Then increment down the column and right accross the row filling up the room.
 			for (int i = 0; i < RoomToPlace.GetLength (0); i++) {
 
 				for (int j = 0; j < RoomToPlace.GetLength (1); j++) {
 
-					RoomToPlace [i, j].xGrid = world [startPosition + i, startPosition + j].xGrid;
-					RoomToPlace [i, j].yGrid = world [startPosition + i, startPosition + j].yGrid;
+					RoomToPlace [i, j].xGrid = world [startPositionx + i, startPositiony + j].xGrid;
+					RoomToPlace [i, j].yGrid = world [startPositionx + i, startPositiony + j].yGrid;
 
 					if(RoomToPlace[i,j].worldObject != null){
-						RoomToPlace [i, j].worldObject.moveOnGrid (world [startPosition + i, startPosition + j].xGrid, world [startPosition + i, startPosition + j].yGrid);
+						RoomToPlace [i, j].worldObject.moveOnGrid (world [startPositionx + i, startPositiony + j].xGrid, world [startPositionx + i, startPositiony + j].yGrid);
 					}
 					
-					world [startPosition + i, startPosition + j] = RoomToPlace [i, j];
+					world [startPositionx + i, startPositiony + j] = RoomToPlace [i, j];
 				}
 					
 			}
@@ -233,8 +233,8 @@ namespace GameProject566
 							roomToConnect [i, j].xVisualLocation = world [exit.tileA.xGrid, exit.tileA.yGrid].xVisualLocation + (60 * (i - roomToConnect [i, j].exitlocationx));
 							roomToConnect [i, j].yVisualLocation = world [exit.tileA.xGrid, exit.tileA.yGrid].yVisualLocation - (60 * j) - 60;
 						} else {
-							roomToConnect [i, j].xGrid = world [exit.tileA.xGrid + i - roomToConnect [i, j].exitlocationx, exit.tileA.yGrid - j-1].xGrid;
-							roomToConnect [i, j].yGrid = world [exit.tileA.xGrid + i - roomToConnect [i, j].exitlocationx, exit.tileA.yGrid - j -1].yGrid;
+							roomToConnect [i, j].xGrid = world [exit.tileA.xGrid + i - roomToConnect [i, j].exitlocationx, exit.tileA.yGrid - j - 1].xGrid;
+							roomToConnect [i, j].yGrid = world [exit.tileA.xGrid + i - roomToConnect [i, j].exitlocationx, exit.tileA.yGrid - j - 1].yGrid;
 
 							roomToConnect [i, j].xVisualLocation = world [exit.tileA.xGrid, exit.tileA.yGrid].xVisualLocation + (60 * (i - roomToConnect [i, j].exitlocationx));
 							roomToConnect [i, j].yVisualLocation = world [exit.tileA.xGrid, exit.tileA.yGrid].yVisualLocation + (60 * j) + 60;
@@ -606,17 +606,14 @@ namespace GameProject566
 
 				case 0: 
 					Tile[,] plusRoom = makePlusSignRoom ();
-					worldTiles = connectRoom (worldTiles, plusRoom, world.roomExit.Dequeue (), true,false);
+					worldTiles = connectRoom (worldTiles, plusRoom, world.roomExit.Dequeue (), true, false);
 
 					//Connect top segment
 					Tile[,] VerticalDeadEnd = makeVerticalDeadEndWithExitDown ();
 					worldTiles = connectRoom (worldTiles, VerticalDeadEnd, world.roomExit.Dequeue (), false, true);
 
-					//connect bottom segment
-					Tile[,] verticalConnector = makeVerticalConnector();
-					worldTiles = connectRoom (worldTiles, verticalConnector, world.roomExit.Dequeue (), false , false);
-
-
+					//Generate randomly downwards.
+					worldTiles = generateDownwards (worldTiles, world);
 					break;
 
 				case 1: 
@@ -727,11 +724,10 @@ namespace GameProject566
 
 			}
 
+		
 
-
-			//RoomExit exit = new RoomExit (tiles [0, 3], false);
-			//roomExit.Enqueue(exit);
-
+			RoomExit exit = new RoomExit (tiles [0, 3], false);
+			roomExit.Enqueue (exit);					
 
 			return tiles;
 		}
@@ -772,6 +768,127 @@ namespace GameProject566
 				
 			return tiles;
 		}
+
+		public Tile[,] makeVerticalDeadEndWithExitUp(){
+			Tile[,] tiles = new Tile [4, 4];
+			WorldObject wall = new WorldObject ();
+			wall.health = -1;
+			wall.texture = this.wall;
+
+			int Tilex = 0;
+			int Tiley = 0;
+
+
+			for (int i = 0; i < 4; i++) {
+
+				for (int j = 0; j < 4; j++) {
+					tiles [i, j] = new Tile ();
+					tiles [i, j].xGrid = i;
+					tiles [i, j].yGrid = j;
+					tiles [i, j].worldObject = new WorldObject(); // create empty world object.
+					tiles [i, j].texture = this.tile;
+					tiles [i, j].xVisualLocation = Tilex;
+					tiles [i, j].yVisualLocation = Tiley;
+
+					tiles [i, j].exitlocationx = 0;
+					tiles [i, j].exitlocationy = 0;
+
+					if ((i == 0 || i ==  3) || (j==3)) 
+					{
+						tiles [i, j].worldObject = wall;
+						tiles [i, j].texture = null;
+					}
+				}
+
+			}
+
+			return tiles;
+		}
+
+		public Tile[,] makeVerticalSquareroom(){
+			Tile[,] tiles = new Tile [8, 8];
+			WorldObject wall = new WorldObject ();
+			wall.health = -1;
+			wall.texture = this.wall;
+
+			int Tilex = 0;
+			int Tiley = 0;
+
+
+			for (int i = 0; i < 8; i++) {
+
+				for (int j = 0; j < 8; j++) {
+					tiles [i, j] = new Tile ();
+					tiles [i, j].xGrid = i;
+					tiles [i, j].yGrid = j;
+					tiles [i, j].worldObject = new WorldObject(); // create empty world object.
+					tiles [i, j].texture = this.tile;
+					tiles [i, j].xVisualLocation = Tilex;
+					tiles [i, j].yVisualLocation = Tiley;
+
+					tiles [i, j].exitlocationx = 2;
+					tiles [i, j].exitlocationy = 0;
+
+					if ((i == 0 || i ==  7) || ((j==0 && !(i==3 || i==4))) || ((j==7 && !(i==3 || i==4))))
+					{
+						tiles [i, j].worldObject = wall;
+						tiles [i, j].texture = null;
+					}
+				}
+
+			}
+
+			//enqueue
+			RoomExit exit = new RoomExit (tiles [3,7], true);
+			roomExit.Enqueue(exit);
+			return tiles;
+		}
+
+
+		//create the level
+		public Tile[,] generateDownwards(Tile[,] worldTiles,World world){
+
+			Random rand = new Random ();
+
+			int verticalRoomCount = rand.Next (0, 4);
+
+			Tile[,] verticalConnector = makeVerticalConnector ();
+
+			worldTiles = connectRoom (worldTiles, verticalConnector, world.roomExit.Dequeue (), false, false);
+
+			RoomExit tempexit = world.roomExit.Dequeue ();
+
+			for (int i = 0; i < verticalRoomCount; i++) {
+
+				if (i == verticalRoomCount - 1) {
+
+					Tile[,] verticalDeadEnd = makeVerticalDeadEndWithExitUp ();
+					worldTiles = connectRoom (worldTiles, verticalDeadEnd, world.roomExit.Dequeue (), false, false);
+					break;
+				}
+
+				switch (rand.Next(0,1)) {
+
+				case 0: 
+					Tile[,] verticalSquare = makeVerticalSquareroom ();
+					worldTiles = connectRoom (worldTiles, verticalSquare, world.roomExit.Dequeue (), false, false);
+					break;
+
+				default:
+					break;
+				}
+
+				verticalConnector = makeVerticalConnector ();
+
+				worldTiles = connectRoom (worldTiles, verticalConnector, world.roomExit.Dequeue (), false, false);
+
+			}
+
+			world.roomExit.Enqueue (tempexit);
+
+			return worldTiles;
+		}
+
 
 
 	}

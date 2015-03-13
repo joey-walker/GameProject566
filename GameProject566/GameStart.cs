@@ -181,7 +181,7 @@ namespace GameProject566
 				Tile[,] startingRoom = world.makeStartingRoom (player);
 
 				//place the room on the world grid.
-				worldTiles = world.PlaceRoomOnWorld (worldTiles, startingRoom, 25);
+				worldTiles = world.PlaceRoomOnWorld (worldTiles, startingRoom, 15,50);
 
                 //place initial monster on the grid
                 m1.xGridLocation = player.xGridLocation + 5;
