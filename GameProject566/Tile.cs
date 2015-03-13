@@ -12,14 +12,18 @@ namespace GameProject566
 		public int xGrid{ get; set;}
 		public int yGrid { get; set;}
 
+
 		//graphics
 		public float xVisualLocation {set; get;}
+
+		//the wall right below the entrance.
 		public float yVisualLocation {set; get;}
 
 
 		public Texture texture {set; get;}
 
-		public int entranceOffset { set; get; }
+		public int exitlocationx { set; get; }
+		public int exitlocationy { set; get; }
 
 		//World object that is on the tile
 		public WorldObject worldObject {get; set;}
@@ -29,7 +33,6 @@ namespace GameProject566
 			this.yGrid = 0;
 			this.xVisualLocation = 0;
 			this.yVisualLocation = 0;
-			this.entranceOffset = 0;
 			this.worldObject = null;
 		}
 

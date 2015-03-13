@@ -179,31 +179,23 @@ namespace GameProject566
 				Tile[,] startingRoom = world.makeStartingRoom (player);
 
 				//place the room on the world grid.
-				worldTiles = world.PlaceRoomOnWorld (worldTiles, startingRoom, 30);
+				worldTiles = world.PlaceRoomOnWorld (worldTiles, startingRoom, 15);
 
                 //place initial monster on the grid
                 m1.xGridLocation = player.xGridLocation + 5;
                 m1.yGridLocation = player.yGridLocation + 5;
                 worldTiles[m1.xGridLocation, m1.yGridLocation].worldObject = m1;
 
+
 				//create horizontal connector
 				Tile[,] horizontalConnector = world.makeHorizontalConnector ();
 
 				worldTiles = world.connectRoom (worldTiles, horizontalConnector, world.roomExit.Dequeue ());
 
-
 				Tile[,] PlusSignRoom = world.makePlusSignRoom ();
 
-				player.texture = Graphics.createTexture (device9, pback);
-				changePlayerBack = !changePlayerBack;
-				//initialize monster
 
-				m1.texture = Graphics.createTexture (device9, m1Front1);
-				changeM1Front = !changeM1Front;
-				//set initial health for player and monster
-				m1.health = player.health = 100;
-				//initialize tiles
-
+				//Connect room
 				worldTiles = world.connectRoom (worldTiles, PlusSignRoom, world.roomExit.Dequeue ());
 
 
@@ -214,11 +206,49 @@ namespace GameProject566
 
 				Tile[,] square = world.makeSquareRoom ();
 
-				worldTiles = world.connectRoom (worldTiles, square, world.roomExit.Dequeue ());
+				worldTiles = world.connectRoom (worldTiles, square, world.roomExit.Dequeue ());						
+
+				Tile[,] horizontalConnector3 = world.makeHorizontalConnector ();
+
+				worldTiles = world.connectRoom (worldTiles, horizontalConnector3, world.roomExit.Dequeue ());
 
 
-						
+				Tile[,] square2 = world.makeSquareRoom ();
 
+				worldTiles = world.connectRoom (worldTiles, square2, world.roomExit.Dequeue ());		
+
+
+				Tile[,] horizontalConnector4 = world.makeHorizontalConnector ();
+
+				worldTiles = world.connectRoom (worldTiles, horizontalConnector4, world.roomExit.Dequeue ());
+
+				Tile[,] divider = world.makeMiddleDividerRoom ();
+
+				worldTiles = world.connectRoom (worldTiles, divider, world.roomExit.Dequeue ());	
+
+
+				Tile[,] horizontalConnector5 = world.makeHorizontalConnector ();
+
+				worldTiles = world.connectRoom (worldTiles, horizontalConnector5, world.roomExit.Dequeue ());
+
+
+				Tile[,] PlusSignRoom2 = world.makePlusSignRoom ();
+
+				//Connect room
+				worldTiles = world.connectRoom (worldTiles, PlusSignRoom2, world.roomExit.Dequeue ());
+
+
+
+				player.texture = Graphics.createTexture (device9, pback);
+				changePlayerBack = !changePlayerBack;
+				//initialize monster
+
+				m1.texture = Graphics.createTexture (device9, m1Front1);
+				changeM1Front = !changeM1Front;
+				//set initial health for player and monster
+				m1.health = player.health = 100;
+
+				m1.health = 0;
 
 				//background for map
 				mapBg = Graphics.createTexture (device9, bg);
@@ -240,7 +270,7 @@ namespace GameProject566
 
 
 				//play music
-                playMusic();
+                //playMusic();
 
 
 
@@ -651,7 +681,7 @@ namespace GameProject566
                     characterY = player.yLocation;
 					player.texture = Graphics.createTexture (device9, pright);
                     m1.texture = Graphics.createTexture (device9, m1Left);
-                    //if (m1.health > 0) 
+                   
                     status = GameStatus.battleScreen;
                 }
 
@@ -795,7 +825,7 @@ namespace GameProject566
 			Graphics.disposeMainMenu ();
 			Graphics.disposeTutorial ();
 
-			music.Dispose ();
+			//music.Dispose ();
 
 			Application.Exit ();
 		}
