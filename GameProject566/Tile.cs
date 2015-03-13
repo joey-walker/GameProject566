@@ -12,22 +12,28 @@ namespace GameProject566
 		public int xGrid{ get; set;}
 		public int yGrid { get; set;}
 
+
 		//graphics
-		public float xLocation {set; get;}
-		public float yLocation {set; get;}
+		public float xVisualLocation {set; get;}
+
+		//the wall right below the entrance.
+		public float yVisualLocation {set; get;}
+
+
 		public Texture texture {set; get;}
 
-		public int entranceOffset { set; get; }
+		public int exitlocationx { set; get; }
+		public int exitlocationy { set; get; }
 
-		public WorldObject wObject {get; set;}
+		//World object that is on the tile
+		public WorldObject worldObject {get; set;}
 
 		public Tile(){
 			this.xGrid = 0;
 			this.yGrid = 0;
-			this.xLocation = 0;
-			this.yLocation = 0;
-			this.entranceOffset = 0;
-			this.wObject = null;
+			this.xVisualLocation = 0;
+			this.yVisualLocation = 0;
+			this.worldObject = null;
 		}
 
 	}

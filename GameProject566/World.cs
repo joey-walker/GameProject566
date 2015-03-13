@@ -56,16 +56,16 @@ namespace GameProject566
 					tiles [i, j] = new Tile ();
 					tiles [i, j].xGrid = i;
 					tiles [i, j].yGrid = j;
-					tiles [i, j].wObject = new WorldObject(); // create empty world object.
+					tiles [i, j].worldObject = new WorldObject(); // create empty world object.
 					tiles [i, j].texture = this.tile;
-					tiles [i, j].xLocation = Tilex;
-					tiles [i, j].yLocation = Tiley;
+					tiles [i, j].xVisualLocation = Tilex;
+					tiles [i, j].yVisualLocation = Tiley;
 					Tiley -= 60;
 
 					if ((i == 0 || i == initialRoomSize - 1) || (j == 0 || j == initialRoomSize - 1)) 
 					{
 						if ( i != initialRoomSize - 1 || (j != 6 && j != 7)) { // exit
-							tiles [i, j].wObject = wall;
+							tiles [i, j].worldObject = wall;
 							tiles [i, j].texture = null;
 						}
 
@@ -77,19 +77,17 @@ namespace GameProject566
 			}
 
 			//Hold onto room exit tiles
-			RoomExit exit = new RoomExit (tiles [initialRoomSize - 1, 6], false, 1);
+			RoomExit exit = new RoomExit (tiles [initialRoomSize - 1, 5], false);
 			roomExit.Enqueue(exit);
 
 
-			tiles [player.xGridLocation, player.yGridLocation].wObject = player;
+			tiles [player.xGridLocation, player.yGridLocation].worldObject = player;
 
 			return tiles;
 		}
 
 		//Place the room onto the world grid.
 		public Tile[,] PlaceRoomOnWorld(Tile[,] world, Tile[,] RoomToPlace, int startPosition){
-
-
 
 			//Place room.  Start at a same x,y coord location.  Then increment down the column and right accross the row filling up the room.
 			for (int i = 0; i < RoomToPlace.GetLength (0); i++) {
@@ -99,16 +97,15 @@ namespace GameProject566
 					RoomToPlace [i, j].xGrid = world [startPosition + i, startPosition + j].xGrid;
 					RoomToPlace [i, j].yGrid = world [startPosition + i, startPosition + j].yGrid;
 
-					if(RoomToPlace[i,j].wObject != null){
-						RoomToPlace [i, j].wObject.moveOnGrid (world [startPosition + i, startPosition + j].xGrid, world [startPosition + i, startPosition + j].yGrid);
+					if(RoomToPlace[i,j].worldObject != null){
+						RoomToPlace [i, j].worldObject.moveOnGrid (world [startPosition + i, startPosition + j].xGrid, world [startPosition + i, startPosition + j].yGrid);
 					}
 					
 					world [startPosition + i, startPosition + j] = RoomToPlace [i, j];
 				}
 					
 			}
-
-
+				
 
 			return world;
 		}
@@ -130,15 +127,17 @@ namespace GameProject566
 					tiles [i, j] = new Tile ();
 					tiles [i, j].xGrid = i;
 					tiles [i, j].yGrid = j;
-					tiles [i, j].wObject = new WorldObject(); // create empty world object.
+					tiles [i, j].worldObject = new WorldObject(); // create empty world object.
 					tiles [i, j].texture = this.tile;
-					tiles [i, j].xLocation = Tilex;
-					tiles [i, j].yLocation = Tiley;
+					tiles [i, j].xVisualLocation = Tilex;
+					tiles [i, j].yVisualLocation = Tiley;
 
+					tiles [i, j].exitlocationx = 0;
+					tiles [i, j].exitlocationy = 0;
 
 					if (j == 0 || j ==  3) 
 					{
-						tiles [i, j].wObject = wall;
+						tiles [i, j].worldObject = wall;
 						tiles [i, j].texture = null;
 					}
 				}
@@ -147,7 +146,7 @@ namespace GameProject566
 
 
 
-			RoomExit exit = new RoomExit (tiles [3, 3], false, 4);
+			RoomExit exit = new RoomExit (tiles [3, 0], false);
 			roomExit.Enqueue(exit);
 
 
@@ -163,11 +162,8 @@ namespace GameProject566
 
 				for (int j = 0; j < roomToConnect.GetLength (1); j++) {
 
-					if (world [exit.tileA.xGrid+ 1 + i, exit.tileA.yGrid + j - exit.ConnectorStart].wObject != null) {
+					if (world [exit.tileA.xGrid + 1 + i, exit.tileA.yGrid + j - roomToConnect[i,j].exitlocationy].worldObject != null) {
 						return world;
-					}
-					if (roomToConnect [i, j].entranceOffset != 0) {
-						exit.ConnectorStart = roomToConnect [i, j].entranceOffset;
 					}
 
 				}
@@ -181,13 +177,22 @@ namespace GameProject566
 
 				for (int j = 0; j < roomToConnect.GetLength(1); j++) {
 
+					roomToConnect [i, j].xGrid = world[exit.tileA.xGrid+ 1 + i, exit.tileA.yGrid + j - roomToConnect[i,j].exitlocationy].xGrid;
+					roomToConnect [i, j].yGrid = world[exit.tileA.xGrid+ 1 + i, exit.tileA.yGrid + j - roomToConnect[i,j].exitlocationy].yGrid;
+
+					roomToConnect [i, j].xVisualLocation = world[exit.tileA.xGrid, exit.tileA.yGrid].xVisualLocation+(60*i)+60;
+					roomToConnect [i, j].yVisualLocation = world [exit.tileA.xGrid, exit.tileA.yGrid].yVisualLocation - (60 * (j - roomToConnect[i,j].exitlocationy));
+
+
+					/*
 					roomToConnect [i, j].xGrid = world[exit.tileA.xGrid+ 1 + i, exit.tileA.yGrid + j - exit.ConnectorStart].xGrid;
 					roomToConnect [i, j].yGrid = world[exit.tileA.xGrid+ 1 + i, exit.tileA.yGrid + j - exit.ConnectorStart].yGrid;
 
-					roomToConnect [i, j].xLocation = world[exit.tileA.xGrid, exit.tileA.yGrid].xLocation+(60*i)+60;
-					roomToConnect [i, j].yLocation = world[exit.tileA.xGrid, exit.tileA.yGrid].yLocation-(60*j)+(60*(exit.ConnectorStart));
+					roomToConnect [i, j].xVisualLocation = world[exit.tileA.xGrid, exit.tileA.yGrid].xVisualLocation+(60*i)+60;
+					roomToConnect [i, j].yVisualLocation = world[exit.tileA.xGrid, exit.tileA.yGrid].yVisualLocation-(60*j)+(60*(exit.ConnectorStart));
+					*/
 
-					if(roomToConnect[i,j].wObject.texture != null){
+					if(roomToConnect[i,j].worldObject.texture != null){
 					/*	roomToConnect [i, j].wObject.moveOnGrid (world[a.tileA.xGrid+ 1 + i, a.tileA.yGrid + j - a.ConnectorStart].xGrid,
 							world[a.tileA.xGrid+ 1 + i, a.tileA.yGrid + j - a.ConnectorStart].yGrid);
 
@@ -195,7 +200,7 @@ namespace GameProject566
 							world[a.tileA.xGrid+ 1 + i, a.tileA.yGrid + j - a.ConnectorStart].yLocation-60);*/
 					}
 
-					world[exit.tileA.xGrid+ 1 + i, exit.tileA.yGrid + j - exit.ConnectorStart]= roomToConnect [i, j];
+					world[exit.tileA.xGrid+ 1 + i, exit.tileA.yGrid + j - roomToConnect[i,j].exitlocationy]= roomToConnect [i, j];
 
 				}
 
@@ -222,66 +227,68 @@ namespace GameProject566
 					tiles [i, j] = new Tile ();
 					tiles [i, j].xGrid = i;
 					tiles [i, j].yGrid = j;
-					tiles [i, j].wObject = new WorldObject(); // create empty world object.
+					tiles [i, j].worldObject = new WorldObject(); // create empty world object.
 					tiles [i, j].texture = this.tile;
-					tiles [i, j].xLocation = Tilex;
-					tiles [i, j].yLocation = Tiley;
+					tiles [i, j].xVisualLocation = Tilex;
+					tiles [i, j].yVisualLocation = Tiley;
 
+					tiles [i, j].exitlocationx = 0;
+					tiles [i, j].exitlocationy = 1;
 
 				
+
 					if((i==3 && j== 2) || (i==3 && j==4)){ //vertical centerpiece
-						tiles [i, j].wObject = wall;
+						tiles [i, j].worldObject = wall;
 						tiles [i, j].texture = null;
 					}
 
 					if ((i == 2 || i == 3 || i == 4 || i ==5) && j == 3) { //horizontal centerpiece
-						tiles [i, j].wObject = wall;
+						tiles [i, j].worldObject = wall;
 						tiles [i, j].texture = null;
 					}
 
 					if (i == 0 && !(j==2 || j==3)) { //left wall opening
-						tiles [i, j].wObject = wall;
+						tiles [i, j].worldObject = wall;
 						tiles [i, j].texture = null;
 					}
 
 
 					if (i == 7 && !(j==2 || j==3)) { //right wall opening
-						tiles [i, j].wObject = wall;
+						tiles [i, j].worldObject = wall;
 						tiles [i, j].texture = null;
 					}
 
 					if (j == 6 && !(i==3 || i==4)) { //top wall
-						tiles [i, j].wObject = wall;
+						tiles [i, j].worldObject = wall;
 						tiles [i, j].texture = null;
 					}
 
 					if (j == 0 && !(i==3 || i==4)) { //bottom wall
-						tiles [i, j].wObject = wall;
+						tiles [i, j].worldObject = wall;
 						tiles [i, j].texture = null;
 					}
 
+
+
 				}
-
-
-
+					
 			}
 
 
-			RoomExit exit = new RoomExit (tiles [7, 2], false, 1);
+			RoomExit exit = new RoomExit (tiles [7, 1], false);
 			roomExit.Enqueue(exit);
 
 
 			return tiles;
 		}
 
+		/////////////////////////////////////////////////////////
+		//Square room 
 		public Tile[,] makeSquareRoom(){
 			Tile[,] tiles = new Tile [8, 8];
 			WorldObject wall = new WorldObject ();
 			wall.health = -1;
 			wall.texture = this.wall;
-
-
-
 
 			for (int i = 0; i < 8; i++) {
 
@@ -289,18 +296,18 @@ namespace GameProject566
 					tiles [i, j] = new Tile ();
 					tiles [i, j].xGrid = i;
 					tiles [i, j].yGrid = j;
-					tiles [i, j].wObject = new WorldObject(); // create empty world object.
+					tiles [i, j].worldObject = new WorldObject(); // create empty world object.
 					tiles [i, j].texture = this.tile;
+					tiles [i, j].exitlocationx = 0;
+					tiles [i, j].exitlocationy = 2; // Always square right below lower most exit.
 
-					tiles [i, j].entranceOffset = 5;
-					//Tiley -= 60;
 
 					if ((i == 0 || i == 7) && !(j== 3 || j== 4)) {
-						tiles [i, j].wObject = wall;
+						tiles [i, j].worldObject = wall;
 						tiles [i, j].texture = null;
 					}
 					if (j == 0 || j == 7) {
-						tiles [i, j].wObject = wall;
+						tiles [i, j].worldObject = wall;
 						tiles [i, j].texture = null;
 					}
 
@@ -311,14 +318,62 @@ namespace GameProject566
 
 
 			}
-
-
-			RoomExit exit = new RoomExit (tiles [1,3], false, 2);
+				
+			RoomExit exit = new RoomExit (tiles [7,2], false);
 			roomExit.Enqueue(exit);
 
 
 			return tiles;
 		}
+
+
+		/////////////////////////////////////////////////////////
+
+		/////////////////////////////////////////////////////////
+		//middledivider room 
+		public Tile[,] makeMiddleDividerRoom(){
+			Tile[,] tiles = new Tile [7, 11];
+			WorldObject wall = new WorldObject ();
+			wall.health = -1;
+			wall.texture = this.wall;
+
+			for (int i = 0; i < 7; i++) {
+
+				for (int j = 0; j < 11; j++) {
+					tiles [i, j] = new Tile ();
+					tiles [i, j].xGrid = i;
+					tiles [i, j].yGrid = j;
+					tiles [i, j].worldObject = new WorldObject(); // create empty world object.
+					tiles [i, j].texture = this.tile;
+					tiles [i, j].exitlocationx = 0;
+					tiles [i, j].exitlocationy = 2; // Always square right below lower most exit.
+
+					//outside walls with exits
+					if (((i == 0 && !(j==3 || j==4) || (i == 6 && !(j==7 || j==8))) || (j == 0 || j == 10))){
+						tiles [i, j].worldObject = wall;
+						tiles [i, j].texture = null;
+					}
+
+					//middle divider
+					if ((i == 3) && !(j == 1 || j == 9)) {
+						tiles [i, j].worldObject = wall;
+						tiles [i, j].texture = null;
+					}
+
+
+				}
+
+			}
+
+			RoomExit exit = new RoomExit (tiles [6,6], false);
+			roomExit.Enqueue(exit);
+
+
+			return tiles;
+		}
+
+
+		/////////////////////////////////////////////////////////
 
 	}
 }
