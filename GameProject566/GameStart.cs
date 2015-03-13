@@ -34,7 +34,7 @@ namespace GameProject566
 
 
         //menu background
-        static string menuBG = "..\\..\\sprites\\background.png";
+        //static string menuBG = "..\\..\\sprites\\background.png";
         //static Texture menuBGTex
 		//background for map
 		static string bg = "..\\..\\sprites\\bg.png";
@@ -98,7 +98,7 @@ namespace GameProject566
 
 		//gets all the sprite file locations for the monster
 
-		static string monsterCharSprite = "..\\..\\sprites\\monster.png";
+		//static string monsterCharSprite = "..\\..\\sprites\\monster.png";
 
 		static string m1Front = "..\\..\\sprites\\PS_front.png";
 		static string m1Front1 = "..\\..\\sprites\\PS_front2.png";
@@ -266,7 +266,7 @@ namespace GameProject566
 				//set initial health for player and monster
 				m1.health = player.health = 100;
 
-				m1.health = 0;
+				//m1.health = 0;
 
 				//background for map
 				mapBg = Graphics.createTexture (device9, bg);
