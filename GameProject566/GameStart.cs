@@ -288,7 +288,7 @@ namespace GameProject566
 
 
 				//play music
-                //playMusic();
+               playMusic();
 
 
 
