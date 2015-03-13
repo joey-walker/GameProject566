@@ -154,7 +154,7 @@ namespace GameProject566
 		}
 
 
-		public Tile[,] connectRoom(Tile[,] world, Tile[,] roomToConnect, RoomExit exit, bool isHorizontal){
+		public Tile[,] connectRoom(Tile[,] world, Tile[,] roomToConnect, RoomExit exit, bool isHorizontal, bool UporDown){
 
 
 			//Check if any of the slots are filled in that area.
@@ -176,6 +176,7 @@ namespace GameProject566
 				for (int i = 0; i < roomToConnect.GetLength (0); i++) {
 
 					for (int j = 0; j < roomToConnect.GetLength (1); j++) {
+
 
 						roomToConnect [i, j].xGrid = world [exit.tileA.xGrid + 1 + i, exit.tileA.yGrid + j - roomToConnect [i, j].exitlocationy].xGrid;
 						roomToConnect [i, j].yGrid = world [exit.tileA.xGrid + 1 + i, exit.tileA.yGrid + j - roomToConnect [i, j].exitlocationy].yGrid;
@@ -213,7 +214,7 @@ namespace GameProject566
 					for (int j = 0; j < roomToConnect.GetLength (1); j++) {
 
 						if (world [exit.tileA.xGrid + 1 + i + roomToConnect[i,j].exitlocationx, exit.tileA.yGrid + j].worldObject != null) {
-							//return world;
+						//	return world;
 						}
 
 					}
@@ -225,13 +226,19 @@ namespace GameProject566
 				for (int i = 0; i < roomToConnect.GetLength (0); i++) {
 
 					for (int j = 0; j < roomToConnect.GetLength (1); j++) {
+						if (UporDown) {
+							roomToConnect [i, j].xGrid = world [exit.tileA.xGrid + i - roomToConnect [i, j].exitlocationx, exit.tileA.yGrid + j + 1].xGrid;
+							roomToConnect [i, j].yGrid = world [exit.tileA.xGrid + i - roomToConnect [i, j].exitlocationx, exit.tileA.yGrid + j + 1].yGrid;
 
-						roomToConnect [i, j].xGrid = world [exit.tileA.xGrid + i - roomToConnect[i,j].exitlocationx, exit.tileA.yGrid + j + 1].xGrid;
-						roomToConnect [i, j].yGrid = world [exit.tileA.xGrid + i - roomToConnect[i,j].exitlocationx, exit.tileA.yGrid + j + 1].yGrid;
+							roomToConnect [i, j].xVisualLocation = world [exit.tileA.xGrid, exit.tileA.yGrid].xVisualLocation + (60 * (i - roomToConnect [i, j].exitlocationx));
+							roomToConnect [i, j].yVisualLocation = world [exit.tileA.xGrid, exit.tileA.yGrid].yVisualLocation - (60 * j) - 60;
+						} else {
+							roomToConnect [i, j].xGrid = world [exit.tileA.xGrid + i - roomToConnect [i, j].exitlocationx, exit.tileA.yGrid - j-1].xGrid;
+							roomToConnect [i, j].yGrid = world [exit.tileA.xGrid + i - roomToConnect [i, j].exitlocationx, exit.tileA.yGrid - j -1].yGrid;
 
-						roomToConnect [i, j].xVisualLocation = world [exit.tileA.xGrid, exit.tileA.yGrid].xVisualLocation + (60 * (i - roomToConnect [i, j].exitlocationx));
-						roomToConnect [i, j].yVisualLocation = world [exit.tileA.xGrid, exit.tileA.yGrid].yVisualLocation - (60 * j ) - 60;
-
+							roomToConnect [i, j].xVisualLocation = world [exit.tileA.xGrid, exit.tileA.yGrid].xVisualLocation + (60 * (i - roomToConnect [i, j].exitlocationx));
+							roomToConnect [i, j].yVisualLocation = world [exit.tileA.xGrid, exit.tileA.yGrid].yVisualLocation + (60 * j) + 60;
+						}
 
 						if (roomToConnect [i, j].worldObject.texture != null) {
 							/*	roomToConnect [i, j].wObject.moveOnGrid (world[a.tileA.xGrid+ 1 + i, a.tileA.yGrid + j - a.ConnectorStart].xGrid,
@@ -240,9 +247,11 @@ namespace GameProject566
 						roomToConnect [i, j].wObject.moveVisually (world[a.tileA.xGrid+ 1 + i, a.tileA.yGrid + j - a.ConnectorStart].xLocation+60,
 							world[a.tileA.xGrid+ 1 + i, a.tileA.yGrid + j - a.ConnectorStart].yLocation-60);*/
 						}
-
-						world [exit.tileA.xGrid + i - roomToConnect[i,j].exitlocationx, exit.tileA.yGrid + j + 1] = roomToConnect [i, j];
-
+						if (UporDown) {
+							world [exit.tileA.xGrid + i - roomToConnect [i, j].exitlocationx, exit.tileA.yGrid + j + 1] = roomToConnect [i, j];
+						} else {
+							world [exit.tileA.xGrid + i - roomToConnect [i, j].exitlocationx, exit.tileA.yGrid - j - 1] = roomToConnect [i, j];
+						}
 					}
 
 				}
@@ -321,6 +330,9 @@ namespace GameProject566
 			RoomExit exit = new RoomExit (tiles [3,6], true);
 			roomExit.Enqueue(exit);
 
+			//bottom exit
+			exit = new RoomExit (tiles [3,0], true);
+			roomExit.Enqueue(exit);
 
 
 			//Right exit
@@ -580,12 +592,12 @@ namespace GameProject566
 
 				Tile[,] horizontalconnector = makeHorizontalConnector ();
 
-				worldTiles= connectRoom (worldTiles, horizontalconnector, world.roomExit.Dequeue(), true);
+				worldTiles= connectRoom (worldTiles, horizontalconnector, world.roomExit.Dequeue(), true, false);
 
 
 				if (i == roomCount - 1) {
 					Tile[,] endRoom = makeHorizontalEndofLevel ();
-					worldTiles = connectRoom(worldTiles, endRoom, world.roomExit.Dequeue(), true);
+					worldTiles = connectRoom(worldTiles, endRoom, world.roomExit.Dequeue(), true, false);
 					break;
 				}
 
@@ -594,32 +606,37 @@ namespace GameProject566
 
 				case 0: 
 					Tile[,] plusRoom = makePlusSignRoom ();
-					worldTiles = connectRoom (worldTiles, plusRoom, world.roomExit.Dequeue (), true);
+					worldTiles = connectRoom (worldTiles, plusRoom, world.roomExit.Dequeue (), true,false);
 
-					//Connect top segments
+					//Connect top segment
 					Tile[,] VerticalDeadEnd = makeVerticalDeadEndWithExitDown ();
-					worldTiles = connectRoom (worldTiles, VerticalDeadEnd, world.roomExit.Dequeue (), false);
+					worldTiles = connectRoom (worldTiles, VerticalDeadEnd, world.roomExit.Dequeue (), false, true);
+
+					//connect bottom segment
+					Tile[,] verticalConnector = makeVerticalConnector();
+					worldTiles = connectRoom (worldTiles, verticalConnector, world.roomExit.Dequeue (), false , false);
+
 
 					break;
 
 				case 1: 
 					Tile[,] squareRoom = makeSquareRoom ();
-					worldTiles= connectRoom (worldTiles, squareRoom, world.roomExit.Dequeue(), true);
+					worldTiles= connectRoom (worldTiles, squareRoom, world.roomExit.Dequeue(), true, false);
 					break;
 				
 				case 2: 
 					Tile[,] middleDividerRoom = makeMiddleDividerRoom ();
-					worldTiles= connectRoom (worldTiles, middleDividerRoom, world.roomExit.Dequeue(), true);
+					worldTiles= connectRoom (worldTiles, middleDividerRoom, world.roomExit.Dequeue(), true, false);
 					break;
 
 				case 3: 
 					Tile[,] xRoom = makeXRoom ();
-					worldTiles= connectRoom (worldTiles, xRoom, world.roomExit.Dequeue(), true);
+					worldTiles= connectRoom (worldTiles, xRoom, world.roomExit.Dequeue(), true , false);
 					break;
 
 				case 4: 
 					Tile[,] blockRoom = makeBlockRoom ();
-					worldTiles= connectRoom (worldTiles, blockRoom, world.roomExit.Dequeue(), true);
+					worldTiles= connectRoom (worldTiles, blockRoom, world.roomExit.Dequeue(), true, false);
 					break;
 
 				default:
@@ -698,7 +715,7 @@ namespace GameProject566
 					tiles [i, j].xVisualLocation = Tilex;
 					tiles [i, j].yVisualLocation = Tiley;
 
-					tiles [i, j].exitlocationx = 0;
+					tiles [i, j].exitlocationx = 1;
 					tiles [i, j].exitlocationy = 0;
 
 					if (i == 0 || i ==  3) 
@@ -712,8 +729,8 @@ namespace GameProject566
 
 
 
-			RoomExit exit = new RoomExit (tiles [0, 3], false);
-			roomExit.Enqueue(exit);
+			//RoomExit exit = new RoomExit (tiles [0, 3], false);
+			//roomExit.Enqueue(exit);
 
 
 			return tiles;
