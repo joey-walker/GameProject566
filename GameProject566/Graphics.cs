@@ -203,8 +203,14 @@ namespace GameProject566
 		public static void disposeMainMenu(){
 			mainMenu.Dispose ();
 			newGame.Dispose ();
+			CurrentNewGame.Dispose ();
+			newGame2.Dispose ();
 			tutorial.Dispose ();
+			CurrentTutorial.Dispose ();
+			tutorial2.Dispose ();
 			quit.Dispose ();
+			quit2.Dispose ();
+			CurrentQuit.Dispose ();
 		}
 
 		public static void disposeTutorial(){
