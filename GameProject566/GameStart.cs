@@ -131,7 +131,7 @@ namespace GameProject566
 		//grid
 		static Tile[,] worldTiles;
 
-		const int WORLDSIZE = 135;
+		const int WORLDSIZE = 150;
 		//<- Grid size
 
 		const int MAXROOMS = 8;
@@ -181,7 +181,7 @@ namespace GameProject566
 				Tile[,] startingRoom = world.makeStartingRoom (player);
 
 				//place the room on the world grid.
-				worldTiles = world.PlaceRoomOnWorld (worldTiles, startingRoom, 15);
+				worldTiles = world.PlaceRoomOnWorld (worldTiles, startingRoom, 25);
 
                 //place initial monster on the grid
                 m1.xGridLocation = player.xGridLocation + 5;
@@ -191,6 +191,7 @@ namespace GameProject566
 
 
 				worldTiles = world.generateLevel(worldTiles,world,MAXROOMS);
+
 
 				/*
 				//create horizontal connector

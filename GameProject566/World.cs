@@ -441,7 +441,7 @@ namespace GameProject566
 
 		/////////////////////////////////////////////////////////
 		//DeadEnd room 
-		public Tile[,] makeDeadEndRoom(){
+		public Tile[,] makeHorizontalDeadEndRoom(){
 			Tile[,] tiles = new Tile [8, 8];
 			WorldObject wall = new WorldObject ();
 			wall.health = -1;
@@ -534,6 +534,13 @@ namespace GameProject566
 				worldTiles= connectRoom (worldTiles, horizontalconnector, world.roomExit.Dequeue());
 
 
+				if (i == roomCount - 1) {
+					Tile[,] endRoom = makeHorizontalEndofLevel ();
+					worldTiles = connectRoom(worldTiles, endRoom, world.roomExit.Dequeue());
+					break;
+				}
+
+
 				switch (rand.Next(0,5)) {
 
 				case 0: 
@@ -569,13 +576,43 @@ namespace GameProject566
 
 			}
 
-
-
-
 			return worldTiles;
 		}
 
-		//Generated
+
+		public Tile[,] makeHorizontalEndofLevel(){
+
+			Tile[,] tiles = new Tile [10, 10];
+			WorldObject wall = new WorldObject ();
+			wall.health = -1;
+			wall.texture = this.wall;
+
+			for (int i = 0; i < 10; i++) {
+
+				for (int j = 0; j < 10; j++) {
+					tiles [i, j] = new Tile ();
+					tiles [i, j].xGrid = i;
+					tiles [i, j].yGrid = j;
+					tiles [i, j].worldObject = new WorldObject(); // create empty world object.
+					tiles [i, j].texture = this.tile;
+					tiles [i, j].exitlocationx = 0;
+					tiles [i, j].exitlocationy = 3; // Always square right below lower most exit.
+
+					//outside walls with exits
+					if (((i == 0 && !(j==4 || j==5)) || (j == 0 || j == 9) || i == 9)){
+						tiles [i, j].worldObject = wall;
+						tiles [i, j].texture = null;
+					}
+						
+				}
+
+			}
+				
+
+			return tiles;
+		}
+
 	}
+
 }
 
