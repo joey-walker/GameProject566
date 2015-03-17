@@ -9,16 +9,17 @@ namespace GameProject566
 	[TestFixture]
 	public class WorldTest
 	{
+		//Standard generate level 
 		[Test]
 		public void WTest ()
 		{
 			World world = new World ();
 			PlayerChar player = new PlayerChar ();
-			Tile[,] tiles = world.makeStartingRoom (player);
+			Tile[,] worldTiles = world.makeWorld (150);
+			Tile[,] startingTiles = world.makeStartingRoom (player);
+			worldTiles =  world.PlaceRoomOnWorld (worldTiles, startingTiles, 10, 10);
 
-			System.Console.Out.WriteLine (tiles[0,0].xGrid);
-			System.Console.Out.WriteLine (tiles[9,9].yGrid);
-			System.Console.Out.WriteLine ("end test");
+			worldTiles = world.generateLevel (worldTiles, world, 8);
 		}
 	}
 }
