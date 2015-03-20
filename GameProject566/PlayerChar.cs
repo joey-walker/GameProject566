@@ -6,6 +6,7 @@ namespace GameProject566
 {
     public class PlayerChar : WorldObject
     {
+        private inventory inv { get; set; }
         public PlayerChar()
         { }
 		public PlayerChar (Texture pTexture, float xLocation, float yLocation,int xGridLocation, int yGridLocation) : base (pTexture, xLocation, yLocation, xGridLocation,yGridLocation)
