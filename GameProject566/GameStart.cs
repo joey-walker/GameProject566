@@ -134,7 +134,7 @@ namespace GameProject566
 		const int WORLDSIZE = 150;
 		//<- Grid size
 
-		const int MAXROOMS = 8;
+		const int MAXROOMS = 7;
 
 
 		public static void Main ()
@@ -175,6 +175,7 @@ namespace GameProject566
 				//Player's initial position on the grid.
 				player.xGridLocation = 6;
 				player.yGridLocation = 5;
+
 
 
 				//Make starting room.
@@ -266,7 +267,6 @@ namespace GameProject566
 				//set initial health for player and monster
 				m1.health = player.health = 100;
 
-				//m1.health = 0;
 
 				//background for map
 				mapBg = Graphics.createTexture (device9, bg);
