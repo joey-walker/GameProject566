@@ -6,12 +6,11 @@ using System.Threading.Tasks;
 
 namespace GameProject566
 {
-    class inventory
+    public class inventory
     {
-        private List<inventoryItem> inv { set; get; }
+        public List<inventoryItem> inv { set; get; }
         public inventory()
         {
- 
         }
     }
 }

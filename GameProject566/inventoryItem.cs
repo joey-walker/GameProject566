@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace GameProject566
 {
-    class inventoryItem
+    public class inventoryItem
     {
-        private string name { set; get; }
+        public string name { set; get; }
         public inventoryItem(string name)
         {
             this.name = name;
