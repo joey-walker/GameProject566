@@ -10,6 +10,7 @@ using SlimDX.RawInput;
 using SlimDX.Multimedia;
 using SlimDX.DirectSound;
 
+using System.Collections.Generic;
 //using SlimDX.DirectInput;
 using SlimDX.XInput;
 using SlimDX.DirectInput;
@@ -73,7 +74,14 @@ namespace GameProject566
 		//object representing the player on the grid
 		static PlayerChar player = new PlayerChar (null, characterX, characterY, 0, 0);
 
-		//gets all the sprite file locations for the player
+        //characters from player's party
+        static PlayerChar char1 = new PlayerChar(null, 0, 0, 0, 0);
+        static PlayerChar char2 = new PlayerChar(null, 0, 0, 0, 0);
+
+		//arraylist for player's party
+        static List <PlayerChar> party = new List<PlayerChar>();
+        
+        //gets all the sprite file locations for the player
 		static string pback = "..\\..\\sprites\\pback.png";
 		static string pback1 = "..\\..\\sprites\\pback1.png";
 		static string pfront = "..\\..\\sprites\\pfront.png";
@@ -87,6 +95,10 @@ namespace GameProject566
 		static bool changePlayerFront = false;
 		static bool changePlayerLeft = false;
 		static bool changePlayerRight = false;
+
+        //textures for player's characters
+        static string char1Texture = "..\\..\\sprites\\test1.png";
+        static string char2Texture = "..\\..\\sprites\\test2.png";
 
 		//Sound buffer to hold onto the music.
 		static SoundBuffer music;
@@ -473,10 +485,44 @@ namespace GameProject566
 			m1.yLocation = 500;
 			m1.xLocation = 500;
 
+            char1.yLocation = 300;
+            char1.xLocation = 100;
+
+            char2.yLocation = 100;
+            char2.xLocation = 100;
+
 			sprite.Transform = Matrix.Translation (0, 0, 0);
 			sprite.Draw (battleScreen, color);
-			sprite.Transform = Matrix.Translation (player.xLocation, player.yLocation, 0);
-			sprite.Draw (player.texture, color);
+
+            if (player.health > 0)
+            {
+                sprite.Transform = Matrix.Translation(player.xLocation, player.yLocation, 0);
+                sprite.Draw(player.texture, color);
+            }
+            else
+            {
+                if (party.IndexOf(player) != -1) party.Remove(player);
+            }
+
+            if (char1.health > 0)
+            {
+                sprite.Transform = Matrix.Translation(char1.xLocation, char1.yLocation, 0);
+                sprite.Draw(char1.texture, color);
+            }
+            else
+            {
+                if (party.IndexOf(char1) != -1) party.Remove(char1);
+            }
+            if (char2.health > 0)
+            {
+                sprite.Transform = Matrix.Translation(char2.xLocation, char2.yLocation, 0);
+                sprite.Draw(char2.texture, color);
+            }
+            else
+            {
+                if (party.IndexOf(char2) != -1)
+                party.Remove(char2);
+            }
 
 
 			sprite2.Transform = Matrix.Translation (m1.xLocation, m1.yLocation, 0);
@@ -610,10 +656,23 @@ namespace GameProject566
 				//Console.WriteLine("Monster Location: " + m1.xLocation + " , " + m1.yLocation);
 				if (m.ButtonFlags == MouseButtonFlags.LeftDown && cursorX >= m1.xLocation && cursorX <= m1.xLocation + 60 && cursorY >= m1.yLocation && cursorY <= m1.yLocation + 60) {
 
-					m1.health -= player.attack (rand);
-					player.health -= m1.attack (rand);
-					Console.WriteLine ("Player: " + player.health + "\n" + "Monster: " + m1.health);
-                    if (player.health < 1)
+                    int choseChar = rand.Next(party.Count);
+                    //while 
+                    party[choseChar].health -= m1.attack(rand);
+                    /*switch (choseChar)
+                    {
+                        case 1: 
+                            player.health -= m1.attack(rand);
+                            break;
+                        case 2: 
+                            char1.health -= m1.attack(rand);
+                            break;
+                        case 3: 
+                            char2.health -= m1.attack(rand);
+                            break;
+                    }*/
+					Console.WriteLine ("Player: " + player.health + "\n" + "Monster: " + m1.health + "\nChar1: " + char1.health + "\nChar2: " + char2.health);
+                    if (player.health < 1 && char1.health < 1 && char2.health < 1)
                         status = GameStatus.lose;
                     else if (m1.health < 1)
                         status = GameStatus.map;
@@ -927,82 +986,20 @@ namespace GameProject566
             worldTiles = world.generateLevel(worldTiles, world, MAXROOMS);
 
 
-            /*
-            //create horizontal connector
-            Tile[,] horizontalConnector = world.makeHorizontalConnector ();
-
-            worldTiles = world.connectRoom (worldTiles, horizontalConnector, world.roomExit.Dequeue ());
-
-            Tile[,] PlusSignRoom = world.makePlusSignRoom ();
-
-
-            //Connect room
-            worldTiles = world.connectRoom (worldTiles, PlusSignRoom, world.roomExit.Dequeue ());
-
-
-            Tile[,] horizontalConnector2 = world.makeHorizontalConnector ();
-
-            worldTiles = world.connectRoom (worldTiles, horizontalConnector2, world.roomExit.Dequeue ());
-
-
-            Tile[,] square = world.makeSquareRoom ();
-
-            worldTiles = world.connectRoom (worldTiles, square, world.roomExit.Dequeue ());						
-
-            Tile[,] horizontalConnector3 = world.makeHorizontalConnector ();
-
-            worldTiles = world.connectRoom (worldTiles, horizontalConnector3, world.roomExit.Dequeue ());
-
-            Tile[,] divider = world.makeMiddleDividerRoom ();
-
-            worldTiles = world.connectRoom (worldTiles, divider, world.roomExit.Dequeue ());	
-
-
-            Tile[,] horizontalConnector5 = world.makeHorizontalConnector ();
-
-            worldTiles = world.connectRoom (worldTiles, horizontalConnector5, world.roomExit.Dequeue ());
-
-
-            Tile[,] PlusSignRoom2 = world.makePlusSignRoom ();
-
-            //Connect room
-            worldTiles = world.connectRoom (worldTiles, PlusSignRoom2, world.roomExit.Dequeue ());
-
-
-            Tile[,] horizontalConnector6 = world.makeHorizontalConnector ();
-
-            worldTiles = world.connectRoom (worldTiles, horizontalConnector6, world.roomExit.Dequeue ());
-
-
-            Tile[,] xRoom = world.makeXRoom ();
-
-            worldTiles = world.connectRoom (worldTiles, xRoom, world.roomExit.Dequeue ());
-
-
-            Tile[,] horizontalConnector7 = world.makeHorizontalConnector ();
-
-            worldTiles = world.connectRoom (worldTiles, horizontalConnector7, world.roomExit.Dequeue ());
-
-            Tile[,] deadEnd = world.makeDeadEndRoom ();
-
-            worldTiles = world.connectRoom (worldTiles, deadEnd, world.roomExit.Dequeue ());
-            */
-
-            //adding item to player's inventory
-            //inventoryItem i1 = new inventoryItem("magical shit");
-            //player.inv.inv.Add(i1);
-
-            //Console.WriteLine(player.inv.inv);
-
-
             player.texture = Graphics.createTexture(device9, pback);
             changePlayerBack = !changePlayerBack;
             //initialize monster
 
             m1.texture = Graphics.createTexture(device9, m1Front1);
             changeM1Front = !changeM1Front;
-            //set initial health for player and monster
-            m1.health = player.health = 100;
+
+            char1.texture = Graphics.createTexture(device9, char1Texture);
+            char2.texture = Graphics.createTexture(device9, char2Texture);
+            //set initial health for player and monster and it's party
+            m1.health = player.health = char1.health = char2.health = 100;
+            party.Add(player);
+            party.Add(char1);
+            party.Add(char2);
         }
 
         //Dispose unused
