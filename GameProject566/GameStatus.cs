@@ -10,7 +10,9 @@ namespace GameProject566
 		quit,
 		createCharacter,
 		map,
-		battleScreen
+		battleScreen,
+        win,
+        lose
 	}
 }
 

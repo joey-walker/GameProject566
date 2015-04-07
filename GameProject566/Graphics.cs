@@ -61,6 +61,24 @@ namespace GameProject566
 
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+        ////////////////////////////////////////   Final Message Screen   /////////////////////////////////////////////////
+        static string winSprite = "..\\..\\sprites\\Winner.png";
+        static string loseSprite = "..\\..\\sprites\\Loser.png";
+        static string menuButton1 = "..\\..\\sprites\\MAIN.png";
+        static string menuButton2 = "..\\..\\sprites\\MAIN_2.png";
+        static string mquit1 = "..\\..\\sprites\\mQuit.png";
+        static string mquit2 = "..\\..\\sprites\\mQuit_2.png";
+
+        static Texture winMessage;
+        static Texture loseMessage;
+        static Texture menuButtonT1;
+        static Texture menuButtonT2;
+        static Texture menuButtonT;
+        static Texture mquitT;
+        static Texture mquitT1;
+        static Texture mquitT2;
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 		public Device initializeGraphics (Form form)
 		{
 
@@ -192,11 +210,81 @@ namespace GameProject566
 			}
 		}
 
-		//  Create texture object and return it.
+        public static void switchMenuButton(bool a)
+        {
+            if (a)
+                menuButtonT = menuButtonT2;
+            else
+                menuButtonT = menuButtonT1;
+        }
+
+        public static void switchMQuitButton(bool a)
+        {
+            if (a)
+                mquitT = mquitT2;
+            else
+                mquitT = mquitT1;
+        }
+        //Render Message Screen
+        public static void renderMessage(SlimDX.Color4 color, Device device9, Sprite sprite, GameStatus status)
+        {
+            sprite.Transform = Matrix.Translation(0, 0, 0);
+            if (status == GameStatus.win)
+                sprite.Draw(winMessage, color);
+            else if (status == GameStatus.lose)
+                sprite.Draw(loseMessage, color);
+
+            //create quit button
+            sprite.Transform = Matrix.Translation(550, 460, 0);
+            sprite.Draw(mquitT, color);
+
+            //create menu button
+            sprite.Transform = Matrix.Translation(200, 460, 0);
+            sprite.Draw(menuButtonT, color);
+        }
+
+        public static void createMessageScreenTexture(Device device9)
+        {
+            winMessage = createTexture(device9, winSprite);
+            loseMessage = createTexture(device9, loseSprite);
+
+            mquitT1 = createTexture(device9, mquit1);
+            mquitT = mquitT1;
+            mquitT2 = createTexture(device9, mquit2);
+
+            menuButtonT1 = createTexture(device9, menuButton1);
+            menuButtonT = menuButtonT1;
+            menuButtonT2 = createTexture(device9, menuButton2);
+        }
+
+        public static void renderPartyWindow(SlimDX.Color4 color, Device device9, Sprite sprite)
+        {
+            sprite.Transform = Matrix.Translation(0, 0, 0);
+            sprite.Draw (mainMenu,color);
+        }
+
+        public static void disposeParty()
+        {
+            //mainMenu.Dispose(); //don't think this is necessary because main menu is already disposed
+        }
+        //  Create texture object and return it.
         public static Texture createTexture(Device device9, string textureLocation)
         {
             //Our texture
             return Texture.FromFile(device9, textureLocation);
+        }
+
+        //dispose message screen
+        public static void disposeMessageScreen()
+        {
+            winMessage.Dispose();
+            loseMessage.Dispose();
+            mquitT.Dispose();
+            mquitT1.Dispose();
+            mquitT2.Dispose();
+            menuButtonT.Dispose();
+            menuButtonT1.Dispose();
+            menuButtonT2.Dispose();
         }
 
 		//Dispose main menu textures to free up the memory.
