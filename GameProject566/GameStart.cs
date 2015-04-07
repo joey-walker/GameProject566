@@ -143,10 +143,11 @@ namespace GameProject566
 		//grid
 		static Tile[,] worldTiles;
 
-		const int WORLDSIZE = 150;
-		//<- Grid size
+		//grid size
+		const int WORLDSIZE = 160;
 
-		const int MAXROOMS = 7;
+		//number of rooms we will have, allot enough grid size to ensure no out of index errors.
+		const int MAXROOMS = 10;
 
 
 		public static void Main ()
@@ -175,6 +176,7 @@ namespace GameProject566
 				//Create our device, textures and sprites
 				device9 = graphics.initializeGraphics (form);
                 reset();
+
                 /*
 				//Intialize the world
 				World world = new World ();
@@ -208,66 +210,6 @@ namespace GameProject566
 
 
 				/*
-				//create horizontal connector
-				Tile[,] horizontalConnector = world.makeHorizontalConnector ();
-
-				worldTiles = world.connectRoom (worldTiles, horizontalConnector, world.roomExit.Dequeue ());
-
-				Tile[,] PlusSignRoom = world.makePlusSignRoom ();
-
-
-				//Connect room
-				worldTiles = world.connectRoom (worldTiles, PlusSignRoom, world.roomExit.Dequeue ());
-
-
-				Tile[,] horizontalConnector2 = world.makeHorizontalConnector ();
-
-				worldTiles = world.connectRoom (worldTiles, horizontalConnector2, world.roomExit.Dequeue ());
-
-
-				Tile[,] square = world.makeSquareRoom ();
-
-				worldTiles = world.connectRoom (worldTiles, square, world.roomExit.Dequeue ());						
-
-				Tile[,] horizontalConnector3 = world.makeHorizontalConnector ();
-
-				worldTiles = world.connectRoom (worldTiles, horizontalConnector3, world.roomExit.Dequeue ());
-
-				Tile[,] divider = world.makeMiddleDividerRoom ();
-
-				worldTiles = world.connectRoom (worldTiles, divider, world.roomExit.Dequeue ());	
-
-
-				Tile[,] horizontalConnector5 = world.makeHorizontalConnector ();
-
-				worldTiles = world.connectRoom (worldTiles, horizontalConnector5, world.roomExit.Dequeue ());
-
-
-				Tile[,] PlusSignRoom2 = world.makePlusSignRoom ();
-
-				//Connect room
-				worldTiles = world.connectRoom (worldTiles, PlusSignRoom2, world.roomExit.Dequeue ());
-
-
-				Tile[,] horizontalConnector6 = world.makeHorizontalConnector ();
-
-				worldTiles = world.connectRoom (worldTiles, horizontalConnector6, world.roomExit.Dequeue ());
-
-
-				Tile[,] xRoom = world.makeXRoom ();
-
-				worldTiles = world.connectRoom (worldTiles, xRoom, world.roomExit.Dequeue ());
-
-
-				Tile[,] horizontalConnector7 = world.makeHorizontalConnector ();
-
-				worldTiles = world.connectRoom (worldTiles, horizontalConnector7, world.roomExit.Dequeue ());
-
-				Tile[,] deadEnd = world.makeDeadEndRoom ();
-
-				worldTiles = world.connectRoom (worldTiles, deadEnd, world.roomExit.Dequeue ());
-				*/
-
                 ////adding item to player's inventory
                 ////inventoryItem i1 = new inventoryItem("magical shit");
                 ////player.inv.inv.Add(i1);
@@ -627,10 +569,11 @@ namespace GameProject566
 
             if (status == GameStatus.createCharacter)
             {
+				status = GameStatus.map;
                 if (m.ButtonFlags == MouseButtonFlags.LeftDown && cursorX >= 500 && cursorY >= 470 && cursorX <= 1000 && cursorY <= 580)
                 {
                     //reset();
-                    status = GameStatus.map;
+                    
                 }
             }
 
@@ -954,6 +897,12 @@ namespace GameProject566
 		    monster1Y = 240;
             characterX = 420;
 		    characterY = 300;
+
+			tileX = 0;
+			tileY = 0;
+
+			tileX2 = 0;
+			tileY2 = 0;
 
             //Intialize the world
             World world = new World();
