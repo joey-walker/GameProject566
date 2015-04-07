@@ -22,7 +22,8 @@ namespace GameProject566
 
         public int attack(Random rand)
         {
-            return rand.Next(0, 5);
+            return rand.Next(0, 20);
+            //return rand.Next(0, 5);
         }
 
     }
