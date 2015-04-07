@@ -285,7 +285,7 @@ namespace GameProject566
 				//m1.health = player.health = 100;
                 //*/
 
-				//background for map
+				/*//background for map
 				mapBg = Graphics.createTexture (device9, bg);
 
                 //background for menu
@@ -293,7 +293,7 @@ namespace GameProject566
 
 				sprite = new Sprite (device9);
 				sprite2 = new Sprite (device9);
-				sprite3 = new Sprite (device9);
+				sprite3 = new Sprite (device9);*/
 
 				//Gimme da keyboards
 				SlimDX.RawInput.Device.RegisterDevice (UsagePage.Generic, UsageId.Keyboard, SlimDX.RawInput.DeviceFlags.None);
@@ -304,7 +304,7 @@ namespace GameProject566
 				SlimDX.RawInput.Device.MouseInput += new EventHandler<MouseInputEventArgs> (Device_mouseInput);
 
 
-				//play music
+				/*//play music
                //playMusic();
 
 
@@ -320,14 +320,14 @@ namespace GameProject566
                 battleScreen = Graphics.createTexture(device9, battleScr);
 
                 //create message textures
-                Graphics.createMessageScreenTexture(device9);
+                Graphics.createMessageScreenTexture(device9);*/
 
 				//Application loop
 
 				MessagePump.Run (form, GameLoop);
 
 				//Dispose no longer in use objects.
-				Cleanup ();
+				Cleanup (true);
 			}
 		}
 
@@ -485,16 +485,16 @@ namespace GameProject566
 			m1.yLocation = 500;
 			m1.xLocation = 500;
 
-            char1.yLocation = 300;
+            char1.yLocation = 400;
             char1.xLocation = 100;
 
-            char2.yLocation = 100;
+            char2.yLocation = 600;
             char2.xLocation = 100;
 
 			sprite.Transform = Matrix.Translation (0, 0, 0);
 			sprite.Draw (battleScreen, color);
 
-            if (player.health > 0)
+            /*if (player.health > 0)
             {
                 sprite.Transform = Matrix.Translation(player.xLocation, player.yLocation, 0);
                 sprite.Draw(player.texture, color);
@@ -522,6 +522,11 @@ namespace GameProject566
             {
                 if (party.IndexOf(char2) != -1)
                 party.Remove(char2);
+            }*/
+            foreach (PlayerChar s in party)
+            {
+                    sprite.Transform = Matrix.Translation(s.xLocation, s.yLocation, 0);
+                    sprite.Draw(s.texture, color);
             }
 
 
@@ -616,7 +621,7 @@ namespace GameProject566
 				} else if (m.ButtonFlags == MouseButtonFlags.LeftDown && cursorX >= 500 && cursorY >= 470 && cursorX <= 1000 && cursorY <= 580) {
 					Console.WriteLine ("X Position: " + cursorX + " | Y Position: " + cursorY);
 					//Exit the game
-					Cleanup ();
+					Cleanup (true);
 				} else if (m.ButtonFlags == MouseButtonFlags.LeftDown && cursorX >= 500 && cursorY >= 360 && cursorX <= 1000 && cursorY <= 430) {
 
 					//start tutorial
@@ -659,6 +664,7 @@ namespace GameProject566
                     int choseChar = rand.Next(party.Count);
                     //while 
                     party[choseChar].health -= m1.attack(rand);
+                    if (party[choseChar].health < 1) party.Remove(party[choseChar]);
                     /*switch (choseChar)
                     {
                         case 1: 
@@ -691,6 +697,7 @@ namespace GameProject566
                     if (m.ButtonFlags == MouseButtonFlags.LeftDown)
                     {
                         status = GameStatus.mainMenu;
+                        Cleanup(false);
                         reset();
                     }
                 }
@@ -704,7 +711,7 @@ namespace GameProject566
                     Graphics.switchMQuitButton(true);
                     if (m.ButtonFlags == MouseButtonFlags.LeftDown)
                     {
-                        Cleanup();
+                        Cleanup(true);
                     }
                 }
                 else
@@ -1000,13 +1007,39 @@ namespace GameProject566
             party.Add(player);
             party.Add(char1);
             party.Add(char2);
+
+                //background for map
+				mapBg = Graphics.createTexture (device9, bg);
+
+                //background for menu
+                //menuBGTex = Graphics.createTexture(device9, menuBG)
+
+				sprite = new Sprite (device9);
+				sprite2 = new Sprite (device9);
+				sprite3 = new Sprite (device9);
+
+                //play music
+                //playMusic();
+
+
+
+                //create main menu textures
+
+                Graphics.createMainMenuTextures(device9);
+
+                //create tutorial textures
+
+                Graphics.createTutorialTextures(device9);
+
+                battleScreen = Graphics.createTexture(device9, battleScr);
+
+                //create message textures
+                Graphics.createMessageScreenTexture(device9);
         }
 
         //Dispose unused
-		private static void Cleanup ()
+		private static void Cleanup (bool exit)
 		{
-			if (device9 != null)
-				device9.Dispose ();
 
 			sprite.Dispose ();
 			sprite2.Dispose ();
@@ -1018,7 +1051,12 @@ namespace GameProject566
 
 			//music.Dispose ();
 
-			Application.Exit ();
+            if (exit)
+            {
+                Application.Exit();
+                if (device9 != null)
+                    device9.Dispose();
+            }
 		}
 			
 	}
