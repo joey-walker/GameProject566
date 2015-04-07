@@ -331,7 +331,7 @@ namespace GameProject566
 			roomExit.Enqueue(exit);
 
 			//bottom exit
-			exit = new RoomExit (tiles [3,0], true);
+			exit = new RoomExit (tiles [2,0], true);
 			roomExit.Enqueue(exit);
 
 
@@ -712,7 +712,7 @@ namespace GameProject566
 					tiles [i, j].xVisualLocation = Tilex;
 					tiles [i, j].yVisualLocation = Tiley;
 
-					tiles [i, j].exitlocationx = 1;
+					tiles [i, j].exitlocationx = 0;
 					tiles [i, j].exitlocationy = 0;
 
 					if (i == 0 || i ==  3) 
@@ -839,7 +839,7 @@ namespace GameProject566
 			}
 
 			//enqueue
-			RoomExit exit = new RoomExit (tiles [3,7], true);
+			RoomExit exit = new RoomExit (tiles [2,7], true);
 			roomExit.Enqueue(exit);
 			return tiles;
 		}
@@ -850,9 +850,10 @@ namespace GameProject566
 
 			Random rand = new Random ();
 
-			int verticalRoomCount = rand.Next (0, 4);
+			int verticalRoomCount = rand.Next (1, 5);
 
 			Tile[,] verticalConnector = makeVerticalConnector ();
+
 
 			worldTiles = connectRoom (worldTiles, verticalConnector, world.roomExit.Dequeue (), false, false);
 
@@ -867,9 +868,9 @@ namespace GameProject566
 					break;
 				}
 
-				switch (rand.Next(0,1)) {
+				switch (rand.Next(0,2)) {
 
-				case 0: 
+				case 1: 
 					Tile[,] verticalSquare = makeVerticalSquareroom ();
 					worldTiles = connectRoom (worldTiles, verticalSquare, world.roomExit.Dequeue (), false, false);
 					break;

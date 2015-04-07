@@ -131,10 +131,11 @@ namespace GameProject566
 		//grid
 		static Tile[,] worldTiles;
 
-		const int WORLDSIZE = 150;
-		//<- Grid size
+		//grid size
+		const int WORLDSIZE = 160;
 
-		const int MAXROOMS = 7;
+		//number of rooms we will have, allot enough grid size to ensure no out of index errors.
+		const int MAXROOMS = 10;
 
 
 		public static void Main ()
@@ -266,7 +267,7 @@ namespace GameProject566
 				changeM1Front = !changeM1Front;
 				//set initial health for player and monster
 				m1.health = player.health = 100;
-
+				m1.health = 0;
 
 				//background for map
 				mapBg = Graphics.createTexture (device9, bg);

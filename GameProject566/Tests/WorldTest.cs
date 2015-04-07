@@ -15,7 +15,7 @@ namespace GameProject566
 		{
 			World world = new World ();
 			PlayerChar player = new PlayerChar ();
-			Tile[,] worldTiles = world.makeWorld (150);
+			Tile[,] worldTiles = world.makeWorld (160);
 			Tile[,] startingTiles = world.makeStartingRoom (player);
 			worldTiles =  world.PlaceRoomOnWorld (worldTiles, startingTiles, 10, 10);
 
