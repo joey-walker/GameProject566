@@ -197,6 +197,45 @@ namespace GameProject566
 
 				//Create our device, textures and sprites
 				device9 = graphics.initializeGraphics (form);
+
+                //add all the characters to the character list
+                characters.Add(char1);
+                characters.Add(char2);
+                characters.Add(char3);
+                characters.Add(char4);
+                characters.Add(char5);
+                characters.Add(char6);
+                characters.Add(char7);
+                characters.Add(char8);
+                //initialize all the character's texture
+                characters = Graphics.createCharacterTextures(device9, characters);
+
+                //background for map
+                mapBg = Graphics.createTexture(device9, bg);
+
+                //background for menu
+                //menuBGTex = Graphics.createTexture(device9, menuBG)
+
+                sprite = new Sprite(device9);
+                sprite2 = new Sprite(device9);
+                sprite3 = new Sprite(device9);
+
+                //play music
+                //playMusic();
+
+
+
+                //create main menu textures
+
+                Graphics.createMainMenuTextures(device9);
+
+                //create tutorial textures
+
+                Graphics.createTutorialTextures(device9);
+
+                //create message textures
+                Graphics.createMessageScreenTexture(device9);
+
                 reset();
 
                
@@ -221,7 +260,7 @@ namespace GameProject566
 				MessagePump.Run (form, GameLoop);
 
 				//Dispose no longer in use objects.
-				Cleanup (true);
+				Cleanup ();
 			}
 		}
 
@@ -519,7 +558,7 @@ namespace GameProject566
 				} else if (m.ButtonFlags == MouseButtonFlags.LeftDown && cursorX >= 500 && cursorY >= 470 && cursorX <= 1000 && cursorY <= 580) {
 					Console.WriteLine ("X Position: " + cursorX + " | Y Position: " + cursorY);
 					//Exit the game
-					Cleanup (true);
+					Cleanup ();
 				} else if (m.ButtonFlags == MouseButtonFlags.LeftDown && cursorX >= 500 && cursorY >= 360 && cursorX <= 1000 && cursorY <= 430) {
 
 					//start tutorial
@@ -600,8 +639,8 @@ namespace GameProject566
                     else if (m1.health < 1)
                     {
                         //party[0].texture = party[0].back;
-                        status = GameStatus.map;
-                        //status = GameStatus.win;
+                        //status = GameStatus.map;
+                        status = GameStatus.win;
                     }
 				}
 			}
@@ -617,7 +656,6 @@ namespace GameProject566
                     if (m.ButtonFlags == MouseButtonFlags.LeftDown)
                     {
                         status = GameStatus.mainMenu;
-                        Cleanup(false);
                         reset();
                     }
                 }
@@ -631,7 +669,7 @@ namespace GameProject566
                     Graphics.switchMQuitButton(true);
                     if (m.ButtonFlags == MouseButtonFlags.LeftDown)
                     {
-                        Cleanup(true);
+                        Cleanup();
                     }
                 }
                 else
@@ -891,15 +929,11 @@ namespace GameProject566
             tileX2 = 0;
             tileY2 = 0;
 
-            //add all the characters to the character list
-            characters.Add(char1);
-            characters.Add(char2);
-            characters.Add(char3);
-            characters.Add(char4);
-            characters.Add(char5);
-            characters.Add(char6);
-            characters.Add(char7);
-            characters.Add(char8);
+            //reset the party
+            //characters.Clear();
+            party.Clear();
+
+
 
             //add members to the party
             //party.Add(player);
@@ -940,8 +974,6 @@ namespace GameProject566
             worldTiles = world.generateLevel(worldTiles, world, MAXROOMS);
 
 
-            //initialize all the character's texture
-            characters = Graphics.createCharacterTextures(device9, characters);
 
             //player.texture = characters[0].back; //Graphics.createTexture(device9, pback);
             //player.right = characters[0].right;//Graphics.createTexture(device9, pright);
@@ -962,41 +994,17 @@ namespace GameProject566
                 member.health = 100;
             }
 
-            //background for map
-            mapBg = Graphics.createTexture(device9, bg);
-
-            //background for menu
-            //menuBGTex = Graphics.createTexture(device9, menuBG)
-
-            sprite = new Sprite(device9);
-            sprite2 = new Sprite(device9);
-            sprite3 = new Sprite(device9);
-
-            //play music
-            //playMusic();
-
-
-
-            //create main menu textures
-
-            Graphics.createMainMenuTextures(device9);
-
-            //create tutorial textures
-
-            Graphics.createTutorialTextures(device9);
 
             battleScreen = Graphics.createTexture(device9, battleScr);
 
             //create battlescreen textures
             Graphics.createBattleScreenTextures(device9);
 
-            //create message textures
-            Graphics.createMessageScreenTexture(device9);
 
         }
 
         //Dispose unused
-		private static void Cleanup (bool exit)
+		private static void Cleanup ()
 		{
 
 			sprite.Dispose ();
@@ -1013,12 +1021,9 @@ namespace GameProject566
 
 			//music.Dispose ();
 
-            if (exit)
-            {
                 Application.Exit();
                 if (device9 != null)
                     device9.Dispose();
-            }
 		}
 			
 	}
