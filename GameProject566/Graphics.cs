@@ -79,6 +79,105 @@ namespace GameProject566
         static Texture mquitT2;
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+		////////////////////////////////////////   Characters  /////////////////////////////////////////////////
+		static string Character1Display = "..\\..\\sprites\\Characters\\Sprit1\\BIGONE.png";
+		static string Character1Back = "..\\..\\sprites\\Characters\\Sprit1\\Back.png";
+		static string Character1Front = "..\\..\\sprites\\Characters\\Sprit1\\Front.png";
+		static string Character1Left = "..\\..\\sprites\\Characters\\Sprit1\\Left_1.png";
+		static string Character1Right = "..\\..\\sprites\\Characters\\Sprit1\\Right_1.png";
+
+		static string Character2Display = "..\\..\\sprites\\Characters\\Sprit2\\BIGONE.png";
+		static string Character2Back = "..\\..\\sprites\\Characters\\Sprit2\\F7.png";
+		static string Character2Front = "..\\..\\sprites\\Characters\\Sprit2\\F5.png";
+		static string Character2Left = "..\\..\\sprites\\Characters\\Sprit2\\F1.png";
+		static string Character2Right = "..\\..\\sprites\\Characters\\Sprit2\\F3.png";
+
+		static string Character3Display = "..\\..\\sprites\\Characters\\Sprit3\\BIGONE.png";
+		static string Character3Back = "..\\..\\sprites\\Characters\\Sprit3\\F7.png";
+		static string Character3Front = "..\\..\\sprites\\Characters\\Sprit3\\F5.png";
+		static string Character3Left = "..\\..\\sprites\\Characters\\Sprit3\\F1.png";
+		static string Character3Right = "..\\..\\sprites\\Characters\\Sprit3\\F3.png";
+
+		static string Character4Display = "..\\..\\sprites\\Characters\\Sprit4\\BIGONE.png";
+		static string Character4Back = "..\\..\\sprites\\Characters\\Sprit4\\F7.png";
+		static string Character4Front = "..\\..\\sprites\\Characters\\Sprit4\\F5.png";
+		static string Character4Left = "..\\..\\sprites\\Characters\\Sprit4\\F1.png";
+		static string Character4Right = "..\\..\\sprites\\Characters\\Sprit4\\F3.png";
+
+		static string Character5Display = "..\\..\\sprites\\Characters\\Sprit5\\BIGONE.png";
+		static string Character5Back = "..\\..\\sprites\\Characters\\Sprit5\\F7.png";
+		static string Character5Front = "..\\..\\sprites\\Characters\\Sprit5\\F5.png";
+		static string Character5Left = "..\\..\\sprites\\Characters\\Sprit5\\F1.png";
+		static string Character5Right = "..\\..\\sprites\\Characters\\Sprit5\\F3.png";
+
+		static string Character6Display = "..\\..\\sprites\\Characters\\Sprit6\\BIGONE.png";
+		static string Character6Back = "..\\..\\sprites\\Characters\\Sprit6\\F7.png";
+		static string Character6Front = "..\\..\\sprites\\Characters\\Sprit6\\F5.png";
+		static string Character6Left = "..\\..\\sprites\\Characters\\Sprit6\\F1.png";
+		static string Character6Right = "..\\..\\sprites\\Characters\\Sprit6\\F3.png";
+
+		static string Character7Display = "..\\..\\sprites\\Characters\\Sprit7\\BIGONE.png";
+		static string Character7Back = "..\\..\\sprites\\Characters\\Sprit7\\F7.png";
+		static string Character7Front = "..\\..\\sprites\\Characters\\Sprit7\\F5.png";
+		static string Character7Left = "..\\..\\sprites\\Characters\\Sprit7\\F1.png";
+		static string Character7Right = "..\\..\\sprites\\Characters\\Sprit7\\F3.png";
+
+		static string Character8Display = "..\\..\\sprites\\Characters\\Sprit8\\BIGONE.png";
+		static string Character8Back = "..\\..\\sprites\\Characters\\Sprit8\\F7.png";
+		static string Character8Front = "..\\..\\sprites\\Characters\\Sprit8\\F5.png";
+		static string Character8Left = "..\\..\\sprites\\Characters\\Sprit8\\F1.png";
+		static string Character8Right = "..\\..\\sprites\\Characters\\Sprit8\\F3.png";
+
+		static Texture TCharacter1Display;
+		static Texture TCharacter1Front;
+		static Texture TCharacter1Back;
+		static Texture TCharacter1Left;
+		static Texture TCharacter1Right;
+
+		static Texture TCharacter2Display;
+		static Texture TCharacter2Front;
+		static Texture TCharacter2Back;
+		static Texture TCharacter2Left;
+		static Texture TCharacter2Right;
+
+		static Texture TCharacter3Display;
+		static Texture TCharacter3Front;
+		static Texture TCharacter3Back;
+		static Texture TCharacter3Left;
+		static Texture TCharacter3Right;
+
+		static Texture TCharacter4Display;
+		static Texture TCharacter4Front;
+		static Texture TCharacter4Back;
+		static Texture TCharacter4Left;
+		static Texture TCharacter4Right;
+
+		static Texture TCharacter5Display;
+		static Texture TCharacter5Front;
+		static Texture TCharacter5Back;
+		static Texture TCharacter5Left;
+		static Texture TCharacter5Right;
+
+		static Texture TCharacter6Display;
+		static Texture TCharacter6Front;
+		static Texture TCharacter6Back;
+		static Texture TCharacter6Left;
+		static Texture TCharacter6Right;
+
+		static Texture TCharacter7Display;
+		static Texture TCharacter7Front;
+		static Texture TCharacter7Back;
+		static Texture TCharacter7Left;
+		static Texture TCharacter7Right;
+
+		static Texture TCharacter8Display;
+		static Texture TCharacter8Front;
+		static Texture TCharacter8Back;
+		static Texture TCharacter8Left;
+		static Texture TCharacter8Right;
+		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 		public Device initializeGraphics (Form form)
 		{
 
@@ -259,9 +358,15 @@ namespace GameProject566
 
         public static void renderPartyWindow(SlimDX.Color4 color, Device device9, Sprite sprite)
         {
-            sprite.Transform = Matrix.Translation(0, 0, 0);
-            sprite.Draw (mainMenu,color);
-        }
+			device9.Clear (ClearFlags.Target, Color.Black, 1.0f, 0);
+			System.Drawing.Font font = new System.Drawing.Font (FontFamily.GenericSansSerif, 20);
+
+			SlimDX.Direct3D9.Font textDrawing = new SlimDX.Direct3D9.Font (device9,font);
+
+			sprite.Transform = Matrix.Translation(10, 10, 0);
+			textDrawing.DrawString (sprite, "Hello world", 0, 0, color);
+
+		}
 
         public static void disposeParty()
         {
@@ -309,6 +414,106 @@ namespace GameProject566
 			tutorialHome.Dispose ();
 		}
 
+		public static void createCharacterTextures(Device device9){
+			
+			TCharacter1Display = createTexture (device9, Character1Display);
+			TCharacter1Front = createTexture (device9, Character1Front);
+			TCharacter1Back = createTexture (device9, Character1Back);
+			TCharacter1Left = createTexture (device9, Character1Left);
+			TCharacter1Right = createTexture (device9, Character1Right);
+
+			TCharacter2Display = createTexture (device9, Character2Display);
+			TCharacter2Front = createTexture (device9, Character2Front);
+			TCharacter2Back = createTexture (device9, Character2Back);
+			TCharacter2Left = createTexture (device9, Character2Left);
+			TCharacter2Right = createTexture (device9, Character2Right);
+
+			TCharacter3Display = createTexture (device9, Character3Display);
+			TCharacter3Front = createTexture (device9, Character3Front);
+			TCharacter3Back = createTexture (device9, Character3Back);
+			TCharacter3Left = createTexture (device9, Character3Left);
+			TCharacter3Right = createTexture (device9, Character3Right);
+
+			TCharacter4Display = createTexture (device9, Character4Display);
+			TCharacter4Front = createTexture (device9, Character4Front);
+			TCharacter4Back = createTexture (device9, Character4Back);
+			TCharacter4Left = createTexture (device9, Character4Left);
+			TCharacter4Right = createTexture (device9, Character4Right);
+
+			TCharacter5Display = createTexture (device9, Character5Display);
+			TCharacter5Front = createTexture (device9, Character5Front);
+			TCharacter5Back = createTexture (device9, Character5Back);
+			TCharacter5Left = createTexture (device9, Character5Left);
+			TCharacter5Right = createTexture (device9, Character5Right);
+
+			TCharacter6Display = createTexture (device9, Character6Display);
+			TCharacter6Front = createTexture (device9, Character6Front);
+			TCharacter6Back = createTexture (device9, Character6Back);
+			TCharacter6Left = createTexture (device9, Character6Left);
+			TCharacter6Right = createTexture (device9, Character6Right);
+
+			TCharacter7Display = createTexture (device9, Character7Display);
+			TCharacter7Front = createTexture (device9, Character7Front);
+			TCharacter7Back = createTexture (device9, Character7Back);
+			TCharacter7Left = createTexture (device9, Character7Left);
+			TCharacter7Right = createTexture (device9, Character7Right);
+
+			TCharacter8Display = createTexture (device9, Character8Display);
+			TCharacter8Front = createTexture (device9, Character8Front);
+			TCharacter8Back = createTexture (device9, Character8Back);
+			TCharacter8Left = createTexture (device9, Character8Left);
+			TCharacter8Right = createTexture (device9, Character8Right);
+		}
+
+		public static void disposeCharacterTextures(){
+			TCharacter1Display.Dispose();
+			TCharacter1Front.Dispose ();
+			TCharacter1Back.Dispose();
+			TCharacter1Left.Dispose();
+			TCharacter1Right.Dispose();
+
+			TCharacter2Display.Dispose();
+			TCharacter2Front.Dispose ();
+			TCharacter2Back.Dispose();
+			TCharacter2Left.Dispose();
+			TCharacter2Right.Dispose();
+
+			TCharacter3Display.Dispose();
+			TCharacter3Front.Dispose ();
+			TCharacter3Back.Dispose();
+			TCharacter3Left.Dispose();
+			TCharacter3Right.Dispose();
+
+			TCharacter4Display.Dispose();
+			TCharacter4Front.Dispose ();
+			TCharacter4Back.Dispose();
+			TCharacter4Left.Dispose();
+			TCharacter4Right.Dispose();
+
+			TCharacter5Display.Dispose();
+			TCharacter5Front.Dispose ();
+			TCharacter5Back.Dispose();
+			TCharacter5Left.Dispose();
+			TCharacter5Right.Dispose();
+
+			TCharacter6Display.Dispose();
+			TCharacter6Front.Dispose ();
+			TCharacter6Back.Dispose();
+			TCharacter6Left.Dispose();
+			TCharacter6Right.Dispose();
+
+			TCharacter7Display.Dispose();
+			TCharacter7Front.Dispose ();
+			TCharacter7Back.Dispose();
+			TCharacter7Left.Dispose();
+			TCharacter7Right.Dispose();
+
+			TCharacter8Display.Dispose();
+			TCharacter8Front.Dispose ();
+			TCharacter8Back.Dispose();
+			TCharacter8Left.Dispose();
+			TCharacter8Right.Dispose();
+		}
 
 		//Method to create an icon.
 		public static Icon createIcon(){
