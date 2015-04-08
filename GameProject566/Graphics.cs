@@ -408,14 +408,24 @@ namespace GameProject566
 
 			sprite.Transform = Matrix.Translation(10, 10, 0);
 
+			//Character Appearence stuff
 			textDrawing.DrawString (sprite, "Appearance:", 0, 0, color);
 
-		
 			sprite.Transform = Matrix.Scaling(.01f,.01f,0) + Matrix.Translation(10, 100, 0);
 			sprite.Draw (TCharacterDisplayBox, color);
 			sprite.Transform = Matrix.Scaling(.8f,.8f,0) + Matrix.Translation(150, 140, 0);
 			sprite.Draw (TCharacterDisplay, color);
 
+			sprite.Transform = Matrix.Scaling(0.25f,0.25f,0) + Matrix.Translation(5, 450, 0);
+			sprite.Draw (TCharacterCreationLeftArrow,color);
+			sprite.Transform = Matrix.Scaling(0.25f,0.25f,0) + Matrix.Translation(200, 450, 0);
+			sprite.Draw (TCharacterCreationRightArrow,color);
+
+			//Move between characters
+			sprite.Transform = Matrix.Translation(-50, 600, 0);
+			sprite.Draw (TCharacterCreationLeftArrowDimmed,color);
+			sprite.Transform = Matrix.Translation(800, 600, 0);
+			sprite.Draw (TCharacterCreationRightArrow,color);
 
 		}
 

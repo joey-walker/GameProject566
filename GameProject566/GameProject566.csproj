@@ -53,6 +53,7 @@
     <Compile Include="MonsterChar.cs" />
     <Compile Include="Tests\WorldTest.cs" />
     <Compile Include="RoomExit.cs" />
+    <Compile Include="PlayerParty.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GameStart.cs" />
