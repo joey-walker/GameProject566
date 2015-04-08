@@ -21,6 +21,21 @@ namespace GameProject566
 		public int xGridLocation { set; get;}
 		public int yGridLocation { set; get;}
 
+        //texture location
+        //public string textureLocation { set; get; }
+
+        //all textures
+        public Texture right { set; get; }
+        public Texture left { set; get; }
+        public Texture front { set; get; }
+        public Texture back { set; get; }
+        public Texture right2 { set; get; }
+        public Texture left2 { set; get; }
+        public Texture front2 { set; get; }
+        public Texture back2 { set; get; }
+        public Texture att { set; get; }
+        public Texture big { set; get; }
+
         public WorldObject()
         { }
 
