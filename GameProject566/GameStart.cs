@@ -77,6 +77,11 @@ namespace GameProject566
         //characters from player's party
         static PlayerChar char1 = new PlayerChar(null, 0, 0, 0, 0);
         static PlayerChar char2 = new PlayerChar(null, 0, 0, 0, 0);
+        static PlayerChar char3 = new PlayerChar(null, 0, 0, 0, 0);
+        static PlayerChar char4 = new PlayerChar(null, 0, 0, 0, 0);
+        static PlayerChar char5 = new PlayerChar(null, 0, 0, 0, 0);
+        static PlayerChar char6 = new PlayerChar(null, 0, 0, 0, 0);
+        static PlayerChar char7 = new PlayerChar(null, 0, 0, 0, 0);
 
 		//arraylist for player's party
         static List <PlayerChar> party = new List<PlayerChar>();
@@ -97,8 +102,15 @@ namespace GameProject566
 		static bool changePlayerRight = false;
 
         //textures for player's characters
-        static string char1Texture = "..\\..\\sprites\\test1.png";
-        static string char2Texture = "..\\..\\sprites\\test2.png";
+        static string char1Texture1 = "..\\..\\sprites\\char2r2.png";
+        //static string char1Texture2 = "..\\..\\sprites\\char2att.png";
+        static string char2Texture1 = "..\\..\\sprites\\char3r2.png";
+        static string char3Texture1 = "..\\..\\sprites\\char4r2.png";
+        static string char4Texture1 = "..\\..\\sprites\\char5r2.png";
+        static string char5Texture1 = "..\\..\\sprites\\char6r2.png";
+        static string char6Texture1 = "..\\..\\sprites\\char7r2.png";
+        static string char7Texture1 = "..\\..\\sprites\\char8r2.png";
+        //static string char2Texture2 = "..\\..\\sprites\\char3att.png";
 
 		//Sound buffer to hold onto the music.
 		static SoundBuffer music;
@@ -177,65 +189,7 @@ namespace GameProject566
 				device9 = graphics.initializeGraphics (form);
                 reset();
 
-                /*
-				//Intialize the world
-				World world = new World ();
-				world.wall = Graphics.createTexture (device9, wall);
-				world.tile = Graphics.createTexture (device9, tiles);
-
-
-				//create world grid
-				worldTiles = world.makeWorld (WORLDSIZE);
-
-				//Player's initial position on the grid.
-				player.xGridLocation = 6;
-				player.yGridLocation = 5;
-
-
-
-				//Make starting room.
-				Tile[,] startingRoom = world.makeStartingRoom (player);
-
-				//place the room on the world grid.
-				worldTiles = world.PlaceRoomOnWorld (worldTiles, startingRoom, 15,50);
-
-                //place initial monster on the grid
-                m1.xGridLocation = player.xGridLocation + 5;
-                m1.yGridLocation = player.yGridLocation + 5;
-                worldTiles[m1.xGridLocation, m1.yGridLocation].worldObject = m1;
-
-
-
-				worldTiles = world.generateLevel(worldTiles,world,MAXROOMS);
-
-
-				/*
-                ////adding item to player's inventory
-                ////inventoryItem i1 = new inventoryItem("magical shit");
-                ////player.inv.inv.Add(i1);
-
-                ////Console.WriteLine(player.inv.inv);
-
-
-				//player.texture = Graphics.createTexture (device9, pback);
-				//changePlayerBack = !changePlayerBack;
-				////initialize monster
-
-				//m1.texture = Graphics.createTexture (device9, m1Front1);
-				//changeM1Front = !changeM1Front;
-				////set initial health for player and monster
-				//m1.health = player.health = 100;
-                //*/
-
-				/*//background for map
-				mapBg = Graphics.createTexture (device9, bg);
-
-                //background for menu
-                //menuBGTex = Graphics.createTexture(device9, menuBG)
-
-				sprite = new Sprite (device9);
-				sprite2 = new Sprite (device9);
-				sprite3 = new Sprite (device9);*/
+               
 
 				//Gimme da keyboards
 				SlimDX.RawInput.Device.RegisterDevice (UsagePage.Generic, UsageId.Keyboard, SlimDX.RawInput.DeviceFlags.None);
@@ -246,23 +200,6 @@ namespace GameProject566
 				SlimDX.RawInput.Device.MouseInput += new EventHandler<MouseInputEventArgs> (Device_mouseInput);
 
 
-				/*//play music
-               //playMusic();
-
-
-
-				//create main menu textures
-
-				Graphics.createMainMenuTextures (device9);
-
-				//create tutorial textures
-
-				Graphics.createTutorialTextures (device9);
-
-                battleScreen = Graphics.createTexture(device9, battleScr);
-
-                //create message textures
-                Graphics.createMessageScreenTexture(device9);*/
 
 				//Application loop
 
@@ -361,7 +298,8 @@ namespace GameProject566
 
 			//render battle screen. About to get serious now :O
 			if (status == GameStatus.battleScreen) {
-				renderBattleScreen (color);
+				//renderBattleScreen (color);
+                Graphics.renderBattleScreen(color, device9, sprite, 1, party);
 			}
 
             //render final message screen. At this point the game is over
@@ -413,70 +351,70 @@ namespace GameProject566
 		}
 
     
-		public static void renderBattleScreen (SlimDX.Color4 color)
-		{
-			/*
-             * change the player's and monster position for the battle screen
-             * save the previous screen
-             * */
-			status = GameStatus.battleScreen;
+        //public static void renderBattleScreen (SlimDX.Color4 color)
+        //{
+        //    /*
+        //     * change the player's and monster position for the battle screen
+        //     * save the previous screen
+        //     */
+        //    status = GameStatus.battleScreen;
 
-			// move characters to appropriate location on battle screen.
-			player.yLocation = 500;
-			player.xLocation = 100;
-			m1.yLocation = 500;
-			m1.xLocation = 500;
+        //    // move characters to appropriate location on battle screen.
+        //    player.yLocation = 500;
+        //    player.xLocation = 100;
+        //    m1.yLocation = 500;
+        //    m1.xLocation = 500;
 
-            char1.yLocation = 400;
-            char1.xLocation = 100;
+        //    char1.yLocation = 400;
+        //    char1.xLocation = 100;
 
-            char2.yLocation = 600;
-            char2.xLocation = 100;
+        //    char2.yLocation = 600;
+        //    char2.xLocation = 100;
 
-			sprite.Transform = Matrix.Translation (0, 0, 0);
-			sprite.Draw (battleScreen, color);
+        //    sprite.Transform = Matrix.Translation (0, 0, 0);
+        //    sprite.Draw (battleScreen, color);
 
-            /*if (player.health > 0)
-            {
-                sprite.Transform = Matrix.Translation(player.xLocation, player.yLocation, 0);
-                sprite.Draw(player.texture, color);
-            }
-            else
-            {
-                if (party.IndexOf(player) != -1) party.Remove(player);
-            }
+        //    /*if (player.health > 0)
+        //    {
+        //        sprite.Transform = Matrix.Translation(player.xLocation, player.yLocation, 0);
+        //        sprite.Draw(player.texture, color);
+        //    }
+        //    else
+        //    {
+        //        if (party.IndexOf(player) != -1) party.Remove(player);
+        //    }
 
-            if (char1.health > 0)
-            {
-                sprite.Transform = Matrix.Translation(char1.xLocation, char1.yLocation, 0);
-                sprite.Draw(char1.texture, color);
-            }
-            else
-            {
-                if (party.IndexOf(char1) != -1) party.Remove(char1);
-            }
-            if (char2.health > 0)
-            {
-                sprite.Transform = Matrix.Translation(char2.xLocation, char2.yLocation, 0);
-                sprite.Draw(char2.texture, color);
-            }
-            else
-            {
-                if (party.IndexOf(char2) != -1)
-                party.Remove(char2);
-            }*/
-            foreach (PlayerChar s in party)
-            {
-                    sprite.Transform = Matrix.Translation(s.xLocation, s.yLocation, 0);
-                    sprite.Draw(s.texture, color);
-            }
+        //    if (char1.health > 0)
+        //    {
+        //        sprite.Transform = Matrix.Translation(char1.xLocation, char1.yLocation, 0);
+        //        sprite.Draw(char1.texture, color);
+        //    }
+        //    else
+        //    {
+        //        if (party.IndexOf(char1) != -1) party.Remove(char1);
+        //    }
+        //    if (char2.health > 0)
+        //    {
+        //        sprite.Transform = Matrix.Translation(char2.xLocation, char2.yLocation, 0);
+        //        sprite.Draw(char2.texture, color);
+        //    }
+        //    else
+        //    {
+        //        if (party.IndexOf(char2) != -1)
+        //        party.Remove(char2);
+        //    }*/
+        //    foreach (PlayerChar s in party)
+        //    {
+        //            sprite.Transform = Matrix.Translation(s.xLocation, s.yLocation, 0);
+        //            sprite.Draw(s.texture, color);
+        //    }
 
 
-			sprite2.Transform = Matrix.Translation (m1.xLocation, m1.yLocation, 0);
-			sprite2.Draw (m1.texture, color);
+        //    sprite2.Transform = Matrix.Translation (m1.xLocation, m1.yLocation, 0);
+        //    sprite2.Draw (m1.texture, color);
 		
 
-		}
+        //}
 
 		private static void makeTiles (Sprite sprite, SlimDX.Color4 color)
 		{
@@ -602,25 +540,31 @@ namespace GameProject566
 			if (status == GameStatus.battleScreen) {
 				//Console.WriteLine("X Position: " + cursorX + "Y Position: " + cursorY);
 				//Console.WriteLine("Monster Location: " + m1.xLocation + " , " + m1.yLocation);
-				if (m.ButtonFlags == MouseButtonFlags.LeftDown && cursorX >= m1.xLocation && cursorX <= m1.xLocation + 60 && cursorY >= m1.yLocation && cursorY <= m1.yLocation + 60) {
+				if (m.ButtonFlags == MouseButtonFlags.LeftDown && cursorX >= 500 && cursorX <= 560 && cursorY >= 500 && cursorY <= 560) {
 
                     int choseChar = rand.Next(party.Count);
                     //while 
+                    //party[choseChar].texture = Graphics.createTexture(device9, "ss");
+
+                    if (party[choseChar] == char1) party[choseChar].texture = Graphics.switchChar1T(true, party[choseChar]);
+                    else party[choseChar].texture = Graphics.switchChar1T(false, party[choseChar]);
+                    if (party[choseChar] == char2) party[choseChar].texture = Graphics.switchChar2T(true, party[choseChar]);
+                    else party[choseChar].texture = Graphics.switchChar2T(false, party[choseChar]);
+                    if (party[choseChar] == char3) party[choseChar].texture = Graphics.switchChar3T(true, party[choseChar]);
+                    else party[choseChar].texture = Graphics.switchChar3T(false, party[choseChar]);
+                    if (party[choseChar] == char4) party[choseChar].texture = Graphics.switchChar4T(true, party[choseChar]);
+                    else party[choseChar].texture = Graphics.switchChar4T(false, party[choseChar]);
+                    if (party[choseChar] == char5) party[choseChar].texture = Graphics.switchChar5T(true, party[choseChar]);
+                    else party[choseChar].texture = Graphics.switchChar5T(false, party[choseChar]);
+                    if (party[choseChar] == char6) party[choseChar].texture = Graphics.switchChar6T(true, party[choseChar]);
+                    else party[choseChar].texture = Graphics.switchChar6T(false, party[choseChar]);
+                    if (party[choseChar] == char7) party[choseChar].texture = Graphics.switchChar7T(true, party[choseChar]);
+                    else party[choseChar].texture = Graphics.switchChar7T(false, party[choseChar]);
+
                     party[choseChar].health -= m1.attack(rand);
                     if (party[choseChar].health < 1) party.Remove(party[choseChar]);
-                    /*switch (choseChar)
-                    {
-                        case 1: 
-                            player.health -= m1.attack(rand);
-                            break;
-                        case 2: 
-                            char1.health -= m1.attack(rand);
-                            break;
-                        case 3: 
-                            char2.health -= m1.attack(rand);
-                            break;
-                    }*/
-					Console.WriteLine ("Player: " + player.health + "\n" + "Monster: " + m1.health + "\nChar1: " + char1.health + "\nChar2: " + char2.health);
+
+                    Console.WriteLine("Player: " + party[0].health + "\n" + "Monster: " + m1.health + "\nChar1: " + party[1].health + "\nChar2: " + party[2].health + "\nChar3: " + party[3].health);
                     if (player.health < 1 && char1.health < 1 && char2.health < 1)
                         status = GameStatus.lose;
                     else if (m1.health < 1)
@@ -678,9 +622,10 @@ namespace GameProject566
 				//save player's location
 				characterX = player.xLocation;
 				characterY = player.yLocation;
-				player.texture = Graphics.createTexture (device9, pright);
-				m1.texture = Graphics.createTexture (device9, m1Left);
+				//player.texture = Graphics.createTexture (device9, pright);
+				//m1.texture = Graphics.createTexture (device9, m1Left);
 
+                  
                 status = GameStatus.battleScreen;
 			}
 
@@ -763,8 +708,8 @@ namespace GameProject566
                     //save player's location
                     characterX = player.xLocation;
                     characterY = player.yLocation;
-					player.texture = Graphics.createTexture (device9, pright);
-                    m1.texture = Graphics.createTexture (device9, m1Left);
+					//player.texture = Graphics.createTexture (device9, pright);
+                    //m1.texture = Graphics.createTexture (device9, m1Left);
                    
                     status = GameStatus.battleScreen;
                 }
@@ -949,13 +894,19 @@ namespace GameProject566
             m1.texture = Graphics.createTexture(device9, m1Front1);
             changeM1Front = !changeM1Front;
 
-            char1.texture = Graphics.createTexture(device9, char1Texture);
-            char2.texture = Graphics.createTexture(device9, char2Texture);
+            char1.texture = Graphics.createTexture(device9, char1Texture1);
+            char2.texture = Graphics.createTexture(device9, char2Texture1);
+            char3.texture = Graphics.createTexture(device9, char3Texture1);
             //set initial health for player and monster and it's party
-            m1.health = player.health = char1.health = char2.health = 100;
+            m1.health = 100; //player.health = char1.health = char2.health = char3.health = 100;
             party.Add(player);
             party.Add(char1);
             party.Add(char2);
+            party.Add(char3);
+            foreach (PlayerChar member in party)
+            {
+                member.health = 100;
+            }
 
                 //background for map
 				mapBg = Graphics.createTexture (device9, bg);
@@ -982,8 +933,12 @@ namespace GameProject566
 
                 battleScreen = Graphics.createTexture(device9, battleScr);
 
+                //create battlescreen textures
+                Graphics.createBattleScreenTextures(device9);
+
                 //create message textures
                 Graphics.createMessageScreenTexture(device9);
+
         }
 
         //Dispose unused
@@ -997,7 +952,7 @@ namespace GameProject566
 			Graphics.disposeMainMenu ();
 			Graphics.disposeTutorial ();
             Graphics.disposeMessageScreen();
-
+            Graphics.disposebattle();
 			//music.Dispose ();
 
             if (exit)

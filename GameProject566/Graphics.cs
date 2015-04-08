@@ -3,6 +3,7 @@ using SlimDX.Direct3D9;
 using System.Windows.Forms;
 using SlimDX;
 using System.Drawing;
+using System.Collections.Generic;
 
 namespace GameProject566
 {
@@ -79,6 +80,71 @@ namespace GameProject566
         static Texture mquitT2;
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+        /////////////////////////////////////////    Battle Screen  //////////////////////////////////////////////////////
+        static string char1Texture1 = "..\\..\\sprites\\char2r2.png";
+        static string char1Texture2 = "..\\..\\sprites\\char2att.png";
+        static string char2Texture1 = "..\\..\\sprites\\char3r2.png";
+        static string char2Texture2 = "..\\..\\sprites\\char3att.png";
+        static string char3Texture1 = "..\\..\\sprites\\char4r2.png";
+        static string char3Texture2 = "..\\..\\sprites\\char4att.png";
+        static string char4Texture1 = "..\\..\\sprites\\char5r2.png";
+        static string char4Texture2 = "..\\..\\sprites\\char5att.png";
+        static string char5Texture1 = "..\\..\\sprites\\char6r2.png";
+        static string char5Texture2 = "..\\..\\sprites\\char6att.png";
+        static string char6Texture1 = "..\\..\\sprites\\char7r2.png";
+        static string char6Texture2 = "..\\..\\sprites\\char7att.png";
+        static string char7Texture1 = "..\\..\\sprites\\char8r2.png";
+        static string char7Texture2 = "..\\..\\sprites\\char8att.png";
+
+        static string monster = "..\\..\\sprites\\PS_left.png";
+        static Texture monsterT;
+
+        static string battlebg = "..\\..\\sprites\\battlescreen.png";
+        static string battlebg2 = "..\\..\\sprites\\battlescreen_2.png";
+        static string battlebg3 = "..\\..\\sprites\\battlescreen_3.png";
+        static string battlebg4 = "..\\..\\sprites\\battlescreen_4.png";
+
+        static Texture battlebgT;
+        static Texture battlebgT2;
+        static Texture battlebgT3;
+        static Texture battlebgT4;
+
+
+        //static Texture char1T;
+        static Texture char1T1;
+        static Texture char1T2;
+
+        //static Texture char2T;
+        static Texture char2T1;
+        static Texture char2T2;
+
+        //static Texture char3T;
+        static Texture char3T1;
+        static Texture char3T2;
+
+        //static Texture char4T;
+        static Texture char4T1;
+        static Texture char4T2;
+
+        //static Texture char5T;
+        static Texture char5T1;
+        static Texture char5T2;
+
+        //static Texture char6T;
+        static Texture char6T1;
+        static Texture char6T2;
+
+        //static Texture char7T;
+        static Texture char7T1;
+        static Texture char7T2;
+
+        static int partyXlocation;
+        static int partyYlocation;
+
+        static int monsterXlocation = 500;
+        static int monsterYlocation = 500;
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 		public Device initializeGraphics (Form form)
 		{
 
@@ -141,6 +207,162 @@ namespace GameProject566
 			CurrentQuit = quit;
 			quit2 = createTexture(device9, quitButton2);
 		}
+
+        public static void renderBattleScreen(SlimDX.Color4 color, Device device9, Sprite sprite, int level, List<PlayerChar>party)
+        {
+            /*
+             * change the player's and monster position for the battle screen
+             * save the previous screen
+             * */
+            //status = GameStatus.battleScreen;
+
+            // move characters to appropriate location on battle screen.
+            partyXlocation = 100;
+            partyYlocation = 300;
+
+
+            sprite.Transform = Matrix.Translation(0, 0, 0);
+            switch (level)
+            {
+                case 1: 
+                    sprite.Draw(battlebgT, color);
+                    break;
+                case 2:
+                    sprite.Draw(battlebgT2, color);
+                    break;
+                case 3:
+                    sprite.Draw(battlebgT3, color);
+                    break;
+                case 4:
+                    sprite.Draw(battlebgT4, color);
+                    break;
+            }
+
+            foreach (PlayerChar character in party)
+            {
+                character.xLocation = partyXlocation;
+                character.yLocation = partyYlocation;
+                partyYlocation += 100;
+                sprite.Transform = Matrix.Translation(character.xLocation, character.yLocation, 0);
+                sprite.Draw(character.texture, color);
+            }
+
+
+            sprite.Transform = Matrix.Translation(monsterXlocation, monsterYlocation, 0);
+            sprite.Draw(monsterT, color);
+
+
+        }
+
+        public static void createBattleScreenTextures(Device device9)
+        {
+            char1T1 = createTexture(device9, char1Texture1);
+            //char1T = char1T1;
+            char1T2 = createTexture(device9, char1Texture2);
+
+            char2T1 = createTexture(device9, char2Texture1);
+            //char2T = char2T1;
+            char2T2 = createTexture(device9, char2Texture2);
+
+            char3T1 = createTexture(device9, char3Texture1);
+            //char3T = char3T1;
+            char3T2 = createTexture(device9, char3Texture2);
+
+            char4T1 = createTexture(device9, char4Texture1);
+            //char4T = char4T1;
+            char4T2 = createTexture(device9, char4Texture2);
+
+            char5T1 = createTexture(device9, char5Texture1);
+            //char5T = char5T1;
+            char5T2 = createTexture(device9, char5Texture2);
+
+            char6T1 = createTexture(device9, char6Texture1);
+            //char6T = char6T1;
+            char6T2 = createTexture(device9, char6Texture2);
+
+            char7T1 = createTexture(device9, char7Texture1);
+            //char7T = char7T1;
+            char7T2 = createTexture(device9, char7Texture2);
+
+
+            monsterT = createTexture(device9, monster);
+
+            battlebgT = createTexture(device9, battlebg);
+            battlebgT2 = createTexture(device9, battlebg2);
+            battlebgT3 = createTexture(device9, battlebg3);
+            battlebgT4 = createTexture(device9, battlebg4);
+        }
+        public static Texture switchChar1T(bool a , PlayerChar c)
+        {
+            if (a)
+                c.texture = char1T2;
+            else
+                c.texture = char1T1;
+
+            return c.texture;
+        }
+
+        public static Texture switchChar2T(bool a, PlayerChar c)
+        {
+            if (a)
+                c.texture = char2T2;
+            else
+                c.texture = char2T1;
+
+            return c.texture;
+        }
+
+        public static Texture switchChar3T(bool a, PlayerChar c)
+        {
+            if (a)
+                c.texture = char3T2;
+            else
+                c.texture = char3T1;
+
+            return c.texture;
+        }
+
+        public static Texture switchChar4T(bool a, PlayerChar c)
+        {
+            if (a)
+                c.texture = char4T2;
+            else
+                c.texture = char4T1;
+
+            return c.texture;
+        }
+
+        public static Texture switchChar5T(bool a, PlayerChar c)
+        {
+            if (a)
+                c.texture = char5T2;
+            else
+                c.texture = char5T1;
+
+            return c.texture;
+        }
+
+        public static Texture switchChar6T(bool a, PlayerChar c)
+        {
+            if (a)
+                c.texture = char6T2;
+            else
+                c.texture = char6T1;
+
+            return c.texture;
+        }
+
+        public static Texture switchChar7T(bool a, PlayerChar c)
+        {
+            if (a)
+                c.texture = char7T2;
+            else
+                c.texture = char7T1;
+
+            return c.texture;
+        }
+
+       
 
 		public static void createTutorialTextures(Device device9){
 			//Sprite sprite = new Sprite (device9);
@@ -274,6 +496,39 @@ namespace GameProject566
             return Texture.FromFile(device9, textureLocation);
         }
 
+        //dispose battleScreen
+        public static void disposebattle()
+        {
+            //char1T.Dispose();
+            char1T1.Dispose();
+            char1T2.Dispose();
+            //char2T.Dispose();
+            char2T1.Dispose();
+            char2T2.Dispose();
+            //char3T.Dispose();
+            char3T1.Dispose();
+            char3T2.Dispose();
+            //char4T.Dispose();
+            char4T1.Dispose();
+            char4T2.Dispose();
+            //char5T.Dispose();
+            char5T1.Dispose();
+            char5T2.Dispose();
+            //char6T.Dispose();
+            char6T1.Dispose();
+            char6T2.Dispose();
+            //char7T.Dispose();
+            char7T1.Dispose();
+            char7T2.Dispose();
+
+            battlebgT.Dispose();
+            battlebgT2.Dispose();
+            battlebgT3.Dispose();
+            battlebgT4.Dispose();
+
+            monsterT.Dispose();
+        }
+        
         //dispose message screen
         public static void disposeMessageScreen()
         {

@@ -21,6 +21,8 @@ namespace GameProject566
 		public int xGridLocation { set; get;}
 		public int yGridLocation { set; get;}
 
+        //texture location
+        //public string textureLocation { set; get; }
         public WorldObject()
         { }
 
