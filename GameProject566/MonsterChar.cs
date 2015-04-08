@@ -7,6 +7,10 @@ namespace GameProject566
 {
     class Monsterchar : WorldObject
     {
+		public int level { get; set; }
+		public int strength { get; set; }
+		public int agility { get; set; }
+
         public Monsterchar()
         { }
 
@@ -17,13 +21,20 @@ namespace GameProject566
             this.yLocation = yLocation;
 			this.xGridLocation = xGridLocation;
 			this.yGridLocation = yGridLocation;
+			this.health = 100;
+			this.strength = 1;
+			this.agility = 1;
         }
 
+		//Give experience amount on death
+		public int giveExperience(){
+			Random rand = new Random ();
+			return this.level * rand.Next (this.level, this.level * 20);
+		}
 
         public int attack(Random rand)
         {
-            return rand.Next(0, 20);
-            //return rand.Next(0, 5);
+            return rand.Next(this.strength, this.strength * 10);
         }
 
     }

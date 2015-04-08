@@ -264,6 +264,11 @@ namespace GameProject566
                 //create message textures
                 Graphics.createMessageScreenTexture(device9);
 
+				//Create character's textures
+				Graphics.createCharacterTextures(device9);
+
+
+
 				//Application loop
 
 				MessagePump.Run (form, GameLoop);
@@ -571,7 +576,7 @@ namespace GameProject566
             {
 				//status = GameStatus.map;
 				//CREATECHAR
-
+				status = GameStatus.map;
                 if (m.ButtonFlags == MouseButtonFlags.LeftDown && cursorX >= 500 && cursorY >= 470 && cursorX <= 1000 && cursorY <= 580)
                 {
                   
@@ -966,7 +971,7 @@ namespace GameProject566
 			Graphics.disposeMainMenu ();
 			Graphics.disposeTutorial ();
             Graphics.disposeMessageScreen();
-
+			Graphics.disposeCharacterTextures ();
 			//music.Dispose ();
 
 			Application.Exit ();
