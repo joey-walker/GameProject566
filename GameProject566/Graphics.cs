@@ -259,8 +259,13 @@ namespace GameProject566
 
         public static void renderPartyWindow(SlimDX.Color4 color, Device device9, Sprite sprite)
         {
-            sprite.Transform = Matrix.Translation(0, 0, 0);
-            sprite.Draw (mainMenu,color);
+			device9.Clear (ClearFlags.Target, Color.Black, 1.0f, 0);
+			System.Drawing.Font font = new System.Drawing.Font (FontFamily.GenericSansSerif, 20);
+
+			SlimDX.Direct3D9.Font textDrawing = new SlimDX.Direct3D9.Font (device9,font);
+
+			textDrawing.DrawString (sprite, "Hello world", 40, 40, color);
+
         }
 
         public static void disposeParty()

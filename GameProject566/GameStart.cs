@@ -569,10 +569,12 @@ namespace GameProject566
 
             if (status == GameStatus.createCharacter)
             {
-				status = GameStatus.map;
+				//status = GameStatus.map;
+				//CREATECHAR
+
                 if (m.ButtonFlags == MouseButtonFlags.LeftDown && cursorX >= 500 && cursorY >= 470 && cursorX <= 1000 && cursorY <= 580)
                 {
-                    //reset();
+                  
                     
                 }
             }
