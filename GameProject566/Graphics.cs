@@ -9,6 +9,8 @@ namespace GameProject566
 	public class Graphics
 	{
 
+		static SlimDX.Direct3D9.Font textDrawing;
+
 		////////////////////////////////////////////    MAIN MENU STUFF  //////////////////////////////////////////////////
 		//location for main menu background and buttons
 		static string menuBG = "..\\..\\sprites\\background.png";
@@ -80,6 +82,7 @@ namespace GameProject566
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 		////////////////////////////////////////   Characters  /////////////////////////////////////////////////
+		/// 
 		static string Character1Display = "..\\..\\sprites\\Characters\\Sprit1\\BIGONE.png";
 		static string Character1Back = "..\\..\\sprites\\Characters\\Sprit1\\Back.png";
 		static string Character1Front = "..\\..\\sprites\\Characters\\Sprit1\\Front.png";
@@ -175,6 +178,25 @@ namespace GameProject566
 		static Texture TCharacter8Back;
 		static Texture TCharacter8Left;
 		static Texture TCharacter8Right;
+
+		static Texture TCharacterDisplay;
+		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+		////////////////////////////////////////   Character Creation Screen   /////////////////////////////////////////////////
+		static string CharacterDisplayBox = "..\\..\\sprites\\party_screen\\CharacterScreen.png";
+		//static string GrayTextBox = "..\\..\\sprites\\party_screen\\...png";
+		static string CharacterCreationLeftArrow = "..\\..\\sprites\\party_screen\\Left_1.png";
+		static string CharacterCreationLeftArrowDimmed = "..\\..\\sprites\\party_screen\\Left_2.png";
+		static string CharacterCreationRightArrow = "..\\..\\sprites\\party_screen\\Right_1.png";
+		static string CharacterCreationRightArrowDimmed = "..\\..\\sprites\\party_screen\\Right_2.png";
+
+		static Texture TCharacterDisplayBox;
+		//static Texture TGrayTextBox;
+		static Texture TCharacterCreationLeftArrow;
+		static Texture TCharacterCreationLeftArrowDimmed;
+		static Texture TCharacterCreationRightArrow;
+		static Texture TCharacterCreationRightArrowDimmed;
+
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -356,28 +378,63 @@ namespace GameProject566
             menuButtonT2 = createTexture(device9, menuButton2);
         }
 
+
+		public static void createCharacterScreenTextures(Device device9){
+
+			TCharacterDisplayBox = createTexture(device9, CharacterDisplayBox);
+			//static Texture TGrayTextBox;
+			TCharacterCreationLeftArrow = createTexture(device9, CharacterCreationLeftArrow);
+			TCharacterCreationLeftArrowDimmed = createTexture(device9, CharacterCreationLeftArrowDimmed);
+			TCharacterCreationRightArrow = createTexture(device9, CharacterCreationRightArrow);
+			TCharacterCreationRightArrowDimmed = createTexture(device9, CharacterCreationRightArrowDimmed);
+			System.Drawing.Font font = new System.Drawing.Font (FontFamily.GenericSansSerif, 20);
+			textDrawing = new SlimDX.Direct3D9.Font (device9,font);
+
+		}
+
+		public static void disposeCharacterScreenTextures(){
+			TCharacterCreationLeftArrow.Dispose ();
+			TCharacterCreationLeftArrowDimmed.Dispose ();
+			TCharacterCreationRightArrow.Dispose ();
+			TCharacterCreationRightArrowDimmed.Dispose ();
+		}
+
         public static void renderPartyWindow(SlimDX.Color4 color, Device device9, Sprite sprite)
         {
 			device9.Clear (ClearFlags.Target, Color.Black, 1.0f, 0);
-			System.Drawing.Font font = new System.Drawing.Font (FontFamily.GenericSansSerif, 20);
 
-			SlimDX.Direct3D9.Font textDrawing = new SlimDX.Direct3D9.Font (device9,font);
+
+			TCharacterDisplay = TCharacter1Display;
 
 			sprite.Transform = Matrix.Translation(10, 10, 0);
-			textDrawing.DrawString (sprite, "Hello world", 0, 0, color);
+
+			textDrawing.DrawString (sprite, "Appearance:", 0, 0, color);
+
+		
+			sprite.Transform = Matrix.Scaling(.01f,.01f,0) + Matrix.Translation(10, 100, 0);
+			sprite.Draw (TCharacterDisplayBox, color);
+			sprite.Transform = Matrix.Scaling(.8f,.8f,0) + Matrix.Translation(150, 140, 0);
+			sprite.Draw (TCharacterDisplay, color);
+
 
 		}
+
+
 
         public static void disposeParty()
         {
             //mainMenu.Dispose(); //don't think this is necessary because main menu is already disposed
         }
+
+
+
         //  Create texture object and return it.
         public static Texture createTexture(Device device9, string textureLocation)
         {
             //Our texture
             return Texture.FromFile(device9, textureLocation);
         }
+
 
         //dispose message screen
         public static void disposeMessageScreen()
@@ -406,6 +463,7 @@ namespace GameProject566
 			CurrentQuit.Dispose ();
 		}
 
+		//Dispose tutorial
 		public static void disposeTutorial(){
 			tutorialPicture1.Dispose();
 			tutorialPicture2.Dispose();
@@ -414,6 +472,7 @@ namespace GameProject566
 			tutorialHome.Dispose ();
 		}
 
+		//Create character Textures for characters on map
 		public static void createCharacterTextures(Device device9){
 			
 			TCharacter1Display = createTexture (device9, Character1Display);
@@ -464,7 +523,8 @@ namespace GameProject566
 			TCharacter8Left = createTexture (device9, Character8Left);
 			TCharacter8Right = createTexture (device9, Character8Right);
 		}
-
+			
+		//Dispose Character textures
 		public static void disposeCharacterTextures(){
 			TCharacter1Display.Dispose();
 			TCharacter1Front.Dispose ();
@@ -513,6 +573,7 @@ namespace GameProject566
 			TCharacter8Back.Dispose();
 			TCharacter8Left.Dispose();
 			TCharacter8Right.Dispose();
+
 		}
 
 		//Method to create an icon.
