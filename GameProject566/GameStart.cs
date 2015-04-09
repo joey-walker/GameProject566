@@ -1017,7 +1017,8 @@ namespace GameProject566
 
             Graphics.disposebattle();
 
-			Graphics.disposeCharacterTextures ();
+            party = Graphics.disposeCharacterTextures(party);
+			characters = Graphics.disposeCharacterTextures (characters);
 
 			//music.Dispose ();
 
