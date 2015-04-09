@@ -6,12 +6,12 @@ namespace GameProject566
 {
 	public class PlayerParty
 	{
-		public Inventory inv { get; set; }
+		public List<inventoryItem> inv { get; set; }
 		public List <PlayerChar> party { get; set; }
 		public int gold;
 		public PlayerParty ()
 		{
-			this.inv = new Inventory ();
+			this.inv = new List <inventoryItem> ();
 			this.gold = 0;
 		}
 	}
