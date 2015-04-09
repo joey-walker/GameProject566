@@ -221,7 +221,7 @@ namespace GameProject566
                 sprite3 = new Sprite(device9);
 
                 //play music
-                //playMusic();
+                playMusic();
 
 
 
@@ -1020,7 +1020,7 @@ namespace GameProject566
             party = Graphics.disposeCharacterTextures(party);
 			characters = Graphics.disposeCharacterTextures (characters);
 
-			//music.Dispose ();
+			music.Dispose ();
 
                 Application.Exit();
                 if (device9 != null)
