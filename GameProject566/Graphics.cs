@@ -242,12 +242,13 @@ namespace GameProject566
 		////////////////////////////////////////   Character Creation Screen   /////////////////////////////////////////////////
 		static string CharacterDisplayBox = "..\\..\\sprites\\party_screen\\CharacterScreen.png";
 		//static string GrayTextBox = "..\\..\\sprites\\party_screen\\...png";
-		static string CharacterCreationLeftArrow = "..\\..\\sprites\\party_screen\\Left_1.png";
-		static string CharacterCreationLeftArrowDimmed = "..\\..\\sprites\\party_screen\\Left_2.png";
-		static string CharacterCreationRightArrow = "..\\..\\sprites\\party_screen\\Right_1.png";
-		static string CharacterCreationRightArrowDimmed = "..\\..\\sprites\\party_screen\\Right_2.png";
+		static string CharacterCreationLeftArrow = "..\\..\\sprites\\party_screen\\Left_2.png";
+		static string CharacterCreationLeftArrowDimmed = "..\\..\\sprites\\party_screen\\Left_1.png";
+		static string CharacterCreationRightArrow = "..\\..\\sprites\\party_screen\\Right_2.png";
+		static string CharacterCreationRightArrowDimmed = "..\\..\\sprites\\party_screen\\Right_1.png";
 
 		static Texture TCharacterDisplayBox;
+		static Texture TCharacterAppearance; //Texture for showing appearance.
 		//static Texture TGrayTextBox;
 		static Texture TCharacterCreationLeftArrow;
 		static Texture TCharacterCreationLeftArrowDimmed;
@@ -255,12 +256,15 @@ namespace GameProject566
 		static Texture TCharacterCreationRightArrowDimmed;
 
 
-        static Texture TCharacter8Front2;
-        static Texture TCharacter8Back2;
-        static Texture TCharacter8Left2;
-        static Texture TCharacter8Right2;
-        static Texture Tchar8Att;
-        static Texture Tchar8Display;
+		//Do not touch/alter in any way shape or form.
+		static Texture TCharacter1Display;
+		static Texture TCharacter2Display;
+		static Texture TCharacter3Display;
+		static Texture TCharacter4Display;
+		static Texture TCharacter5Display;
+		static Texture TCharacter6Display;
+		static Texture TCharacter7Display;
+		static Texture TCharacter8Display;
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -548,6 +552,7 @@ namespace GameProject566
 		public static void createCharacterScreenTextures(Device device9){
 
 			TCharacterDisplayBox = createTexture(device9, CharacterDisplayBox);
+
 			//static Texture TGrayTextBox;
 			TCharacterCreationLeftArrow = createTexture(device9, CharacterCreationLeftArrow);
 			TCharacterCreationLeftArrowDimmed = createTexture(device9, CharacterCreationLeftArrowDimmed);
@@ -555,6 +560,17 @@ namespace GameProject566
 			TCharacterCreationRightArrowDimmed = createTexture(device9, CharacterCreationRightArrowDimmed);
 			System.Drawing.Font font = new System.Drawing.Font (FontFamily.GenericSansSerif, 20);
 			textDrawing = new SlimDX.Direct3D9.Font (device9,font);
+
+			TCharacter1Display = createTexture(device9, Character1Big);
+			TCharacter2Display = createTexture(device9, Character2Big);
+			TCharacter3Display = createTexture(device9, Character3Big);
+			TCharacter4Display = createTexture(device9, Character4Big);
+			TCharacter5Display = createTexture(device9, Character5Big);
+			TCharacter6Display = createTexture(device9, Character6Big);
+			TCharacter7Display = createTexture(device9, Character7Big);
+			TCharacter8Display = createTexture(device9, Character8Big);
+
+			TCharacterAppearance = TCharacter1Display;
 
 		}
 
@@ -565,12 +581,11 @@ namespace GameProject566
 			TCharacterCreationRightArrowDimmed.Dispose ();
 		}
 
-        public static void renderPartyWindow(SlimDX.Color4 color, Device device9, Sprite sprite)
+		public static void renderCharacterCreationWindow(SlimDX.Color4 color, Device device9, Sprite sprite,
+			int currentSelectedCharacter, int currentCharacterNumber, int pointsRemaining)
         {
 			device9.Clear (ClearFlags.Target, Color.Black, 1.0f, 0);
 
-
-			//TCharacterDisplay = TCharacter1Display;
 
 			sprite.Transform = Matrix.Translation(10, 10, 0);
 
@@ -579,20 +594,57 @@ namespace GameProject566
 
 			sprite.Transform = Matrix.Scaling(.01f,.01f,0) + Matrix.Translation(10, 100, 0);
 			sprite.Draw (TCharacterDisplayBox, color);
-			sprite.Transform = Matrix.Scaling(.8f,.8f,0) + Matrix.Translation(150, 140, 0);
-			//sprite.Draw (TCharacterDisplay, color);
 
-			sprite.Transform = Matrix.Scaling(0.25f,0.25f,0) + Matrix.Translation(5, 450, 0);
-			sprite.Draw (TCharacterCreationLeftArrow,color);
-			sprite.Transform = Matrix.Scaling(0.25f,0.25f,0) + Matrix.Translation(200, 450, 0);
-			sprite.Draw (TCharacterCreationRightArrow,color);
+			// Current appearence
+			sprite.Transform = Matrix.Scaling(.8f,.8f,0) + Matrix.Translation(150, 140, 0);
+			sprite.Draw (TCharacterAppearance, color);
+
+			//Which Selected character you are on
+			sprite.Transform = Matrix.Translation(110, 200, 0);
+			textDrawing.DrawString (sprite, currentSelectedCharacter + "/8", 0, 0, color);
+
+
+
+			///Visually change selected character
+			if (currentCharacterNumber > 1) {
+				sprite.Transform = Matrix.Scaling (0.25f, 0.25f, 0) + Matrix.Translation (5, 450, 0);
+				sprite.Draw (TCharacterCreationLeftArrow, color);
+			} else {
+				sprite.Transform = Matrix.Scaling (0.25f, 0.25f, 0) + Matrix.Translation (5, 450, 0);
+				sprite.Draw (TCharacterCreationLeftArrowDimmed, color);
+			}
+
+			if (currentCharacterNumber <4) {
+				sprite.Transform = Matrix.Scaling (0.25f, 0.25f, 0) + Matrix.Translation (200, 450, 0);
+				sprite.Draw (TCharacterCreationRightArrow, color);
+			} else {
+				sprite.Transform = Matrix.Scaling (0.25f, 0.25f, 0) + Matrix.Translation (200, 450, 0);
+				sprite.Draw (TCharacterCreationRightArrowDimmed, color);
+			}
+
+			////
 
 			//Move between characters
-			sprite.Transform = Matrix.Translation(-50, 600, 0);
-			sprite.Draw (TCharacterCreationLeftArrowDimmed,color);
-			sprite.Transform = Matrix.Translation(800, 600, 0);
-			sprite.Draw (TCharacterCreationRightArrow,color);
+			if (currentCharacterNumber > 1) {
+				sprite.Transform = Matrix.Translation (-50, 600, 0);
+				sprite.Draw (TCharacterCreationLeftArrow, color);
+			} else {
+				sprite.Transform = Matrix.Translation (-50, 600, 0);
+				sprite.Draw (TCharacterCreationLeftArrowDimmed, color);
+			}
 
+			if (currentCharacterNumber <4) {
+				sprite.Transform = Matrix.Translation (800, 600, 0);
+				sprite.Draw (TCharacterCreationRightArrow, color);
+			} else {
+				sprite.Transform = Matrix.Translation (800, 600, 0);
+				sprite.Draw (TCharacterCreationRightArrowDimmed, color);
+			}
+			////
+
+			//Draw remaining points:
+			sprite.Transform = Matrix.Translation(500, 100, 0);
+			textDrawing.DrawString (sprite, "Remaining Points:" + pointsRemaining, 0, 0, color);
 		}
 
 
