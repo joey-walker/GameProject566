@@ -57,19 +57,14 @@ namespace GameProject566
 		static float tileY2 = 0;
 
 
-		//battlescreen texture
-		static string battleScr = "..\\..\\sprites\\battlescreen_2.png";
-		static Texture battleScreen;
 
 
 		//fileLocation for tiles
 		static string tiles = "..\\..\\sprites\\tile1.png";
 		static string wall = "..\\..\\sprites\\Wall.png";
-		static string entryTile = "..\\..\\sprites\\entry.png";
+
 		static string exitTile = "..\\..\\sprites\\exit.png";
-		// Beginning location for monster
-		static float monster1X = 300;
-		static float monster1Y = 240;
+
 
 		//object representing the player on the grid
 		static PlayerChar player = new PlayerChar (null, characterX, characterY, 0, 0);
@@ -90,42 +85,19 @@ namespace GameProject566
 		//arraylist for player's party
         static List <PlayerChar> party = new List<PlayerChar>();
 
-		static PlayerParty playerparty;
+		static PlayerParty playerparty = new PlayerParty();
 
 
 
         //boolean to check health
         static bool isEveryoneDead = false;
 
-        //x and y grid Location
-        static int charXGridLocation = 6;
-        static int charYGridLocation = 5;
-        
-        //gets all the sprite file locations for the player
-		static string pback = "..\\..\\sprites\\pback.png";
-		static string pback1 = "..\\..\\sprites\\pback1.png";
-		static string pfront = "..\\..\\sprites\\pfront.png";
-		static string pfront1 = "..\\..\\sprites\\pfront1.png";
-		static string pleft = "..\\..\\sprites\\pleft.png";
-		static string pleft1 = "..\\..\\sprites\\pleft1.png";
-		static string pright = "..\\..\\sprites\\pright.png";
-		static string pright1 = "..\\..\\sprites\\pright1.png";
 		//Determines which way the player is facing.
 		static bool changePlayerBack = false;
 		static bool changePlayerFront = false;
 		static bool changePlayerLeft = false;
 		static bool changePlayerRight = false;
 
-        //textures for player's characters
-        static string char1Texture1 = "..\\..\\sprites\\char2r2.png";
-        //static string char1Texture2 = "..\\..\\sprites\\char2att.png";
-        static string char2Texture1 = "..\\..\\sprites\\char3r2.png";
-        static string char3Texture1 = "..\\..\\sprites\\char4r2.png";
-        static string char4Texture1 = "..\\..\\sprites\\char5r2.png";
-        static string char5Texture1 = "..\\..\\sprites\\char6r2.png";
-        static string char6Texture1 = "..\\..\\sprites\\char7r2.png";
-        static string char7Texture1 = "..\\..\\sprites\\char8r2.png";
-        //static string char2Texture2 = "..\\..\\sprites\\char3att.png";
 
 		//Sound buffer to hold onto the music.
 		static SoundBuffer music;
@@ -151,18 +123,7 @@ namespace GameProject566
         //list containing all the bosses
         static List <Monsterchar> bosses = new List<Monsterchar>();
 
-		//gets all the sprite file locations for the monster
 
-		//static string monsterCharSprite = "..\\..\\sprites\\monster.png";
-
-		/*static string m1Front = "..\\..\\sprites\\PS_front.png";
-		static string m1Front1 = "..\\..\\sprites\\PS_front2.png";
-		static string m1Back = "..\\..\\sprites\\PS_back.png";
-		static string m1Back1 = "..\\..\\sprites\\PS_back2.png";
-		static string m1Right = "..\\..\\sprites\\PS_right.png";
-		static string m1Right1 = "..\\..\\sprites\\PS_right2.png";
-		static string m1Left = "..\\..\\sprites\\PS_left.png";
-		static string m1Left1 = "..\\..\\sprites\\PS_left2.png";*/
 		//Determines which way the monster is facing.
 		static bool changeM1Back = false;
 		static bool changeM1Front = false;
@@ -203,6 +164,13 @@ namespace GameProject566
 		//Universal string builder
 		static StringBuilder builder = new StringBuilder ();
 
+        //icon
+        static Icon icon;
+
+        //sound stuff
+        static DirectSound directsound;
+        static WaveStream wave;
+
 		public static void Main ()
 		{
 			//using allows cleanup of form afterwards
@@ -221,7 +189,7 @@ namespace GameProject566
 				form.MaximizeBox = false;
 
 				//Create our icon
-				Icon icon = Graphics.createIcon ();
+				icon = Graphics.createIcon ();
 
 				//set the form's icon.
 				form.Icon = icon;
@@ -269,7 +237,7 @@ namespace GameProject566
                 sprite3 = new Sprite(device9);
 
                 //play music
-                playMusic();
+                //playMusic();
 
 
 
@@ -316,10 +284,10 @@ namespace GameProject566
         public static void playMusic()
         {
             //SOUND STUFF/////////////////
-            DirectSound directsound = new DirectSound();
+            directsound = new DirectSound();
             directsound.IsDefaultPool = false;
             directsound.SetCooperativeLevel(form.Handle, SlimDX.DirectSound.CooperativeLevel.Priority);
-            WaveStream wave = new WaveStream("..\\..\\sprites\\music1.wav");
+            wave = new WaveStream("..\\..\\sprites\\music1.wav");
 
             SoundBufferDescription description = new SoundBufferDescription();
             description.Format = wave.Format;
@@ -566,8 +534,6 @@ namespace GameProject566
 						character.big = characters [0].big;
 					}
 				}
-
-
 
 
 				switch(CurrentDisplayCharacter[currentCharacter-1]){
@@ -838,20 +804,24 @@ namespace GameProject566
                     //party[choseChar].texture = party[choseChar].att;
                     party[choseChar].health -= monsters[randomMon].attack(rand);
                     //party[0].health -= 10;
-                    foreach (PlayerChar p in party)
-                    {
-                        if (p == party[choseChar]) party[choseChar].texture = Graphics.switchBattleCharTexture(true, party[choseChar]);
-                        else p.texture = Graphics.switchBattleCharTexture(false, p);
-                    }
-                    
+
                     //assigning experience to character
-                    party[choseChar].experience += (int)(monsters[randomMon].health*1.5);
-                    
+                    //party[choseChar].experience += (int)(monsters[randomMon].health * 1.5);
+
                     //attack monster
                     monsters[randomMon].health -= party[choseChar].attack(rand);
 
                     //assign experience to character
-                    party[choseChar].experience -= (int)(monsters[randomMon].health*1.5);
+                    //party[choseChar].experience -= (int)(monsters[randomMon].health * 1.5);
+                    foreach (PlayerChar p in party)
+                    {
+                        if (p == party[choseChar]) party[choseChar].texture = Graphics.switchBattleCharTexture(true, party[choseChar]);
+                        else p.texture = Graphics.switchBattleCharTexture(false, p);
+
+                        //p.experience = party[choseChar].experience;
+                    }
+
+                    
                     
 
                     if (party[choseChar].health < 1)
@@ -880,6 +850,12 @@ namespace GameProject566
                     else if (monsters[randomMon].health < 1)
                     {
                         //party[0].texture = party[0].back;
+                        foreach (PlayerChar c in party)
+                        {
+                            c.experience += 100;
+                            c.LevelUp();
+                        }
+                        playerparty.gold += rand.Next(10,21);
                         status = GameStatus.map;
                         //status = GameStatus.win;
                     }
@@ -1181,8 +1157,6 @@ namespace GameProject566
         public static void reset()
         {
             //reset monster and character location
-            monster1X = 300;
-            monster1Y = 240;
             characterX = 420;
             characterY = 300;
 
@@ -1209,6 +1183,7 @@ namespace GameProject566
 			party.Add(new PlayerChar());
 			party.Add(new PlayerChar());
 			party.Add(new PlayerChar());
+            playerparty.party = party;
             //Intialize the world
             World world = new World();
             world.wall = Graphics.createTexture(device9, wall);
@@ -1262,7 +1237,7 @@ namespace GameProject566
             }
 
 
-            battleScreen = Graphics.createTexture(device9, battleScr);
+            //battleScreen = Graphics.createTexture(device9, battleScr);
 
             //create battlescreen textures
             Graphics.createBattleScreenTextures(device9);
@@ -1291,8 +1266,12 @@ namespace GameProject566
             bosses = Graphics.disposeCharacterTextures(bosses);
 
             Graphics.disposeCharacterScreenTextures();
-
-			music.Dispose ();
+            icon.Dispose();
+            mapBg.Dispose();
+			//music.Dispose ();
+            //directsound.Dispose();
+            //wave.Dispose();
+            
 
                 Application.Exit();
                 if (device9 != null)

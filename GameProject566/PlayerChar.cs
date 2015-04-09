@@ -52,7 +52,14 @@ namespace GameProject566
 
         public int attack(Random rand)
         {
-			return rand.Next(this.strength, this.strength + 10);
+            if (this.characterClass.Equals("Warrior"))
+                return rand.Next(this.strength, this.strength + 10);
+            else if (this.characterClass.Equals("Rogue"))
+                return rand.Next(this.agility, this.agility + 10);
+            else if (this.characterClass.Equals("Wizard"))
+                return rand.Next(this.wisdom, this.wisdom + 10);
+            else
+                return rand.Next(0, 10);
         }
 
 		//determine if we should level up

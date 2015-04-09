@@ -84,8 +84,8 @@ namespace GameProject566
 
         /////////////////////////////////////////    Battle Screen  //////////////////////////////////////////////////////
 
-        static string monster = "..\\..\\sprites\\PS_left.png";
-        static Texture monsterT;
+        //static string monster = "..\\..\\sprites\\PS_left.png";
+        //static Texture monsterT;
 
         static string battlebg = "..\\..\\sprites\\battlescreen.png";
         static string battlebg2 = "..\\..\\sprites\\battlescreen_2.png";
@@ -397,7 +397,7 @@ namespace GameProject566
 
         public static void createBattleScreenTextures(Device device9)
         {
-            monsterT = createTexture(device9, monster);
+            //monsterT = createTexture(device9, monster);
 
             battlebgT = createTexture(device9, battlebg);
             battlebgT2 = createTexture(device9, battlebg2);
@@ -763,7 +763,7 @@ namespace GameProject566
             battlebgT3.Dispose();
             battlebgT4.Dispose();
 
-            monsterT.Dispose();
+            //monsterT.Dispose();
 
             BattleScreenfont.Dispose();
             BattleTextDrawing.Dispose();
