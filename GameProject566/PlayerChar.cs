@@ -9,7 +9,7 @@ namespace GameProject566
 {
     public class PlayerChar : WorldObject
     {
-        public inventory inv { get; set; }
+        
 		public int level { get; set; }
 		public int experience { get; set; }
 		public int strength { get; set; }
