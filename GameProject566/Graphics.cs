@@ -10,6 +10,8 @@ namespace GameProject566
 	public class Graphics
 	{
 
+		static SlimDX.Direct3D9.Font textDrawing;
+
 		////////////////////////////////////////////    MAIN MENU STUFF  //////////////////////////////////////////////////
 		//location for main menu background and buttons
 		static string menuBG = "..\\..\\sprites\\background.png";
@@ -146,6 +148,7 @@ namespace GameProject566
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 		////////////////////////////////////////   Characters  /////////////////////////////////////////////////
+
 		static string Character1Big = "..\\..\\sprites\\Characters\\Sprit1\\BIGONE.png";
 		static string Character1Back = "..\\..\\sprites\\Characters\\Sprit1\\Back.png";
 		static string Character1Front = "..\\..\\sprites\\Characters\\Sprit1\\Front.png";
@@ -234,101 +237,34 @@ namespace GameProject566
         static string Character8Right2 = "..\\..\\sprites\\Characters\\Sprit8\\F4.png";
         static string Character8att = "..\\..\\sprites\\Characters\\Sprit8\\char8att.png";
 
-		/*static Texture TCharacter1Big;
-		static Texture TCharacter1Front;
-		static Texture TCharacter1Back;
-		static Texture TCharacter1Left;
-		static Texture TCharacter1Right;
-        static Texture TCharacter1Front2;
-        static Texture TCharacter1Back2;
-        static Texture TCharacter1Left2;
-        static Texture TCharacter1Right2;
-        static Texture Tchar1Att;
-        static Texture Tchar1Display;
+		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-		static Texture TCharacter2Big;
-		static Texture TCharacter2Front;
-		static Texture TCharacter2Back;
-		static Texture TCharacter2Left;
-		static Texture TCharacter2Right;
-        static Texture TCharacter2Front2;
-        static Texture TCharacter2Back2;
-        static Texture TCharacter2Left2;
-        static Texture TCharacter2Right2;
-        static Texture Tchar2Att;
-        static Texture Tchar2Display;
+		////////////////////////////////////////   Character Creation Screen   /////////////////////////////////////////////////
+		static string CharacterDisplayBox = "..\\..\\sprites\\party_screen\\CharacterScreen.png";
+		//static string GrayTextBox = "..\\..\\sprites\\party_screen\\...png";
+		static string CharacterCreationLeftArrow = "..\\..\\sprites\\party_screen\\Left_2.png";
+		static string CharacterCreationLeftArrowDimmed = "..\\..\\sprites\\party_screen\\Left_1.png";
+		static string CharacterCreationRightArrow = "..\\..\\sprites\\party_screen\\Right_2.png";
+		static string CharacterCreationRightArrowDimmed = "..\\..\\sprites\\party_screen\\Right_1.png";
 
-		static Texture TCharacter3Big;
-		static Texture TCharacter3Front;
-		static Texture TCharacter3Back;
-		static Texture TCharacter3Left;
-		static Texture TCharacter3Right;
-        static Texture TCharacter3Front2;
-        static Texture TCharacter3Back2;
-        static Texture TCharacter3Left2;
-        static Texture TCharacter3Right2;
-        static Texture Tchar3Att;
-        static Texture Tchar3Display;
+		static Texture TCharacterDisplayBox;
+		static Texture TCharacterAppearance; //Texture for showing appearance.
+		//static Texture TGrayTextBox;
+		static Texture TCharacterCreationLeftArrow;
+		static Texture TCharacterCreationLeftArrowDimmed;
+		static Texture TCharacterCreationRightArrow;
+		static Texture TCharacterCreationRightArrowDimmed;
 
-		static Texture TCharacter4Big;
-		static Texture TCharacter4Front;
-		static Texture TCharacter4Back;
-		static Texture TCharacter4Left;
-		static Texture TCharacter4Right;
-        static Texture TCharacter4Front2;
-        static Texture TCharacter4Back2;
-        static Texture TCharacter4Left2;
-        static Texture TCharacter4Right2;
-        static Texture Tchar4Att;
-        static Texture Tchar4Display;
 
-		static Texture TCharacter5Big;
-		static Texture TCharacter5Front;
-		static Texture TCharacter5Back;
-		static Texture TCharacter5Left;
-		static Texture TCharacter5Right;
-        static Texture TCharacter5Front2;
-        static Texture TCharacter5Back2;
-        static Texture TCharacter5Left2;
-        static Texture TCharacter5Right2;
-        static Texture Tchar5Att;
-        static Texture Tchar5Display;
-
-		static Texture TCharacter6Big;
-		static Texture TCharacter6Front;
-		static Texture TCharacter6Back;
-		static Texture TCharacter6Left;
-		static Texture TCharacter6Right;
-        static Texture TCharacter6Front2;
-        static Texture TCharacter6Back2;
-        static Texture TCharacter6Left2;
-        static Texture TCharacter6Right2;
-        static Texture Tchar6Att;
-        static Texture Tchar6Display;
-
-		static Texture TCharacter7Big;
-		static Texture TCharacter7Front;
-		static Texture TCharacter7Back;
-		static Texture TCharacter7Left;
-		static Texture TCharacter7Right;
-        static Texture TCharacter7Front2;
-        static Texture TCharacter7Back2;
-        static Texture TCharacter7Left2;
-        static Texture TCharacter7Right2;
-        static Texture Tchar7Att;
-        static Texture Tchar7Display;
-
-		static Texture TCharacter8Big;
-		static Texture TCharacter8Front;
-		static Texture TCharacter8Back;
-		static Texture TCharacter8Left;
-		static Texture TCharacter8Right;
-        static Texture TCharacter8Front2;
-        static Texture TCharacter8Back2;
-        static Texture TCharacter8Left2;
-        static Texture TCharacter8Right2;
-        static Texture Tchar8Att;
-        static Texture Tchar8Display;*/
+		//Do not touch/alter in any way shape or form.
+		static Texture TCharacter1Display;
+		static Texture TCharacter2Display;
+		static Texture TCharacter3Display;
+		static Texture TCharacter4Display;
+		static Texture TCharacter5Display;
+		static Texture TCharacter6Display;
+		static Texture TCharacter7Display;
+		static Texture TCharacter8Display;
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -612,28 +548,121 @@ namespace GameProject566
             menuButtonT2 = createTexture(device9, menuButton2);
         }
 
-        public static void renderPartyWindow(SlimDX.Color4 color, Device device9, Sprite sprite)
-        {
-			device9.Clear (ClearFlags.Target, Color.Black, 1.0f, 0);
+
+		public static void createCharacterScreenTextures(Device device9){
+
+			TCharacterDisplayBox = createTexture(device9, CharacterDisplayBox);
+
+			//static Texture TGrayTextBox;
+			TCharacterCreationLeftArrow = createTexture(device9, CharacterCreationLeftArrow);
+			TCharacterCreationLeftArrowDimmed = createTexture(device9, CharacterCreationLeftArrowDimmed);
+			TCharacterCreationRightArrow = createTexture(device9, CharacterCreationRightArrow);
+			TCharacterCreationRightArrowDimmed = createTexture(device9, CharacterCreationRightArrowDimmed);
 			System.Drawing.Font font = new System.Drawing.Font (FontFamily.GenericSansSerif, 20);
+			textDrawing = new SlimDX.Direct3D9.Font (device9,font);
 
-			SlimDX.Direct3D9.Font textDrawing = new SlimDX.Direct3D9.Font (device9,font);
+			TCharacter1Display = createTexture(device9, Character1Big);
+			TCharacter2Display = createTexture(device9, Character2Big);
+			TCharacter3Display = createTexture(device9, Character3Big);
+			TCharacter4Display = createTexture(device9, Character4Big);
+			TCharacter5Display = createTexture(device9, Character5Big);
+			TCharacter6Display = createTexture(device9, Character6Big);
+			TCharacter7Display = createTexture(device9, Character7Big);
+			TCharacter8Display = createTexture(device9, Character8Big);
 
-			sprite.Transform = Matrix.Translation(10, 10, 0);
-			textDrawing.DrawString (sprite, "Hello world", 0, 0, color);
+			TCharacterAppearance = TCharacter1Display;
 
 		}
+
+		public static void disposeCharacterScreenTextures(){
+			TCharacterCreationLeftArrow.Dispose ();
+			TCharacterCreationLeftArrowDimmed.Dispose ();
+			TCharacterCreationRightArrow.Dispose ();
+			TCharacterCreationRightArrowDimmed.Dispose ();
+		}
+
+		public static void renderCharacterCreationWindow(SlimDX.Color4 color, Device device9, Sprite sprite,
+			int currentSelectedCharacter, int currentCharacterNumber, int pointsRemaining)
+        {
+			device9.Clear (ClearFlags.Target, Color.Black, 1.0f, 0);
+
+
+			sprite.Transform = Matrix.Translation(10, 10, 0);
+
+			//Character Appearence stuff
+			textDrawing.DrawString (sprite, "Appearance:", 0, 0, color);
+
+			sprite.Transform = Matrix.Scaling(.01f,.01f,0) + Matrix.Translation(10, 100, 0);
+			sprite.Draw (TCharacterDisplayBox, color);
+
+			// Current appearence
+			sprite.Transform = Matrix.Scaling(.8f,.8f,0) + Matrix.Translation(150, 140, 0);
+			sprite.Draw (TCharacterAppearance, color);
+
+			//Which Selected character you are on
+			sprite.Transform = Matrix.Translation(110, 200, 0);
+			textDrawing.DrawString (sprite, currentSelectedCharacter + "/8", 0, 0, color);
+
+
+
+			///Visually change selected character
+			if (currentCharacterNumber > 1) {
+				sprite.Transform = Matrix.Scaling (0.25f, 0.25f, 0) + Matrix.Translation (5, 450, 0);
+				sprite.Draw (TCharacterCreationLeftArrow, color);
+			} else {
+				sprite.Transform = Matrix.Scaling (0.25f, 0.25f, 0) + Matrix.Translation (5, 450, 0);
+				sprite.Draw (TCharacterCreationLeftArrowDimmed, color);
+			}
+
+			if (currentCharacterNumber <4) {
+				sprite.Transform = Matrix.Scaling (0.25f, 0.25f, 0) + Matrix.Translation (200, 450, 0);
+				sprite.Draw (TCharacterCreationRightArrow, color);
+			} else {
+				sprite.Transform = Matrix.Scaling (0.25f, 0.25f, 0) + Matrix.Translation (200, 450, 0);
+				sprite.Draw (TCharacterCreationRightArrowDimmed, color);
+			}
+
+			////
+
+			//Move between characters
+			if (currentCharacterNumber > 1) {
+				sprite.Transform = Matrix.Translation (-50, 600, 0);
+				sprite.Draw (TCharacterCreationLeftArrow, color);
+			} else {
+				sprite.Transform = Matrix.Translation (-50, 600, 0);
+				sprite.Draw (TCharacterCreationLeftArrowDimmed, color);
+			}
+
+			if (currentCharacterNumber <4) {
+				sprite.Transform = Matrix.Translation (800, 600, 0);
+				sprite.Draw (TCharacterCreationRightArrow, color);
+			} else {
+				sprite.Transform = Matrix.Translation (800, 600, 0);
+				sprite.Draw (TCharacterCreationRightArrowDimmed, color);
+			}
+			////
+
+			//Draw remaining points:
+			sprite.Transform = Matrix.Translation(500, 100, 0);
+			textDrawing.DrawString (sprite, "Remaining Points:" + pointsRemaining, 0, 0, color);
+		}
+
+
 
         public static void disposeParty()
         {
             //mainMenu.Dispose(); //don't think this is necessary because main menu is already disposed
         }
+
+
+
         //  Create texture object and return it.
         public static Texture createTexture(Device device9, string textureLocation)
         {
             //Our texture
             return Texture.FromFile(device9, textureLocation);
         }
+
 
         //dispose battleScreen
         public static void disposebattle()
@@ -695,6 +724,7 @@ namespace GameProject566
 			CurrentQuit.Dispose ();
 		}
 
+		//Dispose tutorial
 		public static void disposeTutorial(){
 			tutorialPicture1.Dispose();
 			tutorialPicture2.Dispose();
@@ -702,6 +732,7 @@ namespace GameProject566
 			tutorialNext.Dispose ();
 			tutorialHome.Dispose ();
 		}
+
 
 		public static List<PlayerChar> createCharacterTextures(Device device9, List<PlayerChar> characters){
 			
@@ -805,7 +836,6 @@ namespace GameProject566
 
             return characters;
 		}
-
 		public static List<PlayerChar> disposeCharacterTextures(List<PlayerChar> party){
             foreach (PlayerChar character in party)
             {

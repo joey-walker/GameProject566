@@ -44,7 +44,6 @@
   <ItemGroup>
     <None Include="packages.config" />
     <Compile Include="GameStatus.cs" />
-    <Compile Include="inventory.cs" />
     <Compile Include="inventoryItem.cs" />
     <Compile Include="Tile.cs" />
     <Compile Include="World.cs" />
@@ -53,6 +52,7 @@
     <Compile Include="MonsterChar.cs" />
     <Compile Include="Tests\WorldTest.cs" />
     <Compile Include="RoomExit.cs" />
+    <Compile Include="PlayerParty.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GameStart.cs" />

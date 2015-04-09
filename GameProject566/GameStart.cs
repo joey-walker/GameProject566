@@ -34,9 +34,6 @@ namespace GameProject566
 		//static Texture tiles;
 
 
-        //menu background
-        //static string menuBG = "..\\..\\sprites\\background.png";
-        //static Texture menuBGTex
 		//background for map
 		static string bg = "..\\..\\sprites\\bg.png";
 		static Texture mapBg;
@@ -89,6 +86,11 @@ namespace GameProject566
 
 		//arraylist for player's party
         static List <PlayerChar> party = new List<PlayerChar>();
+
+		static PlayerParty playerparty;
+
+
+
         //boolean to check health
         static bool isEveryoneDead = false;
 
@@ -172,6 +174,12 @@ namespace GameProject566
 		const int MAXROOMS = 10;
 
 
+		//Character creation to determine the current selection. Max 4
+		static int CurrentDisplayCharacter = 1;
+		static int currentCharacter = 1;
+		static int[] pointsRemainingforCharacter = new int[4] {10, 10, 10, 10};
+		//
+
 		public static void Main ()
 		{
 			//using allows cleanup of form afterwards
@@ -253,7 +261,8 @@ namespace GameProject566
 				//Create character's textures
 				//Graphics.createCharacterTextures(device9);
 
-
+				//Create characterScreen textures
+				Graphics.createCharacterScreenTextures(device9);
 
 				//Application loop
 
@@ -336,7 +345,8 @@ namespace GameProject566
             //change to party screen
             if (status == GameStatus.createCharacter)
             {
-                Graphics.renderPartyWindow(color, device9, sprite);
+				Graphics.renderCharacterCreationWindow(color, device9, sprite,
+					CurrentDisplayCharacter,currentCharacter,pointsRemainingforCharacter[currentCharacter]);
             }
 
 			//Change to the game map.
@@ -406,72 +416,6 @@ namespace GameProject566
 			}
 	
 		}
-
-    
-        //public static void renderBattleScreen (SlimDX.Color4 color)
-        //{
-        //    /*
-        //     * change the player's and monster position for the battle screen
-        //     * save the previous screen
-        //     */
-        //    status = GameStatus.battleScreen;
-
-        //    // move characters to appropriate location on battle screen.
-        //    player.yLocation = 500;
-        //    player.xLocation = 100;
-        //    m1.yLocation = 500;
-        //    m1.xLocation = 500;
-
-        //    char1.yLocation = 400;
-        //    char1.xLocation = 100;
-
-        //    char2.yLocation = 600;
-        //    char2.xLocation = 100;
-
-        //    sprite.Transform = Matrix.Translation (0, 0, 0);
-        //    sprite.Draw (battleScreen, color);
-
-        //    /*if (player.health > 0)
-        //    {
-        //        sprite.Transform = Matrix.Translation(player.xLocation, player.yLocation, 0);
-        //        sprite.Draw(player.texture, color);
-        //    }
-        //    else
-        //    {
-        //        if (party.IndexOf(player) != -1) party.Remove(player);
-        //    }
-
-        //    if (char1.health > 0)
-        //    {
-        //        sprite.Transform = Matrix.Translation(char1.xLocation, char1.yLocation, 0);
-        //        sprite.Draw(char1.texture, color);
-        //    }
-        //    else
-        //    {
-        //        if (party.IndexOf(char1) != -1) party.Remove(char1);
-        //    }
-        //    if (char2.health > 0)
-        //    {
-        //        sprite.Transform = Matrix.Translation(char2.xLocation, char2.yLocation, 0);
-        //        sprite.Draw(char2.texture, color);
-        //    }
-        //    else
-        //    {
-        //        if (party.IndexOf(char2) != -1)
-        //        party.Remove(char2);
-        //    }*/
-        //    foreach (PlayerChar s in party)
-        //    {
-        //            sprite.Transform = Matrix.Translation(s.xLocation, s.yLocation, 0);
-        //            sprite.Draw(s.texture, color);
-        //    }
-
-
-        //    sprite2.Transform = Matrix.Translation (m1.xLocation, m1.yLocation, 0);
-        //    sprite2.Draw (m1.texture, color);
-		
-
-        //}
 
 		private static void makeTiles (Sprite sprite, SlimDX.Color4 color)
 		{
@@ -569,9 +513,8 @@ namespace GameProject566
 
             if (status == GameStatus.createCharacter)
             {
-				//status = GameStatus.map;
-				//CREATECHAR
 				status = GameStatus.map;
+				//CREATECHAR
                 if (m.ButtonFlags == MouseButtonFlags.LeftDown && cursorX >= 500 && cursorY >= 470 && cursorX <= 1000 && cursorY <= 580)
                 {
                   
