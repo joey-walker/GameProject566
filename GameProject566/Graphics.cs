@@ -205,7 +205,7 @@ namespace GameProject566
 
 		////////////////////////////////////////   Character Creation Screen   /////////////////////////////////////////////////
 		static string CharacterDisplayBox = "..\\..\\sprites\\party_screen\\CharacterScreen.png";
-		//static string GrayTextBox = "..\\..\\sprites\\party_screen\\...png";
+		static string TextBox = "..\\..\\sprites\\party_screen\\TextBox.png";
 		static string CharacterCreationLeftArrow = "..\\..\\sprites\\party_screen\\Left_2.png";
 		static string CharacterCreationLeftArrowDimmed = "..\\..\\sprites\\party_screen\\Left_1.png";
 		static string CharacterCreationRightArrow = "..\\..\\sprites\\party_screen\\Right_2.png";
@@ -229,6 +229,7 @@ namespace GameProject566
 		static Texture TCharacter6Display;
 		static Texture TCharacter7Display;
 		static Texture TCharacter8Display;
+		static Texture TTextBox;
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -517,6 +518,7 @@ namespace GameProject566
 			TCharacter6Display = createTexture(device9, Character6Big);
 			TCharacter7Display = createTexture(device9, Character7Big);
 			TCharacter8Display = createTexture(device9, Character8Big);
+			TTextBox = createTexture (device9, TextBox);
 
 			TCharacterAppearance = TCharacter1Display;
 
@@ -527,34 +529,49 @@ namespace GameProject566
 			TCharacterCreationLeftArrowDimmed.Dispose ();
 			TCharacterCreationRightArrow.Dispose ();
 			TCharacterCreationRightArrowDimmed.Dispose ();
+
+			TCharacter1Display.Dispose ();
+			TCharacter2Display.Dispose ();
+			TCharacter3Display.Dispose ();
+			TCharacter4Display.Dispose ();
+			TCharacter5Display.Dispose ();
+			TCharacter6Display.Dispose ();
+			TCharacter7Display.Dispose ();
+			TCharacter8Display.Dispose ();
+			TTextBox.Dispose ();
+			textDrawing.Dispose ();
 		}
 
 		public static void renderCharacterCreationWindow(SlimDX.Color4 color, Device device9, Sprite sprite,
-			int currentSelectedCharacter, int currentCharacterNumber, int pointsRemaining)
+			int currentSelectedCharacterAppearence, int currentCharacterNumber, int pointsRemaining, PlayerChar currentCharacter)
         {
 			device9.Clear (ClearFlags.Target, Color.Black, 1.0f, 0);
 
 
-			sprite.Transform = Matrix.Translation(10, 10, 0);
+			sprite.Transform = Matrix.Translation(62, 10, 0);
 
 			//Character Appearence stuff
-			textDrawing.DrawString (sprite, "Appearance:", 0, 0, color);
+			textDrawing.DrawString (sprite, "Appearance", 0, 0, color);
 
 			sprite.Transform = Matrix.Scaling(.01f,.01f,0) + Matrix.Translation(10, 100, 0);
 			sprite.Draw (TCharacterDisplayBox, color);
 
 			// Current appearence
+
 			sprite.Transform = Matrix.Scaling(.8f,.8f,0) + Matrix.Translation(150, 140, 0);
-			sprite.Draw (TCharacterAppearance, color);
+			sprite.Draw (currentCharacter.big, color);
 
-			//Which Selected character you are on
+			//Which Selected character appearence you are on
 			sprite.Transform = Matrix.Translation(110, 200, 0);
-			textDrawing.DrawString (sprite, currentSelectedCharacter + "/8", 0, 0, color);
+			textDrawing.DrawString (sprite, currentSelectedCharacterAppearence + "/8", 0, 0, color);
 
+			//Which Selected character  you are on
+			sprite.Transform = Matrix.Scaling(2f,2f,0) + Matrix.Translation(720, 1280, 0);
+			textDrawing.DrawString (sprite, "Character " + currentCharacterNumber + " of 4", 0, 0, color);
 
 
 			///Visually change selected character
-			if (currentCharacterNumber > 1) {
+			if (currentSelectedCharacterAppearence > 1) {
 				sprite.Transform = Matrix.Scaling (0.25f, 0.25f, 0) + Matrix.Translation (5, 450, 0);
 				sprite.Draw (TCharacterCreationLeftArrow, color);
 			} else {
@@ -562,7 +579,7 @@ namespace GameProject566
 				sprite.Draw (TCharacterCreationLeftArrowDimmed, color);
 			}
 
-			if (currentCharacterNumber <4) {
+			if (currentSelectedCharacterAppearence < 8) {
 				sprite.Transform = Matrix.Scaling (0.25f, 0.25f, 0) + Matrix.Translation (200, 450, 0);
 				sprite.Draw (TCharacterCreationRightArrow, color);
 			} else {
@@ -580,19 +597,102 @@ namespace GameProject566
 				sprite.Transform = Matrix.Translation (-50, 600, 0);
 				sprite.Draw (TCharacterCreationLeftArrowDimmed, color);
 			}
-
-			if (currentCharacterNumber <4) {
+				
 				sprite.Transform = Matrix.Translation (800, 600, 0);
 				sprite.Draw (TCharacterCreationRightArrow, color);
-			} else {
-				sprite.Transform = Matrix.Translation (800, 600, 0);
-				sprite.Draw (TCharacterCreationRightArrowDimmed, color);
-			}
-			////
+
+			//Draw name text and box
+			/// 
+			sprite.Transform = Matrix.Translation(400, 50, 0);
+			textDrawing.DrawString (sprite, "Character Name:", 0, 0, color);
+
+			sprite.Transform = Matrix.Scaling (3f, 3f, 0) + Matrix.Translation(1250, 70, 0);
+			sprite.Draw (TTextBox, color);
+
+			//draw name
+			sprite.Transform = Matrix.Translation(650, 50, 0);
+			textDrawing.DrawString (sprite, currentCharacter.name, 0, 0, color);
+
 
 			//Draw remaining points:
-			sprite.Transform = Matrix.Translation(500, 100, 0);
+			sprite.Transform = Matrix.Translation(500, 150, 0);
 			textDrawing.DrawString (sprite, "Remaining Points:" + pointsRemaining, 0, 0, color);
+
+			//Draw attributes:
+			if(currentCharacter.characterClass.Equals("Warrior")){
+				sprite.Transform = Matrix.Translation(500, 250, 0);
+				textDrawing.DrawString (sprite, "Strength: " + (currentCharacter.strength+5), 0, 0, color);
+			}
+			else{
+				sprite.Transform = Matrix.Translation(500, 250, 0);
+				textDrawing.DrawString (sprite, "Strength: " + currentCharacter.strength, 0, 0, color);
+			}
+
+			sprite.Transform = Matrix.Translation(700, 250, 0);
+			textDrawing.DrawString (sprite,"+    -", 0, 0, color);
+				
+
+			if (currentCharacter.characterClass.Equals ("Wizard")) {
+				sprite.Transform = Matrix.Translation (500, 300, 0);
+				textDrawing.DrawString (sprite, "Intelligence: " + (currentCharacter.intelligence+3), 0, 0, color);
+
+				sprite.Transform = Matrix.Translation(500, 400, 0); 
+				textDrawing.DrawString (sprite, "Wisdom: " + (currentCharacter.wisdom+3), 0, 0, color);
+
+			} 
+			else {
+				sprite.Transform = Matrix.Translation (500, 300, 0);
+				textDrawing.DrawString (sprite, "Intelligence: " + currentCharacter.intelligence, 0, 0, color);
+
+				sprite.Transform = Matrix.Translation(500, 400, 0); 
+				textDrawing.DrawString (sprite, "Wisdom: " + currentCharacter.wisdom, 0, 0, color);
+			}
+
+			sprite.Transform = Matrix.Translation(700, 300, 0);
+			textDrawing.DrawString (sprite,"+    -", 0, 0, color);
+
+
+			sprite.Transform = Matrix.Translation(700, 400, 0);
+			textDrawing.DrawString (sprite,"+    -", 0, 0, color);
+
+
+				
+			if (currentCharacter.characterClass.Equals ("Rogue")) {
+				sprite.Transform = Matrix.Translation (500, 350, 0);
+				textDrawing.DrawString (sprite, "Agility : " + (currentCharacter.agility+5), 0, 0, color);
+			} else {
+				sprite.Transform = Matrix.Translation (500, 350, 0);
+				textDrawing.DrawString (sprite, "Agility : " + currentCharacter.agility, 0, 0, color);
+			}
+
+			sprite.Transform = Matrix.Translation(700, 350, 0);
+			textDrawing.DrawString (sprite,"+    -", 0, 0, color);
+
+			//Draw character class
+			sprite.Transform = Matrix.Scaling (3.6f, 3.5f, 0) + Matrix.Translation(80, 750, 0);
+			sprite.Draw (TTextBox, color);
+
+			sprite.Transform = Matrix.Translation(50, 395, 0);
+			textDrawing.DrawString (sprite, "Current Class: " + currentCharacter.characterClass,0,0,color);
+
+			if (currentCharacter.characterClass.Equals("Warrior")) {
+				sprite.Transform = Matrix.Scaling (0.25f, 0.25f, 0) + Matrix.Translation (0, 900, 0);
+				sprite.Draw (TCharacterCreationLeftArrowDimmed, color);
+			} else {
+				sprite.Transform = Matrix.Scaling (0.25f, 0.25f, 0) + Matrix.Translation (0, 900, 0);
+				sprite.Draw (TCharacterCreationLeftArrow, color);
+			}
+			if (currentCharacter.characterClass.Equals("Wizard")) {
+				sprite.Transform = Matrix.Scaling (0.25f, 0.25f, 0) + Matrix.Translation (420, 900, 0);
+				sprite.Draw (TCharacterCreationRightArrowDimmed, color);
+			} else {
+				sprite.Transform = Matrix.Scaling (0.25f, 0.25f, 0) + Matrix.Translation (420, 900, 0);
+				sprite.Draw (TCharacterCreationRightArrow, color);
+			}
+
+
+
+
 		}
 
 
@@ -764,8 +864,12 @@ namespace GameProject566
             return characters;
 		}
 		public static List<PlayerChar> disposeCharacterTextures(List<PlayerChar> party){
+			
             foreach (PlayerChar character in party)
             {
+				if (character.front == null) {
+					return party;
+				}
                 character.big.Dispose();
                 character.front.Dispose();
                 character.back.Dispose();
