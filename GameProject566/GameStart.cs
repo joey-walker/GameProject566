@@ -605,14 +605,14 @@ namespace GameProject566
 
                     //party[choseChar].texture = party[choseChar].att;
                     party[choseChar].health -= m1.attack(rand);
-                    party[0].health -= 10;
+                    //party[0].health -= 10;
                     foreach (PlayerChar p in party)
                     {
                         if (p == party[choseChar]) party[choseChar].texture = Graphics.switchBattleCharTexture(true, party[choseChar]);
                         else p.texture = Graphics.switchBattleCharTexture(false, p);
                     }
 
-                    m1.health -= party[0].attack(rand);
+                    m1.health -= party[choseChar].attack(rand);
                     if (party[choseChar].health < 1)
                     {
                         if (party[choseChar] == party[0])
@@ -639,8 +639,8 @@ namespace GameProject566
                     else if (m1.health < 1)
                     {
                         //party[0].texture = party[0].back;
-                        //status = GameStatus.map;
-                        status = GameStatus.win;
+                        status = GameStatus.map;
+                        //status = GameStatus.win;
                     }
 				}
 			}
@@ -1017,7 +1017,8 @@ namespace GameProject566
 
             Graphics.disposebattle();
 
-			Graphics.disposeCharacterTextures ();
+            party = Graphics.disposeCharacterTextures(party);
+			characters = Graphics.disposeCharacterTextures (characters);
 
 			//music.Dispose ();
 
