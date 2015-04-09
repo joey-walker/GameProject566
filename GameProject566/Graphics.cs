@@ -784,91 +784,22 @@ namespace GameProject566
 
             return characters;
 		}
-			
-		//Dispose Character textures
-		public static void disposeCharacterTextures(){
-
-
-            /*TCharacter1Big.Dispose();
-			TCharacter1Front.Dispose ();
-			TCharacter1Back.Dispose();
-			TCharacter1Left.Dispose();
-			TCharacter1Right.Dispose();
-            TCharacter1Front2.Dispose();
-            TCharacter1Back2.Dispose();
-            TCharacter1Left2.Dispose();
-            TCharacter1Right2.Dispose();
-
-            TCharacter2Big.Dispose();
-			TCharacter2Front.Dispose ();
-			TCharacter2Back.Dispose();
-			TCharacter2Left.Dispose();
-			TCharacter2Right.Dispose();
-            TCharacter2Front2.Dispose();
-            TCharacter2Back2.Dispose();
-            TCharacter2Left2.Dispose();
-            TCharacter2Right2.Dispose();
-
-            TCharacter3Big.Dispose();
-			TCharacter3Front.Dispose ();
-			TCharacter3Back.Dispose();
-			TCharacter3Left.Dispose();
-			TCharacter3Right.Dispose();
-            TCharacter3Front2.Dispose();
-            TCharacter3Back2.Dispose();
-            TCharacter3Left2.Dispose();
-            TCharacter3Right2.Dispose();
-
-            TCharacter4Big.Dispose();
-			TCharacter4Front.Dispose ();
-			TCharacter4Back.Dispose();
-			TCharacter4Left.Dispose();
-			TCharacter4Right.Dispose();
-            TCharacter4Front2.Dispose();
-            TCharacter4Back2.Dispose();
-            TCharacter4Left2.Dispose();
-            TCharacter4Right2.Dispose();
-
-            TCharacter5Big.Dispose();
-			TCharacter5Front.Dispose();
-			TCharacter5Back.Dispose();
-			TCharacter5Left.Dispose();
-			TCharacter5Right.Dispose();
-            TCharacter5Front2.Dispose();
-            TCharacter5Back2.Dispose();
-            TCharacter5Left2.Dispose();
-            TCharacter5Right2.Dispose();
-
-            TCharacter6Big.Dispose();
-			TCharacter6Front.Dispose();
-			TCharacter6Back.Dispose();
-			TCharacter6Left.Dispose();
-			TCharacter6Right.Dispose();
-            TCharacter6Front2.Dispose();
-            TCharacter6Back2.Dispose();
-            TCharacter6Left2.Dispose();
-            TCharacter6Right2.Dispose();
-
-            TCharacter7Big.Dispose();
-			TCharacter7Front.Dispose();
-			TCharacter7Back.Dispose();
-			TCharacter7Left.Dispose();
-			TCharacter7Right.Dispose();
-            TCharacter7Front2.Dispose();
-            TCharacter7Back2.Dispose();
-            TCharacter7Left2.Dispose();
-            TCharacter7Right2.Dispose();
-
-            TCharacter8Big.Dispose();
-			TCharacter8Front.Dispose();
-			TCharacter8Back.Dispose();
-			TCharacter8Left.Dispose();
-			TCharacter8Right.Dispose();
-
-            TCharacter8Front2.Dispose();
-            TCharacter8Back2.Dispose();
-            TCharacter8Left2.Dispose();
-            TCharacter8Right2.Dispose();*/
+		public static List<PlayerChar> disposeCharacterTextures(List<PlayerChar> party){
+            foreach (PlayerChar character in party)
+            {
+                character.big.Dispose();
+                character.front.Dispose();
+                character.back.Dispose();
+                character.left.Dispose();
+                character.right.Dispose();
+                character.front2.Dispose();
+                character.back2.Dispose();
+                character.left2.Dispose();
+                character.right2.Dispose();
+                character.att.Dispose();
+                character.texture.Dispose();
+            }
+            return party;
 		}
 
 		//Method to create an icon.
