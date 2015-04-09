@@ -649,15 +649,9 @@ namespace GameProject566
 				sprite.Transform = Matrix.Translation (-50, 600, 0);
 				sprite.Draw (TCharacterCreationLeftArrowDimmed, color);
 			}
-
-			if (currentCharacterNumber <4) {
+				
 				sprite.Transform = Matrix.Translation (800, 600, 0);
 				sprite.Draw (TCharacterCreationRightArrow, color);
-			} else {
-				sprite.Transform = Matrix.Translation (800, 600, 0);
-				sprite.Draw (TCharacterCreationRightArrowDimmed, color);
-			}
-
 
 			//Draw name text and box
 			/// 
@@ -667,25 +661,64 @@ namespace GameProject566
 			sprite.Transform = Matrix.Scaling (3f, 3f, 0) + Matrix.Translation(1250, 70, 0);
 			sprite.Draw (TTextBox, color);
 
+			//draw name
+			sprite.Transform = Matrix.Translation(650, 50, 0);
+			textDrawing.DrawString (sprite, currentCharacter.name, 0, 0, color);
+
 
 			//Draw remaining points:
 			sprite.Transform = Matrix.Translation(500, 150, 0);
 			textDrawing.DrawString (sprite, "Remaining Points:" + pointsRemaining, 0, 0, color);
 
 			//Draw attributes:
+			if(currentCharacter.characterClass.Equals("Warrior")){
+				sprite.Transform = Matrix.Translation(500, 250, 0);
+				textDrawing.DrawString (sprite, "Strength: " + (currentCharacter.strength+5), 0, 0, color);
+			}
+			else{
+				sprite.Transform = Matrix.Translation(500, 250, 0);
+				textDrawing.DrawString (sprite, "Strength: " + currentCharacter.strength, 0, 0, color);
+			}
 
-			sprite.Transform = Matrix.Translation(500, 250, 0);
-			textDrawing.DrawString (sprite, "Strength: " + currentCharacter.strength + "     +    -", 0, 0, color);
+			sprite.Transform = Matrix.Translation(700, 250, 0);
+			textDrawing.DrawString (sprite,"+    -", 0, 0, color);
+				
 
-			sprite.Transform = Matrix.Translation(500, 300, 0);
-			textDrawing.DrawString (sprite, "Intelligence: " + currentCharacter.intelligence + "     +    -", 0, 0, color);
+			if (currentCharacter.characterClass.Equals ("Wizard")) {
+				sprite.Transform = Matrix.Translation (500, 300, 0);
+				textDrawing.DrawString (sprite, "Intelligence: " + (currentCharacter.intelligence+3), 0, 0, color);
 
-			sprite.Transform = Matrix.Translation(500, 350, 0);
-			textDrawing.DrawString (sprite, "Agility : " + currentCharacter.agility + "      +    -", 0, 0, color);
+				sprite.Transform = Matrix.Translation(500, 400, 0); 
+				textDrawing.DrawString (sprite, "Wisdom: " + (currentCharacter.wisdom+3), 0, 0, color);
 
-			sprite.Transform = Matrix.Translation(500, 400, 0); 
-			textDrawing.DrawString (sprite, "Wisdom: " + currentCharacter.wisdom + "      +    -", 0, 0, color);
+			} 
+			else {
+				sprite.Transform = Matrix.Translation (500, 300, 0);
+				textDrawing.DrawString (sprite, "Intelligence: " + currentCharacter.intelligence, 0, 0, color);
 
+				sprite.Transform = Matrix.Translation(500, 400, 0); 
+				textDrawing.DrawString (sprite, "Wisdom: " + currentCharacter.wisdom, 0, 0, color);
+			}
+
+			sprite.Transform = Matrix.Translation(700, 300, 0);
+			textDrawing.DrawString (sprite,"+    -", 0, 0, color);
+
+
+			sprite.Transform = Matrix.Translation(700, 400, 0);
+			textDrawing.DrawString (sprite,"+    -", 0, 0, color);
+
+
+				
+			if (currentCharacter.characterClass.Equals ("Rogue")) {
+				sprite.Transform = Matrix.Translation (500, 350, 0);
+				textDrawing.DrawString (sprite, "Agility : " + (currentCharacter.agility+5), 0, 0, color);
+			} else {
+				sprite.Transform = Matrix.Translation (500, 350, 0);
+				textDrawing.DrawString (sprite, "Agility : " + currentCharacter.agility, 0, 0, color);
+			}
+
+			sprite.Transform = Matrix.Translation(700, 350, 0);
+			textDrawing.DrawString (sprite,"+    -", 0, 0, color);
 
 			//Draw character class
 			sprite.Transform = Matrix.Scaling (3.6f, 3.5f, 0) + Matrix.Translation(80, 750, 0);
