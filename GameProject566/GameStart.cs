@@ -524,6 +524,8 @@ namespace GameProject566
 				}
 
 
+
+
 				switch(CurrentDisplayCharacter[currentCharacter-1]){
 				case 1:
 					party.ElementAt (currentCharacter-1).att = characters [0].att;
@@ -660,19 +662,55 @@ namespace GameProject566
 					if ((cursorX >= 10 && cursorX <= 129) && (cursorY >= 620 && cursorY <= 700) && currentCharacter > 1) {
 						currentCharacter--;
 					}
+						
 					//Right arrow
 					if ((cursorX >= 870 && cursorX <= 1000) && (cursorY >= 620 && cursorY <= 700)) {
+						//Add class points
 						if (currentCharacter == 4) {
+							foreach (PlayerChar character in party) {
+								switch (character.characterClass) {
+								case "Warrior":
+									character.strength += 5;
+									break;
+								case "Rogue":
+									character.agility += 5;
+									break;
+
+								case "Wizard":
+									character.wisdom += 3;
+									character.intelligence += 3;
+									break;
+								}
+							}
+							//switch to game map
 							status = GameStatus.map;
 						} else {
-							party.ElementAt (currentCharacter-1).big = characters [0].big;
+							party.ElementAt (currentCharacter - 1).big = characters [0].big;
 							currentCharacter++;
 						}
 					}
 
+					//Class selection
+					//left arrow
+					if ((cursorX >= 37 && cursorX <= 110) && (cursorY >= 463 && cursorY <= 515) && !(party.ElementAt (currentCharacter - 1).characterClass.Equals("Warrior"))) {
+						if(party.ElementAt (currentCharacter - 1).characterClass.Equals("Rogue")){
+							party.ElementAt (currentCharacter - 1).characterClass = "Warrior";
+						}else{
+							party.ElementAt (currentCharacter - 1).characterClass = "Rogue";
+						}
+					}
+
+					//Right arrow
+					if ((cursorX >= 250 && cursorX <= 335) && (cursorY >= 463 && cursorY <= 515) && !(party.ElementAt (currentCharacter - 1).characterClass.Equals("Wizard"))) {
+						if(party.ElementAt (currentCharacter - 1).characterClass.Equals("Rogue")){
+							party.ElementAt (currentCharacter - 1).characterClass = "Wizard";
+						}else{
+							party.ElementAt (currentCharacter - 1).characterClass = "Rogue";
+						}
+					}
+
 				}
-
-
+					
             }
 
 			if (status == GameStatus.tutorial) {
