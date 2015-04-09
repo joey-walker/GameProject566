@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Drawing;
 using System.Windows.Forms;
+using System.Linq;
 using SlimDX;
 using SlimDX.Direct3D9;
 using SlimDX.Windows;
@@ -175,7 +176,7 @@ namespace GameProject566
 
 
 		//Character creation to determine the current selection. Max 4
-		static int CurrentDisplayCharacter = 1;
+		static int[] CurrentDisplayCharacter = new int[4] {1, 1, 1, 1};
 		static int currentCharacter = 1;
 		static int[] pointsRemainingforCharacter = new int[4] {10, 10, 10, 10};
 		//
@@ -346,7 +347,7 @@ namespace GameProject566
             if (status == GameStatus.createCharacter)
             {
 				Graphics.renderCharacterCreationWindow(color, device9, sprite,
-					CurrentDisplayCharacter,currentCharacter,pointsRemainingforCharacter[currentCharacter]);
+					CurrentDisplayCharacter[currentCharacter-1],currentCharacter,pointsRemainingforCharacter[currentCharacter-1], party.ElementAt(currentCharacter-1));
             }
 
 			//Change to the game map.
@@ -513,13 +514,165 @@ namespace GameProject566
 
             if (status == GameStatus.createCharacter)
             {
-				status = GameStatus.map;
+				
+
 				//CREATECHAR
-                if (m.ButtonFlags == MouseButtonFlags.LeftDown && cursorX >= 500 && cursorY >= 470 && cursorX <= 1000 && cursorY <= 580)
-                {
-                  
-                    
-                }
+				foreach(PlayerChar character in party){
+					if (character.big == null) {
+						character.big = characters [0].big;
+					}
+				}
+
+
+				switch(CurrentDisplayCharacter[currentCharacter-1]){
+				case 1:
+					party.ElementAt (currentCharacter-1).att = characters [0].att;
+					party.ElementAt (currentCharacter-1).back = characters [0].back;
+					party.ElementAt (currentCharacter-1).back2 = characters [0].back2;
+					party.ElementAt (currentCharacter-1).big = characters [0].big;
+					party.ElementAt (currentCharacter-1).front = characters [0].front;
+					party.ElementAt (currentCharacter-1).front2 = characters [0].front2;
+					party.ElementAt (currentCharacter-1).left = characters [0].left;
+					party.ElementAt (currentCharacter-1).left2 = characters [0].left2;
+					party.ElementAt (currentCharacter-1).right = characters [0].right;
+					party.ElementAt (currentCharacter-1).right2 = characters [0].right2;
+					party.ElementAt (currentCharacter-1).texture = characters [0].back;
+					break;
+
+					case 2:
+					party.ElementAt (currentCharacter-1).att = characters [1].att;
+					party.ElementAt (currentCharacter-1).back = characters [1].back;
+					party.ElementAt (currentCharacter-1).back2 = characters [1].back2;
+					party.ElementAt (currentCharacter-1).big = characters [1].big;
+					party.ElementAt (currentCharacter-1).front = characters [1].front;
+					party.ElementAt (currentCharacter-1).front2 = characters [1].front2;
+					party.ElementAt (currentCharacter-1).left = characters [1].left;
+					party.ElementAt (currentCharacter-1).left2 = characters [1].left2;
+					party.ElementAt (currentCharacter-1).right = characters [1].right;
+					party.ElementAt (currentCharacter-1).right2 = characters [1].right2;
+					party.ElementAt (currentCharacter-1).texture = characters [1].back;
+					break;
+
+					case 3:
+					party.ElementAt (currentCharacter-1).att = characters [2].att;
+					party.ElementAt (currentCharacter-1).back = characters [2].back;
+					party.ElementAt (currentCharacter-1).back2 = characters [2].back2;
+					party.ElementAt (currentCharacter-1).big = characters [2].big;
+					party.ElementAt (currentCharacter-1).front = characters [2].front;
+					party.ElementAt (currentCharacter-1).front2 = characters [2].front2;
+					party.ElementAt (currentCharacter-1).left = characters [2].left;
+					party.ElementAt (currentCharacter-1).left2 = characters [2].left2;
+					party.ElementAt (currentCharacter-1).right = characters [2].right;
+					party.ElementAt (currentCharacter-1).right2 = characters [2].right2;
+					party.ElementAt (currentCharacter-1).texture = characters [2].back;
+					break;
+
+					case 4:
+					party.ElementAt (currentCharacter-1).att = characters [3].att;
+					party.ElementAt (currentCharacter-1).back = characters [3].back;
+					party.ElementAt (currentCharacter-1).back2 = characters [3].back2;
+					party.ElementAt (currentCharacter-1).big = characters [3].big;
+					party.ElementAt (currentCharacter-1).front = characters [3].front;
+					party.ElementAt (currentCharacter-1).front2 = characters [3].front2;
+					party.ElementAt (currentCharacter-1).left = characters [3].left;
+					party.ElementAt (currentCharacter-1).left2 = characters [3].left2;
+					party.ElementAt (currentCharacter-1).right = characters [3].right;
+					party.ElementAt (currentCharacter-1).right2 = characters [3].right2;
+					party.ElementAt (currentCharacter-1).texture = characters [3].back;
+					break;
+
+					case 5:
+					party.ElementAt (currentCharacter-1).att = characters [4].att;
+					party.ElementAt (currentCharacter-1).back = characters [4].back;
+					party.ElementAt (currentCharacter-1).back2 = characters [4].back2;
+					party.ElementAt (currentCharacter-1).big = characters [4].big;
+					party.ElementAt (currentCharacter-1).front = characters [4].front;
+					party.ElementAt (currentCharacter-1).front2 = characters [4].front2;
+					party.ElementAt (currentCharacter-1).left = characters [4].left;
+					party.ElementAt (currentCharacter-1).left2 = characters [4].left2;
+					party.ElementAt (currentCharacter-1).right = characters [4].right;
+					party.ElementAt (currentCharacter-1).right2 = characters [4].right2;
+					party.ElementAt (currentCharacter-1).texture = characters [4].back;
+					break;
+
+					case 6:
+					party.ElementAt (currentCharacter-1).att = characters [5].att;
+					party.ElementAt (currentCharacter-1).back = characters [5].back;
+					party.ElementAt (currentCharacter-1).back2 = characters [5].back2;
+					party.ElementAt (currentCharacter-1).big = characters [5].big;
+					party.ElementAt (currentCharacter-1).front = characters[5].front;
+					party.ElementAt (currentCharacter-1).front2 = characters [5].front2;
+					party.ElementAt (currentCharacter-1).left = characters [5].left;
+					party.ElementAt (currentCharacter-1).left2 = characters [5].left2;
+					party.ElementAt (currentCharacter-1).right = characters [5].right;
+					party.ElementAt (currentCharacter-1).right2 = characters [5].right2;
+					party.ElementAt (currentCharacter-1).texture = characters [5].back;
+					break;
+
+					case 7:
+					party.ElementAt (currentCharacter-1).att = characters [6].att;
+					party.ElementAt (currentCharacter-1).back = characters [6].back;
+					party.ElementAt (currentCharacter-1).back2 = characters [6].back2;
+					party.ElementAt (currentCharacter-1).big = characters [6].big;
+					party.ElementAt (currentCharacter-1).front = characters[6].front;
+					party.ElementAt (currentCharacter-1).front2 = characters [6].front2;
+					party.ElementAt (currentCharacter-1).left = characters [6].left;
+					party.ElementAt (currentCharacter-1).left2 = characters [6].left2;
+					party.ElementAt (currentCharacter-1).right = characters [6].right;
+					party.ElementAt (currentCharacter-1).right2 = characters [6].right2;
+					party.ElementAt (currentCharacter-1).texture = characters [6].back;
+					break;
+
+					case 8:
+					party.ElementAt (currentCharacter-1).att = characters [7].att;
+					party.ElementAt (currentCharacter-1).back = characters [7].back;
+					party.ElementAt (currentCharacter-1).back2 = characters [7].back2;
+					party.ElementAt (currentCharacter-1).big = characters [7].big;
+					party.ElementAt (currentCharacter-1).front = characters[7].front;
+					party.ElementAt (currentCharacter-1).front2 = characters [7].front2;
+					party.ElementAt (currentCharacter-1).left = characters [7].left;
+					party.ElementAt (currentCharacter-1).left2 = characters [7].left2;
+					party.ElementAt (currentCharacter-1).right = characters [7].right;
+					party.ElementAt (currentCharacter-1).right2 = characters [7].right2;
+					party.ElementAt (currentCharacter-1).texture = characters [7].back;
+					break;
+				}
+
+				if (m.ButtonFlags == MouseButtonFlags.LeftDown) {
+					Console.WriteLine ("X Position: " + cursorX + " | Y Position: " + cursorY);
+				}
+
+
+
+				if (m.ButtonFlags == MouseButtonFlags.LeftDown) {
+					//display of character
+					//Left arrow
+					if ((cursorX >= 39 && cursorX <= 115) && (cursorY >= 240 && cursorY <= 288) && CurrentDisplayCharacter[currentCharacter-1] > 1) {
+						CurrentDisplayCharacter[currentCharacter-1]--;
+					}
+					//Right arrow
+					if ((cursorX >= 160 && cursorX <= 225) && (cursorY >= 240 && cursorY <= 288) && CurrentDisplayCharacter[currentCharacter-1] < 8) {
+						CurrentDisplayCharacter[currentCharacter-1]++;
+					}
+
+					//currently selected character
+					//Left arrow
+					if ((cursorX >= 10 && cursorX <= 129) && (cursorY >= 620 && cursorY <= 700) && currentCharacter > 1) {
+						currentCharacter--;
+					}
+					//Right arrow
+					if ((cursorX >= 870 && cursorX <= 1000) && (cursorY >= 620 && cursorY <= 700)) {
+						if (currentCharacter == 4) {
+							status = GameStatus.map;
+						} else {
+							party.ElementAt (currentCharacter-1).big = characters [0].big;
+							currentCharacter++;
+						}
+					}
+
+				}
+
+
             }
 
 			if (status == GameStatus.tutorial) {
@@ -880,11 +1033,15 @@ namespace GameProject566
 
             //add members to the party
             //party.Add(player);
-            party.Add(characters[0]);
+            /*party.Add(characters[0]);
             party.Add(characters[1]);
             party.Add(characters[2]);
-            party.Add(characters[3]);
+            party.Add(characters[3]);*/
 
+			party.Add(new PlayerChar());
+			party.Add(new PlayerChar());
+			party.Add(new PlayerChar());
+			party.Add(new PlayerChar());
             //Intialize the world
             World world = new World();
             world.wall = Graphics.createTexture(device9, wall);
@@ -959,6 +1116,7 @@ namespace GameProject566
             Graphics.disposeMessageScreen();
 
             Graphics.disposebattle();
+			Graphics.disposeCharacterScreenTextures ();
 
             party = Graphics.disposeCharacterTextures(party);
 			characters = Graphics.disposeCharacterTextures (characters);

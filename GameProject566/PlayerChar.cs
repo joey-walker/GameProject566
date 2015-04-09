@@ -16,9 +16,22 @@ namespace GameProject566
 		public int intelligence { get; set; }
 		public int wisdom {get; set;}
 		public int agility { get; set; }
+		public String characterClass {get; set;}
+
+		public String name { get; set; }
 
         public PlayerChar()
-        { }
+        { 
+			this.level = 1;
+			this.experience = 1;
+			this.strength = 1;
+			this.intelligence = 1;
+			this.wisdom = 1;
+			this.health = 100;
+			this.agility = 1;
+			this.characterClass = "Warrior";
+			this.name = " ";
+		}
 		public PlayerChar (Texture pTexture, float xLocation, float yLocation,int xGridLocation, int yGridLocation) : base (pTexture, xLocation, yLocation, xGridLocation,yGridLocation)
         {
 			this.texture = pTexture;
@@ -33,6 +46,7 @@ namespace GameProject566
 			this.wisdom = 1;
 			this.health = 100;
 			this.agility = 1;
+			this.characterClass = "Warrior";
         }
 
 
