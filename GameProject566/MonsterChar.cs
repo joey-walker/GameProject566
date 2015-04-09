@@ -5,7 +5,7 @@ using SlimDX.Direct3D9;
 
 namespace GameProject566
 {
-    class Monsterchar : WorldObject
+    public class Monsterchar : WorldObject
     {
 		public int level { get; set; }
 		public int strength { get; set; }

@@ -81,20 +81,6 @@ namespace GameProject566
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         /////////////////////////////////////////    Battle Screen  //////////////////////////////////////////////////////
-        static string char1Texture1 = "..\\..\\sprites\\char2r2.png";
-        static string char1Texture2 = "..\\..\\sprites\\char2att.png";
-        static string char2Texture1 = "..\\..\\sprites\\char3r2.png";
-        static string char2Texture2 = "..\\..\\sprites\\char3att.png";
-        static string char3Texture1 = "..\\..\\sprites\\char4r2.png";
-        static string char3Texture2 = "..\\..\\sprites\\char4att.png";
-        static string char4Texture1 = "..\\..\\sprites\\char5r2.png";
-        static string char4Texture2 = "..\\..\\sprites\\char5att.png";
-        static string char5Texture1 = "..\\..\\sprites\\char6r2.png";
-        static string char5Texture2 = "..\\..\\sprites\\char6att.png";
-        static string char6Texture1 = "..\\..\\sprites\\char7r2.png";
-        static string char6Texture2 = "..\\..\\sprites\\char7att.png";
-        static string char7Texture1 = "..\\..\\sprites\\char8r2.png";
-        static string char7Texture2 = "..\\..\\sprites\\char8att.png";
 
         static string monster = "..\\..\\sprites\\PS_left.png";
         static Texture monsterT;
@@ -110,39 +96,17 @@ namespace GameProject566
         static Texture battlebgT4;
 
 
-        //static Texture char1T;
-        static Texture char1T1;
-        static Texture char1T2;
-
-        //static Texture char2T;
-        static Texture char2T1;
-        static Texture char2T2;
-
-        //static Texture char3T;
-        static Texture char3T1;
-        static Texture char3T2;
-
-        //static Texture char4T;
-        static Texture char4T1;
-        static Texture char4T2;
-
-        //static Texture char5T;
-        static Texture char5T1;
-        static Texture char5T2;
-
-        //static Texture char6T;
-        static Texture char6T1;
-        static Texture char6T2;
-
-        //static Texture char7T;
-        static Texture char7T1;
-        static Texture char7T2;
-
         static int partyXlocation;
         static int partyYlocation;
 
         static int monsterXlocation = 500;
         static int monsterYlocation = 500;
+
+        //device9.Clear (ClearFlags.Target, Color.Black, 1.0f, 0);
+		static System.Drawing.Font BattleScreenfont = new System.Drawing.Font (FontFamily.GenericSansSerif, 12);
+
+		static SlimDX.Direct3D9.Font BattleTextDrawing; //= new SlimDX.Direct3D9.Font (device9,font);
+
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 		////////////////////////////////////////   Characters  /////////////////////////////////////////////////
@@ -234,101 +198,6 @@ namespace GameProject566
         static string Character8Right2 = "..\\..\\sprites\\Characters\\Sprit8\\F4.png";
         static string Character8att = "..\\..\\sprites\\Characters\\Sprit8\\char8att.png";
 
-		/*static Texture TCharacter1Big;
-		static Texture TCharacter1Front;
-		static Texture TCharacter1Back;
-		static Texture TCharacter1Left;
-		static Texture TCharacter1Right;
-        static Texture TCharacter1Front2;
-        static Texture TCharacter1Back2;
-        static Texture TCharacter1Left2;
-        static Texture TCharacter1Right2;
-        static Texture Tchar1Att;
-        static Texture Tchar1Display;
-
-		static Texture TCharacter2Big;
-		static Texture TCharacter2Front;
-		static Texture TCharacter2Back;
-		static Texture TCharacter2Left;
-		static Texture TCharacter2Right;
-        static Texture TCharacter2Front2;
-        static Texture TCharacter2Back2;
-        static Texture TCharacter2Left2;
-        static Texture TCharacter2Right2;
-        static Texture Tchar2Att;
-        static Texture Tchar2Display;
-
-		static Texture TCharacter3Big;
-		static Texture TCharacter3Front;
-		static Texture TCharacter3Back;
-		static Texture TCharacter3Left;
-		static Texture TCharacter3Right;
-        static Texture TCharacter3Front2;
-        static Texture TCharacter3Back2;
-        static Texture TCharacter3Left2;
-        static Texture TCharacter3Right2;
-        static Texture Tchar3Att;
-        static Texture Tchar3Display;
-
-		static Texture TCharacter4Big;
-		static Texture TCharacter4Front;
-		static Texture TCharacter4Back;
-		static Texture TCharacter4Left;
-		static Texture TCharacter4Right;
-        static Texture TCharacter4Front2;
-        static Texture TCharacter4Back2;
-        static Texture TCharacter4Left2;
-        static Texture TCharacter4Right2;
-        static Texture Tchar4Att;
-        static Texture Tchar4Display;
-
-		static Texture TCharacter5Big;
-		static Texture TCharacter5Front;
-		static Texture TCharacter5Back;
-		static Texture TCharacter5Left;
-		static Texture TCharacter5Right;
-        static Texture TCharacter5Front2;
-        static Texture TCharacter5Back2;
-        static Texture TCharacter5Left2;
-        static Texture TCharacter5Right2;
-        static Texture Tchar5Att;
-        static Texture Tchar5Display;
-
-		static Texture TCharacter6Big;
-		static Texture TCharacter6Front;
-		static Texture TCharacter6Back;
-		static Texture TCharacter6Left;
-		static Texture TCharacter6Right;
-        static Texture TCharacter6Front2;
-        static Texture TCharacter6Back2;
-        static Texture TCharacter6Left2;
-        static Texture TCharacter6Right2;
-        static Texture Tchar6Att;
-        static Texture Tchar6Display;
-
-		static Texture TCharacter7Big;
-		static Texture TCharacter7Front;
-		static Texture TCharacter7Back;
-		static Texture TCharacter7Left;
-		static Texture TCharacter7Right;
-        static Texture TCharacter7Front2;
-        static Texture TCharacter7Back2;
-        static Texture TCharacter7Left2;
-        static Texture TCharacter7Right2;
-        static Texture Tchar7Att;
-        static Texture Tchar7Display;
-
-		static Texture TCharacter8Big;
-		static Texture TCharacter8Front;
-		static Texture TCharacter8Back;
-		static Texture TCharacter8Left;
-		static Texture TCharacter8Right;
-        static Texture TCharacter8Front2;
-        static Texture TCharacter8Back2;
-        static Texture TCharacter8Left2;
-        static Texture TCharacter8Right2;
-        static Texture Tchar8Att;
-        static Texture Tchar8Display;*/
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -396,7 +265,7 @@ namespace GameProject566
 			quit2 = createTexture(device9, quitButton2);
 		}
 
-        public static void renderBattleScreen(SlimDX.Color4 color, Device device9, Sprite sprite, int level, List<PlayerChar>party)
+        public static void renderBattleScreen(SlimDX.Color4 color, Device device9, Sprite sprite, int level, List<PlayerChar>party, Monsterchar monster)
         {
             /*
              * change the player's and monster position for the battle screen
@@ -434,6 +303,8 @@ namespace GameProject566
                 partyYlocation += 100;
                 sprite.Transform = Matrix.Translation(character.xLocation, character.yLocation, 0);
                 sprite.Draw(character.texture, color);
+                sprite.Transform = Matrix.Translation(character.xLocation, character.yLocation - 20, 0);
+                BattleTextDrawing.DrawString(sprite, "Health: " + character.health, 0, 0, color);
                 //character.texture = character.right;
             }
             
@@ -441,46 +312,27 @@ namespace GameProject566
             sprite.Transform = Matrix.Translation(monsterXlocation, monsterYlocation, 0);
             sprite.Draw(monsterT, color);
 
+            //device9.Clear(ClearFlags.Target, Color.Black, 1.0f, 0);
+
+
+            sprite.Transform = Matrix.Translation(monsterXlocation, monsterYlocation - 20, 0);
+            BattleTextDrawing.DrawString(sprite, "Health: " + monster.health, 0, 0, color);
+
 
         }
 
         public static void createBattleScreenTextures(Device device9)
         {
-            char1T1 = createTexture(device9, char1Texture1);
-            //char1T = char1T1;
-            char1T2 = createTexture(device9, char1Texture2);
-
-            char2T1 = createTexture(device9, char2Texture1);
-            //char2T = char2T1;
-            char2T2 = createTexture(device9, char2Texture2);
-
-            char3T1 = createTexture(device9, char3Texture1);
-            //char3T = char3T1;
-            char3T2 = createTexture(device9, char3Texture2);
-
-            char4T1 = createTexture(device9, char4Texture1);
-            //char4T = char4T1;
-            char4T2 = createTexture(device9, char4Texture2);
-
-            char5T1 = createTexture(device9, char5Texture1);
-            //char5T = char5T1;
-            char5T2 = createTexture(device9, char5Texture2);
-
-            char6T1 = createTexture(device9, char6Texture1);
-            //char6T = char6T1;
-            char6T2 = createTexture(device9, char6Texture2);
-
-            char7T1 = createTexture(device9, char7Texture1);
-            //char7T = char7T1;
-            char7T2 = createTexture(device9, char7Texture2);
-
-
             monsterT = createTexture(device9, monster);
 
             battlebgT = createTexture(device9, battlebg);
             battlebgT2 = createTexture(device9, battlebg2);
             battlebgT3 = createTexture(device9, battlebg3);
             battlebgT4 = createTexture(device9, battlebg4);
+            device9.Clear(ClearFlags.Target, Color.Black, 1.0f, 0);
+
+            BattleTextDrawing = new SlimDX.Direct3D9.Font(device9, BattleScreenfont);
+
         }
 
         public static Texture switchBattleCharTexture(bool a, PlayerChar c)
@@ -580,6 +432,7 @@ namespace GameProject566
             else
                 mquitT = mquitT1;
         }
+        
         //Render Message Screen
         public static void renderMessage(SlimDX.Color4 color, Device device9, Sprite sprite, GameStatus status)
         {
@@ -638,27 +491,6 @@ namespace GameProject566
         //dispose battleScreen
         public static void disposebattle()
         {
-            //char1T.Dispose();
-            char1T1.Dispose();
-            char1T2.Dispose();
-            //char2T.Dispose();
-            char2T1.Dispose();
-            char2T2.Dispose();
-            //char3T.Dispose();
-            char3T1.Dispose();
-            char3T2.Dispose();
-            //char4T.Dispose();
-            char4T1.Dispose();
-            char4T2.Dispose();
-            //char5T.Dispose();
-            char5T1.Dispose();
-            char5T2.Dispose();
-            //char6T.Dispose();
-            char6T1.Dispose();
-            char6T2.Dispose();
-            //char7T.Dispose();
-            char7T1.Dispose();
-            char7T2.Dispose();
 
             battlebgT.Dispose();
             battlebgT2.Dispose();

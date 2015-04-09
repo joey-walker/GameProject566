@@ -353,7 +353,7 @@ namespace GameProject566
 			//render battle screen. About to get serious now :O
 			if (status == GameStatus.battleScreen) {
 				//renderBattleScreen (color);
-                Graphics.renderBattleScreen(color, device9, sprite, 1, party);
+                Graphics.renderBattleScreen(color, device9, sprite, 1, party, m1);
 			}
 
             //render final message screen. At this point the game is over
