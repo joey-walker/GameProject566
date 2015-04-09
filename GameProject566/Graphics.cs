@@ -232,6 +232,48 @@ namespace GameProject566
 		static Texture TTextBox;
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+        //////////////////////////////////////////       MONSTERS SPRITES      ///////////////////////////////////////////
+        static string m1Front = "..\\..\\sprites\\PS_front.png";
+        static string m1Front1 = "..\\..\\sprites\\PS_front2.png";
+        static string m1Back = "..\\..\\sprites\\PS_back.png";
+        static string m1Back1 = "..\\..\\sprites\\PS_back2.png";
+        static string m1Right = "..\\..\\sprites\\PS_right.png";
+        static string m1Right1 = "..\\..\\sprites\\PS_right2.png";
+        static string m1Left = "..\\..\\sprites\\PS_left.png";
+        static string m1Left1 = "..\\..\\sprites\\PS_left2.png";
+
+        static string m2Front = "..\\..\\sprites\\TV_front.png";
+        static string m2Front1 = "..\\..\\sprites\\TV_front2.png";
+        static string m2Back = "..\\..\\sprites\\TV_back.png";
+        static string m2Back1 = "..\\..\\sprites\\TV_back2.png";
+        static string m2Right = "..\\..\\sprites\\TV_right.png";
+        static string m2Right1 = "..\\..\\sprites\\TV_right2.png";
+        static string m2Left = "..\\..\\sprites\\TV_left.png";
+        static string m2Left1 = "..\\..\\sprites\\TV_left2.png";
+
+        static string m3Front = "..\\..\\sprites\\BB_front.png";
+        static string m3Front1 = "..\\..\\sprites\\BB_front2.png";
+        static string m3Back = "..\\..\\sprites\\BB_back.png";
+        static string m3Back1 = "..\\..\\sprites\\BB_back2.png";
+        static string m3Right = "..\\..\\sprites\\BB_right.png";
+        static string m3Right1 = "..\\..\\sprites\\BB_right2.png";
+        static string m3Left = "..\\..\\sprites\\BB_left.png";
+        static string m3Left1 = "..\\..\\sprites\\BB_left2.png";
+
+        static string m4Front = "..\\..\\sprites\\C_front.png";
+        static string m4Front1 = "..\\..\\sprites\\C_front2.png";
+        static string m4Back = "..\\..\\sprites\\C_back.png";
+        static string m4Back1 = "..\\..\\sprites\\C_back2.png";
+        static string m4Right = "..\\..\\sprites\\C_right.png";
+        static string m4Right1 = "..\\..\\sprites\\C_right2.png";
+        static string m4Left = "..\\..\\sprites\\C_left.png";
+        static string m4Left1 = "..\\..\\sprites\\C_left2.png";
+
+        static string boss1 = "..\\..\\sprites\\Sub_boss_1.png";
+        static string boss2 = "..\\..\\sprites\\Sub_boss_2.png";
+        static string boss3 = "..\\..\\sprites\\FinalBoss.png";
+        //static string boss4;
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 		public Device initializeGraphics (Form form)
@@ -342,7 +384,7 @@ namespace GameProject566
             
 
             sprite.Transform = Matrix.Translation(monsterXlocation, monsterYlocation, 0);
-            sprite.Draw(monsterT, color);
+            sprite.Draw(monster.left, color);
 
             //device9.Clear(ClearFlags.Target, Color.Black, 1.0f, 0);
 
@@ -722,6 +764,9 @@ namespace GameProject566
             battlebgT4.Dispose();
 
             monsterT.Dispose();
+
+            BattleScreenfont.Dispose();
+            BattleTextDrawing.Dispose();
         }
         
         //dispose message screen
@@ -765,6 +810,7 @@ namespace GameProject566
 			
 			//TCharacter1Big = createTexture (device9, Character1Big);
             //characters[0].texture = createTexture(device9, Character1Back);
+            
             characters[0].big = createTexture(device9, Character1Big);
             characters[0].front = createTexture(device9, Character1Front);
             characters[0].back = createTexture(device9, Character1Back);
@@ -775,7 +821,7 @@ namespace GameProject566
             characters[0].left2 = createTexture(device9, Character1Left2);
             characters[0].right = createTexture(device9, Character1Right2);
             characters[0].att = createTexture(device9, Character1att);
-            characters[0].texture = characters[0].back;
+            characters[0].texture = characters[0].right;
 
             characters[1].big = createTexture(device9, Character2Big);
             characters[1].front = createTexture(device9, Character2Front);
@@ -787,7 +833,7 @@ namespace GameProject566
             characters[1].left2 = createTexture(device9, Character2Left2);
             characters[1].right2 = createTexture(device9, Character2Right2);
             characters[1].att = createTexture(device9, Character2att);
-            characters[1].texture = characters[1].back;
+            characters[1].texture = characters[1].right;
 
             characters[2].big = createTexture(device9, Character3Big);
             characters[2].front = createTexture(device9, Character3Front);
@@ -799,7 +845,7 @@ namespace GameProject566
             characters[2].left2 = createTexture(device9, Character3Left2);
             characters[2].right2 = createTexture(device9, Character3Right2);
             characters[2].att = createTexture(device9, Character3att);
-            characters[2].texture = characters[2].back;
+            characters[2].texture = characters[2].right;
 
             characters[3].big = createTexture(device9, Character4Big);
             characters[3].front = createTexture(device9, Character4Front);
@@ -811,7 +857,7 @@ namespace GameProject566
             characters[3].left2 = createTexture(device9, Character4Left2);
             characters[3].right2 = createTexture(device9, Character4Right2);
             characters[3].att = createTexture(device9, Character4att);
-            characters[3].texture = characters[3].back;
+            characters[3].texture = characters[3].right;
 
             characters[4].big = createTexture(device9, Character5Big);
             characters[4].front = createTexture(device9, Character5Front);
@@ -823,7 +869,7 @@ namespace GameProject566
             characters[4].left2 = createTexture(device9, Character5Left2);
             characters[4].right2 = createTexture(device9, Character5Right2);
             characters[4].att = createTexture(device9, Character5att);
-            characters[4].texture = characters[4].back;
+            characters[4].texture = characters[4].right;
 
             characters[5].big = createTexture(device9, Character6Big);
             characters[5].front = createTexture(device9, Character6Front);
@@ -859,31 +905,108 @@ namespace GameProject566
             characters[7].left2 = createTexture(device9, Character8Left2);
             characters[7].right2 = createTexture(device9, Character8Right2);
             characters[7].att = createTexture(device9, Character8att);
-            characters[7].texture = characters[7].back;
+            characters[7].texture = characters[7].right;
 
             return characters;
 		}
+
+        public static List<Monsterchar> createMonsters(Device device9, List<Monsterchar> monsters)
+        {
+            monsters[0].front = createTexture(device9, m1Front);
+            monsters[0].back = createTexture(device9, m1Back);
+            monsters[0].left = createTexture(device9, m1Left);
+            monsters[0].right = createTexture(device9, m1Right);
+            monsters[0].front2 = createTexture(device9, m1Front1);
+            monsters[0].back2 = createTexture(device9, m1Back1);
+            monsters[0].left2 = createTexture(device9, m1Left1);
+            monsters[0].right2 = createTexture(device9, m1Right1);
+            monsters[0].texture = monsters[0].left;
+
+            monsters[1].front = createTexture(device9, m2Front);
+            monsters[1].back = createTexture(device9, m2Back);
+            monsters[1].left = createTexture(device9, m2Left);
+            monsters[1].right = createTexture(device9, m2Right);
+            monsters[1].front2 = createTexture(device9, m2Front1);
+            monsters[1].back2 = createTexture(device9, m2Back1);
+            monsters[1].left2 = createTexture(device9, m2Left1);
+            monsters[1].right2 = createTexture(device9, m2Right1);
+            monsters[1].texture = monsters[1].left;
+
+            monsters[2].front = createTexture(device9, m3Front);
+            monsters[2].back = createTexture(device9, m3Back);
+            monsters[2].left = createTexture(device9, m3Left);
+            monsters[2].right = createTexture(device9, m3Right);
+            monsters[2].front2 = createTexture(device9, m3Front1);
+            monsters[2].back2 = createTexture(device9, m3Back1);
+            monsters[2].left2 = createTexture(device9, m3Left1);
+            monsters[2].right2 = createTexture(device9, m3Right1);
+            monsters[2].texture = monsters[2].left;
+
+            monsters[3].front = createTexture(device9, m4Front);
+            monsters[3].back = createTexture(device9, m4Back);
+            monsters[3].left = createTexture(device9, m4Left);
+            monsters[3].right = createTexture(device9, m4Right);
+            monsters[3].front2 = createTexture(device9, m4Front1);
+            monsters[3].back2 = createTexture(device9, m4Back1);
+            monsters[3].left2 = createTexture(device9, m4Left1);
+            monsters[3].right2 = createTexture(device9, m4Right1);
+            monsters[3].texture = monsters[0].left;
+            return monsters;
+        }
+
+        public static List<Monsterchar> createBosses(Device device9, List<Monsterchar> bosses)
+        {
+            bosses[0].texture= createTexture(device9, boss1);
+            bosses[1].texture = createTexture(device9, boss2);
+            bosses[2].texture = createTexture(device9, boss3);
+
+            return bosses;
+        }
+
 		public static List<PlayerChar> disposeCharacterTextures(List<PlayerChar> party){
 			
             foreach (PlayerChar character in party)
             {
-				if (character.front == null) {
-					return party;
-				}
-                character.big.Dispose();
-                character.front.Dispose();
-                character.back.Dispose();
-                character.left.Dispose();
-                character.right.Dispose();
-                character.front2.Dispose();
-                character.back2.Dispose();
-                character.left2.Dispose();
-                character.right2.Dispose();
-                character.att.Dispose();
-                character.texture.Dispose();
+				//if (character.front == null) {
+				//	return party;
+				//}
+                if (character.big != null) character.big.Dispose();
+                if (character.front != null) character.front.Dispose();
+                if (character.back != null) character.back.Dispose();
+                if (character.left != null) character.left.Dispose();
+                if (character.right != null) character.right.Dispose();
+                if (character.front2 != null) character.front2.Dispose();
+                if (character.back2 != null) character.back2.Dispose();
+                if (character.left2 != null) character.left2.Dispose();
+                if (character.right2 != null) character.right2.Dispose();
+                if (character.att != null) character.att.Dispose();
+                if (character.texture != null) character.texture.Dispose();
             }
             return party;
 		}
+
+        public static List<Monsterchar> disposeCharacterTextures(List<Monsterchar> party)
+        {
+
+            foreach (Monsterchar character in party)
+            {
+                //if (character.front == null) {
+                //	return party;
+                //}
+                if (character.big != null) character.big.Dispose();
+                if (character.front != null) character.front.Dispose();
+                if (character.back != null) character.back.Dispose();
+                if (character.left != null) character.left.Dispose();
+                if (character.right != null) character.right.Dispose();
+                if (character.front2 != null) character.front2.Dispose();
+                if (character.back2 != null) character.back2.Dispose();
+                if (character.left2 != null) character.left2.Dispose();
+                if (character.right2 != null) character.right2.Dispose();
+                if (character.att != null) character.att.Dispose();
+                if (character.texture != null) character.texture.Dispose();
+            }
+            return party;
+        }
 
 		//Method to create an icon.
 		public static Icon createIcon(){
