@@ -31,7 +31,23 @@ namespace GameProject566
 			this.agility = 1;
 			this.characterClass = "Warrior";
 			this.name = " ";
+			this.isPlayer = true;
 		}
+
+		public PlayerChar(bool isPlayer)
+		{ 
+			this.level = 1;
+			this.experience = 1;
+			this.strength = 1;
+			this.intelligence = 1;
+			this.wisdom = 1;
+			this.health = 100;
+			this.agility = 1;
+			this.characterClass = "Warrior";
+			this.name = " ";
+		}
+
+
 		public PlayerChar (Texture pTexture, float xLocation, float yLocation,int xGridLocation, int yGridLocation) : base (pTexture, xLocation, yLocation, xGridLocation,yGridLocation)
         {
 			this.texture = pTexture;

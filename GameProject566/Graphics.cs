@@ -991,15 +991,18 @@ namespace GameProject566
             monsters[3].back2 = createTexture(device9, m4Back1);
             monsters[3].left2 = createTexture(device9, m4Left1);
             monsters[3].right2 = createTexture(device9, m4Right1);
-            monsters[3].texture = monsters[0].left;
+            monsters[3].texture = monsters[3].left;
             return monsters;
         }
 
         public static List<Monsterchar> createBosses(Device device9, List<Monsterchar> bosses)
         {
             bosses[0].texture= createTexture(device9, boss1);
+			bosses[0].left= createTexture(device9, boss1);
             bosses[1].texture = createTexture(device9, boss2);
+			bosses[1].left= createTexture(device9, boss2);
             bosses[2].texture = createTexture(device9, boss3);
+			bosses[2].left= createTexture(device9, boss3);
 
             return bosses;
         }

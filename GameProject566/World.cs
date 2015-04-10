@@ -8,6 +8,8 @@ using SlimDX.Direct3D9;
 using System.Dynamic;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
+using SlimDX.Direct2D;
 
 namespace GameProject566
 {
@@ -16,6 +18,8 @@ namespace GameProject566
 
 		public Texture tile { get; set; }
 		public Texture wall { get; set; }
+		public Texture exit { get; set; } 
+		public Texture shop {get; set;}
 		public Queue<RoomExit> roomExit { get; set;}
 		//world sections
 
@@ -193,12 +197,9 @@ namespace GameProject566
 					roomToConnect [i, j].yVisualLocation = world[exit.tileA.xGrid, exit.tileA.yGrid].yVisualLocation-(60*j)+(60*(exit.ConnectorStart));
 					*/
 
-						if (roomToConnect [i, j].worldObject.texture != null) {
-							/*	roomToConnect [i, j].wObject.moveOnGrid (world[a.tileA.xGrid+ 1 + i, a.tileA.yGrid + j - a.ConnectorStart].xGrid,
-							world[a.tileA.xGrid+ 1 + i, a.tileA.yGrid + j - a.ConnectorStart].yGrid);
-
-						roomToConnect [i, j].wObject.moveVisually (world[a.tileA.xGrid+ 1 + i, a.tileA.yGrid + j - a.ConnectorStart].xLocation+60,
-							world[a.tileA.xGrid+ 1 + i, a.tileA.yGrid + j - a.ConnectorStart].yLocation-60);*/
+						if (roomToConnect [i, j].worldObject.health != 0) {
+							roomToConnect [i, j].worldObject.xGridLocation = roomToConnect [i, j].xGrid;
+							roomToConnect [i, j].worldObject.yGridLocation = roomToConnect [i, j].yGrid;
 						}
 
 						world [exit.tileA.xGrid + 1 + i, exit.tileA.yGrid + j - roomToConnect [i, j].exitlocationy] = roomToConnect [i, j];
@@ -240,13 +241,11 @@ namespace GameProject566
 							roomToConnect [i, j].yVisualLocation = world [exit.tileA.xGrid, exit.tileA.yGrid].yVisualLocation + (60 * j) + 60;
 						}
 
-						if (roomToConnect [i, j].worldObject.texture != null) {
-							/*	roomToConnect [i, j].wObject.moveOnGrid (world[a.tileA.xGrid+ 1 + i, a.tileA.yGrid + j - a.ConnectorStart].xGrid,
-							world[a.tileA.xGrid+ 1 + i, a.tileA.yGrid + j - a.ConnectorStart].yGrid);
-
-						roomToConnect [i, j].wObject.moveVisually (world[a.tileA.xGrid+ 1 + i, a.tileA.yGrid + j - a.ConnectorStart].xLocation+60,
-							world[a.tileA.xGrid+ 1 + i, a.tileA.yGrid + j - a.ConnectorStart].yLocation-60);*/
+						if (roomToConnect [i, j].worldObject.health != 0) {
+							roomToConnect [i, j].worldObject.xGridLocation = roomToConnect [i, j].xGrid;
+							roomToConnect [i, j].worldObject.yGridLocation = roomToConnect [i, j].yGrid;
 						}
+
 						if (UporDown) {
 							world [exit.tileA.xGrid + i - roomToConnect [i, j].exitlocationx, exit.tileA.yGrid + j + 1] = roomToConnect [i, j];
 						} else {
@@ -262,7 +261,7 @@ namespace GameProject566
 		}
 
 
-		public Tile[,] makePlusSignRoom(){
+		public Tile[,] makePlusSignRoom(List<Monsterchar> monsterTypes, ref List<Monsterchar> monstersOnMap){
 			Tile[,] tiles = new Tile [8, 7];
 			WorldObject wall = new WorldObject ();
 			wall.health = -1;
@@ -285,7 +284,6 @@ namespace GameProject566
 
 					tiles [i, j].exitlocationx = 2;
 					tiles [i, j].exitlocationy = 1;
-
 				
 
 					if((i==3 && j== 2) || (i==3 && j==4)){ //vertical centerpiece
@@ -325,6 +323,39 @@ namespace GameProject566
 					
 			}
 
+			int xplace;
+			int yplace;
+			int limiter = 0; // guarantee while loop doesn't go on forever
+			Random rand = new Random ();
+
+			do {
+				xplace = rand.Next (0, 7);
+				yplace = rand.Next (0, 6);
+				limiter++;
+			} while(tiles [xplace, yplace].texture == null && limiter < 20 && tiles [xplace, yplace].worldObject.health != 0);
+
+			Monsterchar selectType = monsterTypes.ElementAt(rand.Next (0, monsterTypes.Count));
+			Monsterchar newMonster = new Monsterchar ();
+			newMonster.level = selectType.level;
+			newMonster.strength = selectType.strength;
+			newMonster.att = selectType.att;
+			newMonster.texture = selectType.texture;
+			newMonster.back = selectType.back;
+			newMonster.back2 = selectType.back2;
+			newMonster.big = selectType.big;
+			newMonster.front = selectType.front;
+			newMonster.front2 = selectType.front2;
+			newMonster.left = selectType.left;
+			newMonster.left2 = selectType.left2;
+			newMonster.right = selectType.right;
+			newMonster.right2 = selectType.right2;
+			newMonster.xGridLocation = xplace;
+			newMonster.yGridLocation = yplace;
+			monstersOnMap.Add (newMonster);
+
+			tiles [xplace, yplace].worldObject = newMonster;
+
+
 
 			//TopExit
 			RoomExit exit = new RoomExit (tiles [3,6], true);
@@ -345,7 +376,7 @@ namespace GameProject566
 
 		/////////////////////////////////////////////////////////
 		//Square room 
-		public Tile[,] makeSquareRoom(){
+		public Tile[,] makeSquareRoom(List<Monsterchar> monsterTypes, ref List<Monsterchar> monstersOnMap){
 			Tile[,] tiles = new Tile [8, 8];
 			WorldObject wall = new WorldObject ();
 			wall.health = -1;
@@ -380,6 +411,41 @@ namespace GameProject566
 
 			}
 				
+			int xplace;
+			int yplace;
+			int limiter = 0; // guarantee while loop doesn't go on forever
+			Random rand = new Random ();
+
+			do {
+				xplace = rand.Next (0, 7);
+				yplace = rand.Next (0, 7);
+				limiter++;
+			} while(tiles [xplace, yplace].texture == null && limiter < 20 && tiles [xplace, yplace].worldObject.health != 0);
+
+			Monsterchar selectType = monsterTypes.ElementAt(rand.Next (0, monsterTypes.Count));
+			Monsterchar newMonster = new Monsterchar ();
+			newMonster.level = selectType.level;
+			newMonster.strength = selectType.strength;
+			newMonster.att = selectType.att;
+			newMonster.texture = selectType.texture;
+			newMonster.back = selectType.back;
+			newMonster.back2 = selectType.back2;
+			newMonster.big = selectType.big;
+			newMonster.front = selectType.front;
+			newMonster.front2 = selectType.front2;
+			newMonster.left = selectType.left;
+			newMonster.left2 = selectType.left2;
+			newMonster.right = selectType.right;
+			newMonster.right2 = selectType.right2;
+			newMonster.xGridLocation = xplace;
+			newMonster.yGridLocation = yplace;
+			monstersOnMap.Add (newMonster);
+
+			tiles [xplace, yplace].worldObject = newMonster;
+
+			monstersOnMap.Add (newMonster);
+
+
 			RoomExit exit = new RoomExit (tiles [7,2], false);
 			roomExit.Enqueue(exit);
 
@@ -392,7 +458,7 @@ namespace GameProject566
 
 		/////////////////////////////////////////////////////////
 		//middledivider room 
-		public Tile[,] makeMiddleDividerRoom(){
+		public Tile[,] makeMiddleDividerRoom(List<Monsterchar> monsterTypes, ref List<Monsterchar> monstersOnMap){
 			Tile[,] tiles = new Tile [7, 11];
 			WorldObject wall = new WorldObject ();
 			wall.health = -1;
@@ -426,6 +492,41 @@ namespace GameProject566
 
 			}
 
+			int xplace;
+			int yplace;
+			int limiter = 0; // guarantee while loop doesn't go on forever
+			Random rand = new Random ();
+
+			do {
+				xplace = rand.Next (0, 5);
+				yplace = rand.Next (0, 9);
+				limiter++;
+			} while(tiles [xplace, yplace].texture == null && limiter < 20 && tiles [xplace, yplace].worldObject.health != 0);
+
+			Monsterchar selectType = monsterTypes.ElementAt(rand.Next (0, monsterTypes.Count));
+			Monsterchar newMonster = new Monsterchar ();
+			newMonster.level = selectType.level;
+			newMonster.strength = selectType.strength;
+			newMonster.att = selectType.att;
+			newMonster.texture = selectType.texture;
+			newMonster.back = selectType.back;
+			newMonster.back2 = selectType.back2;
+			newMonster.big = selectType.big;
+			newMonster.front = selectType.front;
+			newMonster.front2 = selectType.front2;
+			newMonster.left = selectType.left;
+			newMonster.left2 = selectType.left2;
+			newMonster.right = selectType.right;
+			newMonster.right2 = selectType.right2;
+			newMonster.xGridLocation = xplace;
+			newMonster.yGridLocation = yplace;
+			monstersOnMap.Add (newMonster);
+
+			tiles [xplace, yplace].worldObject = newMonster;
+
+			monstersOnMap.Add (newMonster);
+
+
 			RoomExit exit = new RoomExit (tiles [6,6], false);
 			roomExit.Enqueue(exit);
 
@@ -439,7 +540,7 @@ namespace GameProject566
 
 		/////////////////////////////////////////////////////////
 		//X room 
-		public Tile[,] makeXRoom(){
+		public Tile[,] makeXRoom(List<Monsterchar> monsterTypes, ref List<Monsterchar> monstersOnMap){
 			Tile[,] tiles = new Tile [9, 9];
 			WorldObject wall = new WorldObject ();
 			wall.health = -1;
@@ -488,6 +589,42 @@ namespace GameProject566
 				}
 
 			}
+
+
+			int xplace;
+			int yplace;
+			int limiter = 0; // guarantee while loop doesn't go on forever
+			Random rand = new Random ();
+
+			do {
+				xplace = rand.Next (0, 8);
+				yplace = rand.Next (0, 8);
+				limiter++;
+			} while(tiles [xplace, yplace].texture == null && limiter < 20 && tiles [xplace, yplace].worldObject.health != 0);
+
+			Monsterchar selectType = monsterTypes.ElementAt(rand.Next (0, monsterTypes.Count));
+			Monsterchar newMonster = new Monsterchar ();
+			newMonster.level = selectType.level;
+			newMonster.strength = selectType.strength;
+			newMonster.att = selectType.att;
+			newMonster.texture = selectType.texture;
+			newMonster.back = selectType.back;
+			newMonster.back2 = selectType.back2;
+			newMonster.big = selectType.big;
+			newMonster.front = selectType.front;
+			newMonster.front2 = selectType.front2;
+			newMonster.left = selectType.left;
+			newMonster.left2 = selectType.left2;
+			newMonster.right = selectType.right;
+			newMonster.right2 = selectType.right2;
+			newMonster.xGridLocation = xplace;
+			newMonster.yGridLocation = yplace;
+			monstersOnMap.Add (newMonster);
+
+			tiles [xplace, yplace].worldObject = newMonster;
+
+			monstersOnMap.Add (newMonster);
+
 
 			RoomExit exit = new RoomExit (tiles [8,1], false);
 			roomExit.Enqueue(exit);
@@ -539,7 +676,7 @@ namespace GameProject566
 
 		/////////////////////////////////////////////////////////
 		/// Block room
-		public Tile[,] makeBlockRoom(){
+		public Tile[,] makeBlockRoom(List<Monsterchar> monsterTypes, ref List<Monsterchar> monstersOnMap){
 			Tile[,] tiles = new Tile [8, 8];
 			WorldObject wall = new WorldObject ();
 			wall.health = -1;
@@ -570,7 +707,43 @@ namespace GameProject566
 				}
 
 			}
-				
+
+
+			int xplace;
+			int yplace;
+			int limiter = 0; // guarantee while loop doesn't go on forever
+			Random rand = new Random ();
+
+			do {
+				xplace = rand.Next (0, 7);
+				yplace = rand.Next (0, 7);
+				limiter++;
+			} while(tiles [xplace, yplace].texture == null && limiter < 20 && tiles [xplace, yplace].worldObject.health != 0);
+
+			Monsterchar selectType = monsterTypes.ElementAt(rand.Next (0, monsterTypes.Count));
+			Monsterchar newMonster = new Monsterchar ();
+			newMonster.level = selectType.level;
+			newMonster.strength = selectType.strength;
+			newMonster.att = selectType.att;
+			newMonster.texture = selectType.texture;
+			newMonster.back = selectType.back;
+			newMonster.back2 = selectType.back2;
+			newMonster.big = selectType.big;
+			newMonster.front = selectType.front;
+			newMonster.front2 = selectType.front2;
+			newMonster.left = selectType.left;
+			newMonster.left2 = selectType.left2;
+			newMonster.right = selectType.right;
+			newMonster.right2 = selectType.right2;
+			newMonster.xGridLocation = xplace;
+			newMonster.yGridLocation = yplace;
+			monstersOnMap.Add (newMonster);
+
+			tiles [xplace, yplace].worldObject = newMonster;
+
+			monstersOnMap.Add (newMonster);
+
+
 			RoomExit exit = new RoomExit (tiles [7,2], false);
 			roomExit.Enqueue(exit);
 
@@ -584,7 +757,8 @@ namespace GameProject566
 	
 
 		//create the level
-		public Tile[,] generateLevel(Tile[,] worldTiles,World world ,int roomCount){
+		public Tile[,] generateLevel(Tile[,] worldTiles,World world ,int roomCount, 
+			List<Monsterchar> monsterTypes, List<Monsterchar> bosses, ref List<Monsterchar> monstersOnMap, int level){
 
 			Random rand = new Random ();
 
@@ -596,7 +770,7 @@ namespace GameProject566
 
 
 				if (i == roomCount - 1) {
-					Tile[,] endRoom = makeHorizontalEndofLevel ();
+					Tile[,] endRoom = makeHorizontalEndofLevel (bosses, level);
 					worldTiles = connectRoom(worldTiles, endRoom, world.roomExit.Dequeue(), true, false);
 					break;
 				}
@@ -605,7 +779,7 @@ namespace GameProject566
 				switch (rand.Next(0,5)) {
 
 				case 0: 
-					Tile[,] plusRoom = makePlusSignRoom ();
+					Tile[,] plusRoom = makePlusSignRoom (monsterTypes, ref monstersOnMap);
 					worldTiles = connectRoom (worldTiles, plusRoom, world.roomExit.Dequeue (), true, false);
 
 					//Connect top segment
@@ -613,42 +787,39 @@ namespace GameProject566
 					worldTiles = connectRoom (worldTiles, VerticalDeadEnd, world.roomExit.Dequeue (), false, true);
 
 					//Generate randomly downwards.
-					worldTiles = generateDownwards (worldTiles, world);
+					worldTiles = generateDownwards (worldTiles, world, monsterTypes, ref monstersOnMap);
 					break;
 
 				case 1: 
-					Tile[,] squareRoom = makeSquareRoom ();
+					Tile[,] squareRoom = makeSquareRoom (monsterTypes, ref monstersOnMap);
 					worldTiles= connectRoom (worldTiles, squareRoom, world.roomExit.Dequeue(), true, false);
 					break;
 				
 				case 2: 
-					Tile[,] middleDividerRoom = makeMiddleDividerRoom ();
+					Tile[,] middleDividerRoom = makeMiddleDividerRoom (monsterTypes, ref monstersOnMap);
 					worldTiles= connectRoom (worldTiles, middleDividerRoom, world.roomExit.Dequeue(), true, false);
 					break;
 
 				case 3: 
-					Tile[,] xRoom = makeXRoom ();
+					Tile[,] xRoom = makeXRoom (monsterTypes, ref monstersOnMap);
 					worldTiles= connectRoom (worldTiles, xRoom, world.roomExit.Dequeue(), true , false);
 					break;
 
 				case 4: 
-					Tile[,] blockRoom = makeBlockRoom ();
+					Tile[,] blockRoom = makeBlockRoom (monsterTypes, ref monstersOnMap);
 					worldTiles= connectRoom (worldTiles, blockRoom, world.roomExit.Dequeue(), true, false);
 					break;
 
 				default:
 					break;
 				}
-
-
-
 			}
 
 			return worldTiles;
 		}
 
 
-		public Tile[,] makeHorizontalEndofLevel(){
+		public Tile[,] makeHorizontalEndofLevel(List<Monsterchar> listOfBosses, int whatLevelAreWeOn){
 
 			Tile[,] tiles = new Tile [10, 10];
 			WorldObject wall = new WorldObject ();
@@ -675,7 +846,20 @@ namespace GameProject566
 				}
 
 			}
+
+			//place bosses and exit
+
+			tiles[7,5].worldObject = listOfBosses.ElementAt (whatLevelAreWeOn - 1);
+			tiles [7, 5].worldObject.isBoss = true;
 				
+			WorldObject levelExit = new WorldObject ();
+			levelExit.isExit = true;
+			levelExit.texture = exit;
+
+			tiles [8, 5].worldObject = levelExit;
+			//Block player entering from side.
+			tiles [8, 4].worldObject = wall;
+			tiles [8, 6].worldObject = wall;
 
 			return tiles;
 		}
@@ -769,7 +953,7 @@ namespace GameProject566
 			return tiles;
 		}
 
-		public Tile[,] makeVerticalDeadEndWithExitUp(){
+		public Tile[,] makeVerticalDeadEndWithExitUp(List<Monsterchar> monsterTypes, ref List<Monsterchar> monstersOnMap){
 			Tile[,] tiles = new Tile [4, 4];
 			WorldObject wall = new WorldObject ();
 			wall.health = -1;
@@ -802,10 +986,46 @@ namespace GameProject566
 
 			}
 
+
+			int xplace;
+			int yplace;
+			int limiter = 0; // guarantee while loop doesn't go on forever
+			Random rand = new Random ();
+
+			do {
+				xplace = rand.Next (0, 4);
+				yplace = rand.Next (0, 4);
+				limiter++;
+			} while(tiles [xplace, yplace].texture == null && limiter < 20 && tiles [xplace, yplace].worldObject.health != 0);
+
+			Monsterchar selectType = monsterTypes.ElementAt(rand.Next (0, monsterTypes.Count));
+			Monsterchar newMonster = new Monsterchar ();
+			newMonster.level = selectType.level;
+			newMonster.strength = selectType.strength;
+			newMonster.att = selectType.att;
+			newMonster.texture = selectType.texture;
+			newMonster.back = selectType.back;
+			newMonster.back2 = selectType.back2;
+			newMonster.big = selectType.big;
+			newMonster.front = selectType.front;
+			newMonster.front2 = selectType.front2;
+			newMonster.left = selectType.left;
+			newMonster.left2 = selectType.left2;
+			newMonster.right = selectType.right;
+			newMonster.right2 = selectType.right2;
+			newMonster.xGridLocation = xplace;
+			newMonster.yGridLocation = yplace;
+			monstersOnMap.Add (newMonster);
+
+			tiles [xplace, yplace].worldObject = newMonster;
+
+			monstersOnMap.Add (newMonster);
+
+
 			return tiles;
 		}
 
-		public Tile[,] makeVerticalSquareroom(){
+		public Tile[,] makeVerticalSquareroom(List<Monsterchar> monsterTypes, ref List<Monsterchar> monstersOnMap){
 			Tile[,] tiles = new Tile [8, 8];
 			WorldObject wall = new WorldObject ();
 			wall.health = -1;
@@ -838,6 +1058,41 @@ namespace GameProject566
 
 			}
 
+			int xplace;
+			int yplace;
+			int limiter = 0; // guarantee while loop doesn't go on forever
+			Random rand = new Random ();
+
+			do {
+				xplace = rand.Next (0, 8);
+				yplace = rand.Next (0, 8);
+				limiter++;
+			} while(tiles [xplace, yplace].texture == null && limiter < 20 && tiles [xplace, yplace].worldObject.health != 0);
+
+			Monsterchar selectType = monsterTypes.ElementAt(rand.Next (0, monsterTypes.Count));
+			Monsterchar newMonster = new Monsterchar ();
+			newMonster.level = selectType.level;
+			newMonster.strength = selectType.strength;
+			newMonster.att = selectType.att;
+			newMonster.texture = selectType.texture;
+			newMonster.back = selectType.back;
+			newMonster.back2 = selectType.back2;
+			newMonster.big = selectType.big;
+			newMonster.front = selectType.front;
+			newMonster.front2 = selectType.front2;
+			newMonster.left = selectType.left;
+			newMonster.left2 = selectType.left2;
+			newMonster.right = selectType.right;
+			newMonster.right2 = selectType.right2;
+			newMonster.xGridLocation = xplace;
+			newMonster.yGridLocation = yplace;
+			monstersOnMap.Add (newMonster);
+
+			tiles [xplace, yplace].worldObject = newMonster;
+
+			monstersOnMap.Add (newMonster);
+
+
 			//enqueue
 			RoomExit exit = new RoomExit (tiles [2,7], true);
 			roomExit.Enqueue(exit);
@@ -846,7 +1101,7 @@ namespace GameProject566
 
 
 		//create the level
-		public Tile[,] generateDownwards(Tile[,] worldTiles,World world){
+		public Tile[,] generateDownwards(Tile[,] worldTiles,World world,List<Monsterchar> monsterTypes, ref List<Monsterchar> monstersOnMap){
 
 			Random rand = new Random ();
 
@@ -863,7 +1118,7 @@ namespace GameProject566
 
 				if (i == verticalRoomCount - 1) {
 
-					Tile[,] verticalDeadEnd = makeVerticalDeadEndWithExitUp ();
+					Tile[,] verticalDeadEnd = makeVerticalDeadEndWithExitUp (monsterTypes, ref monstersOnMap);
 					worldTiles = connectRoom (worldTiles, verticalDeadEnd, world.roomExit.Dequeue (), false, false);
 					break;
 				}
@@ -871,7 +1126,7 @@ namespace GameProject566
 				switch (rand.Next(0,2)) {
 
 				case 1: 
-					Tile[,] verticalSquare = makeVerticalSquareroom ();
+					Tile[,] verticalSquare = makeVerticalSquareroom (monsterTypes, ref monstersOnMap);
 					worldTiles = connectRoom (worldTiles, verticalSquare, world.roomExit.Dequeue (), false, false);
 					break;
 
