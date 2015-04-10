@@ -797,7 +797,7 @@ namespace GameProject566
 			if (status == GameStatus.battleScreen) {
 				//Console.WriteLine("X Position: " + cursorX + "Y Position: " + cursorY);
 				//Console.WriteLine("Monster Location: " + m1.xLocation + " , " + m1.yLocation);
-				if (m.ButtonFlags == MouseButtonFlags.LeftDown && cursorX >= 500 && cursorX <= 560 && cursorY >= 500 && cursorY <= 560) {
+				if (m.ButtonFlags == MouseButtonFlags.LeftDown && cursorX >= 200 && cursorX <= 340 && cursorY >= 675 && cursorY <= 710) {
 
                     int choseChar = rand.Next(party.Count);
 
@@ -836,7 +836,7 @@ namespace GameProject566
 
                     //Console.WriteLine("Player: " + party[0].health + "\n" + "Monster: " + m1.health + "\nChar1: " + party[1].health + "\nChar2: " + party[2].health + "\nChar3: " + party[3].health);
                     int i = 1;
-                    foreach (PlayerChar alive in party)
+                    /*foreach (PlayerChar alive in party)
                     {
                         Console.WriteLine("Character " + i + ": " + alive.experience);
                         i++;
@@ -1210,7 +1210,7 @@ namespace GameProject566
             monsters[randomMon].xGridLocation = party[0].xGridLocation + 5;
             monsters[randomMon].yGridLocation = party[0].yGridLocation + 5;
             worldTiles[monsters[randomMon].xGridLocation, monsters[randomMon].yGridLocation].worldObject = monsters[randomMon];
-
+            //worldTiles[party[0].xGridLocation + 3, party[0].yGridLocation - 3].worldObject = monsters[2];
 
 
             worldTiles = world.generateLevel(worldTiles, world, MAXROOMS);
