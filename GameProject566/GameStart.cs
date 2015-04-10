@@ -552,7 +552,7 @@ namespace GameProject566
 				} else if (m.ButtonFlags == MouseButtonFlags.LeftDown && cursorX >= 900 && cursorY >= 700 && cursorX <= 990 && cursorY <= 730) {
 					//start credits
 					status = GameStatus.credits;
-
+					reset();
 				} 
 			}
 
@@ -865,14 +865,7 @@ namespace GameProject566
                         }
                         party.Remove(party[choseChar]);
                     }
-
-                    //Console.WriteLine("Player: " + party[0].health + "\n" + "Monster: " + m1.health + "\nChar1: " + party[1].health + "\nChar2: " + party[2].health + "\nChar3: " + party[3].health);
-                    int i = 1;
-                    /*foreach (PlayerChar alive in party)
-                    {
-                        Console.WriteLine("Character " + i + ": " + alive.experience);
-                        i++;
-                    }
+						
                     //Console.WriteLine("Monster: " + m1.health + "\n");*/
                     if (party.Count == 0)
                         isEveryoneDead = true;
