@@ -285,6 +285,14 @@ namespace GameProject566
         //static string boss4;
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+        /////////////////////////////////////////////    STAT SCREEEN    ///////////////////////////////////////////////
+        static string statScreen = "..\\..\\sprites\\statsScreen.png";
+
+        static Texture TstatScreen;
+
+        static int statScreenYLocation;// = 400;
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 		public Device initializeGraphics (Form form)
 		{
@@ -446,6 +454,7 @@ namespace GameProject566
             device9.Clear(ClearFlags.Target, Color.Black, 1.0f, 0);
 
             BattleTextDrawing = new SlimDX.Direct3D9.Font(device9, BattleScreenfont);
+           
 
         }
 
@@ -471,7 +480,62 @@ namespace GameProject566
 			tutorialHome = createTexture (device9, tutorialHomeButton);
 	
 		}
-			
+
+        //create Stats Texture
+        public static void createStatTexture(Device device9)
+        {
+            TstatScreen = createTexture(device9, statScreen);
+        }
+
+        public static void renderStatsScreen(SlimDX.Color4 color, Device device9, Sprite sprite, List<PlayerChar> party, PlayerParty pParty)
+        {
+
+            statScreenYLocation = 400;
+            //device9.Clear(ClearFlags.Target, Color.RoyalBlue, 1.0f, 0);
+            sprite.Transform = Matrix.Translation(0, 0, 0);
+            sprite.Draw(mainMenu, color);
+
+            sprite.Transform = Matrix.Scaling(3f, 3f, 0) + Matrix.Translation(0, 0, 0);
+            BattleTextDrawing.DrawString(sprite, "Press Esc to exit" , 0, 0, Color.White);
+
+            sprite.Transform = Matrix.Translation(0, 75, 0); 
+            sprite.Draw(TstatScreen, color);
+
+            foreach (PlayerChar p in party)
+            {
+                sprite.Transform = Matrix.Scaling(3f, 3f, 0) + Matrix.Translation(0, statScreenYLocation, 0);
+                BattleTextDrawing.DrawString(sprite, p.name, 0, 0, Color.RoyalBlue);
+
+                sprite.Transform = Matrix.Scaling(3f, 3f, 0) + Matrix.Translation(375, statScreenYLocation, 0);
+                BattleTextDrawing.DrawString(sprite, ""+p.characterClass, 0, 0, Color.RoyalBlue);
+
+                sprite.Transform = Matrix.Scaling(3f, 3f, 0) + Matrix.Translation(700, statScreenYLocation, 0);
+                BattleTextDrawing.DrawString(sprite, ""+p.health, 0, 0, Color.RoyalBlue);
+
+                sprite.Transform = Matrix.Scaling(3f, 3f, 0) + Matrix.Translation(900, statScreenYLocation, 0);
+                BattleTextDrawing.DrawString(sprite, ""+p.level, 0, 0, Color.RoyalBlue);
+
+                sprite.Transform = Matrix.Scaling(3f, 3f, 0) + Matrix.Translation(1100, statScreenYLocation, 0);
+                BattleTextDrawing.DrawString(sprite, ""+p.wisdom, 0, 0, Color.RoyalBlue);
+
+                sprite.Transform = Matrix.Scaling(3f, 3f, 0) + Matrix.Translation(1350, statScreenYLocation, 0);
+                BattleTextDrawing.DrawString(sprite, ""+p.agility, 0, 0, Color.RoyalBlue);
+
+                sprite.Transform = Matrix.Scaling(3f, 3f, 0) + Matrix.Translation(1600, statScreenYLocation, 0);
+                BattleTextDrawing.DrawString(sprite, ""+p.strength, 0, 0, Color.RoyalBlue);
+
+                sprite.Transform = Matrix.Scaling(3f, 3f, 0) + Matrix.Translation(1800, statScreenYLocation, 0);
+                BattleTextDrawing.DrawString(sprite, ""+ pParty.gold, 0, 0, Color.RoyalBlue);
+
+                statScreenYLocation += 200;
+            }
+        }
+
+        public static void disposeStatScreen()
+        {
+            TstatScreen.Dispose();
+        }
+
 		public static void renderTutorial(SlimDX.Color4 color, Device device9, Sprite sprite)
 		{
 
@@ -991,18 +1055,15 @@ namespace GameProject566
             monsters[3].back2 = createTexture(device9, m4Back1);
             monsters[3].left2 = createTexture(device9, m4Left1);
             monsters[3].right2 = createTexture(device9, m4Right1);
-            monsters[3].texture = monsters[3].left;
+            monsters[3].texture = monsters[0].left;
             return monsters;
         }
 
         public static List<Monsterchar> createBosses(Device device9, List<Monsterchar> bosses)
         {
-            bosses[0].texture= createTexture(device9, boss1);
-			bosses[0].left= createTexture(device9, boss1);
-            bosses[1].texture = createTexture(device9, boss2);
-			bosses[1].left= createTexture(device9, boss2);
-            bosses[2].texture = createTexture(device9, boss3);
-			bosses[2].left= createTexture(device9, boss3);
+            bosses[0].texture= bosses[0].left = createTexture(device9, boss1);
+            bosses[1].texture = bosses[1].left = createTexture(device9, boss2);
+            bosses[2].texture = bosses[2].left = createTexture(device9, boss3);
 
             return bosses;
         }

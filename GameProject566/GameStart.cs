@@ -236,6 +236,9 @@ namespace GameProject566
                 //background for map
                 mapBg = Graphics.createTexture(device9, bg);
 
+                //create stat texture
+                Graphics.createStatTexture(device9);
+
                 //background for menu
                 //menuBGTex = Graphics.createTexture(device9, menuBG)
 
@@ -381,6 +384,12 @@ namespace GameProject566
             if (status == GameStatus.win || status == GameStatus.lose)
             {
                 Graphics.renderMessage(color, device9, sprite, status);
+            }
+
+            //render stats screen
+            if (status == GameStatus.stats)
+            {
+                Graphics.renderStatsScreen(color, device9, sprite, party, playerparty);
             }
 			//end render
 			sprite.End ();
@@ -965,6 +974,12 @@ namespace GameProject566
 
 			}
 
+            if (e.State == KeyState.Pressed && status == GameStatus.map && e.Key == Keys.P)
+                status = GameStatus.stats;
+
+            if (e.State == KeyState.Pressed && status == GameStatus.stats && e.Key == Keys.Escape)
+                status = GameStatus.map;
+
 			if (e.State == KeyState.Pressed && status == GameStatus.map) {
 				//Console.WriteLine("X: " + party[0].xGridLocation + " Y: " + party[0].yGridLocation);
 				if (e.Key == Keys.Down && worldTiles [party [0].xGridLocation, party [0].yGridLocation - 1].worldObject.health ==0
@@ -1370,7 +1385,7 @@ namespace GameProject566
 			//music.Dispose ();
             //directsound.Dispose();
             //wave.Dispose();
-            
+            Graphics.disposeStatScreen();
 
                 Application.Exit();
                 if (device9 != null)

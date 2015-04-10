@@ -12,7 +12,8 @@ namespace GameProject566
 		map,
 		battleScreen,
         win,
-        lose
+        lose,
+        stats
 	}
 }
 
