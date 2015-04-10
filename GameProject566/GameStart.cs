@@ -797,7 +797,7 @@ namespace GameProject566
 			if (status == GameStatus.battleScreen) {
 				//Console.WriteLine("X Position: " + cursorX + "Y Position: " + cursorY);
 				//Console.WriteLine("Monster Location: " + m1.xLocation + " , " + m1.yLocation);
-				if (m.ButtonFlags == MouseButtonFlags.LeftDown && cursorX >= 500 && cursorX <= 560 && cursorY >= 500 && cursorY <= 560) {
+				if (m.ButtonFlags == MouseButtonFlags.LeftDown && cursorX >= 200 && cursorX <= 340 && cursorY >= 675 && cursorY <= 710) {
 
                     int choseChar = rand.Next(party.Count);
 
@@ -828,15 +828,17 @@ namespace GameProject566
                     {
                         if (party[choseChar] == party[0])
                         {
-                            party[choseChar + 1].xGridLocation = party[choseChar].xGridLocation;
-                            party[choseChar + 1].yGridLocation = party[choseChar].yGridLocation;
+							if (choseChar != 0) {
+								party [choseChar + 1].xGridLocation = party [choseChar].xGridLocation;
+								party [choseChar + 1].yGridLocation = party [choseChar].yGridLocation;
+							}
                         }
                         party.Remove(party[choseChar]);
                     }
 
                     //Console.WriteLine("Player: " + party[0].health + "\n" + "Monster: " + m1.health + "\nChar1: " + party[1].health + "\nChar2: " + party[2].health + "\nChar3: " + party[3].health);
                     int i = 1;
-                    foreach (PlayerChar alive in party)
+                    /*foreach (PlayerChar alive in party)
                     {
                         Console.WriteLine("Character " + i + ": " + alive.experience);
                         i++;
@@ -911,6 +913,8 @@ namespace GameProject566
 					characterX = party [0].xLocation;
 					characterY = party [0].yLocation;
 
+					worldTiles [monster.xGridLocation, monster.yGridLocation].worldObject = new WorldObject();
+
 					monsterCurrentlyFighting = monster;
 
 					status = GameStatus.battleScreen;
@@ -919,7 +923,7 @@ namespace GameProject566
 
 			if (e.State == KeyState.Pressed && status == GameStatus.map) {
 				//Console.WriteLine("X: " + party[0].xGridLocation + " Y: " + party[0].yGridLocation);
-				if (e.Key == Keys.Down && worldTiles [party [0].xGridLocation, party [0].yGridLocation - 1].worldObject.texture == null
+				if (e.Key == Keys.Down && worldTiles [party [0].xGridLocation, party [0].yGridLocation - 1].worldObject.health == 0
 				    && worldTiles [party [0].xGridLocation, party [0].yGridLocation - 1].worldObject != null) {
 
 					tileY2 -= 60f;
@@ -940,7 +944,7 @@ namespace GameProject566
 					worldTiles [party [0].xGridLocation, party [0].yGridLocation].worldObject = party [0];
 
 					changePlayerFront = !changePlayerFront;
-				} else if (e.Key == Keys.Up && worldTiles [party [0].xGridLocation, party [0].yGridLocation + 1].worldObject.texture == null
+				} else if (e.Key == Keys.Up && worldTiles [party [0].xGridLocation, party [0].yGridLocation + 1].worldObject.health == 0
 				           && worldTiles [party [0].xGridLocation, party [0].yGridLocation + 1].worldObject != null) {
 
 					tileY2 += 60f;
@@ -961,7 +965,7 @@ namespace GameProject566
 
 
 					changePlayerBack = !changePlayerBack;
-				} else if (e.Key == Keys.Left && worldTiles [party [0].xGridLocation - 1, party [0].yGridLocation].worldObject.texture == null
+				} else if (e.Key == Keys.Left && worldTiles [party [0].xGridLocation - 1, party [0].yGridLocation].worldObject.health == 0
 				           && worldTiles [party [0].xGridLocation - 1, party [0].yGridLocation].worldObject != null) {
 
 				
@@ -983,7 +987,7 @@ namespace GameProject566
 
 					worldTiles [party [0].xGridLocation, party [0].yGridLocation].worldObject = party [0];
 
-				} else if (e.Key == Keys.Right && worldTiles [party [0].xGridLocation + 1, party [0].yGridLocation].worldObject.texture == null
+				} else if (e.Key == Keys.Right && worldTiles [party [0].xGridLocation + 1, party [0].yGridLocation].worldObject.health == 0
 				           && worldTiles [party [0].xGridLocation + 1, party [0].yGridLocation].worldObject != null) {
 
 					tileX2 -= 60f;
@@ -1012,6 +1016,7 @@ namespace GameProject566
 						//monsters[randomMon].texture = monsters[randomMon].left;
 						//party[0].texture = Graphics.createTexture (device9, pright);
 						//monsters[randomMon].texture = Graphics.createTexture (device9, monsters[randomMon]Left);
+						worldTiles [monster.xGridLocation, monster.yGridLocation].worldObject = new WorldObject();
 						monsterCurrentlyFighting = monster;
                    
 						status = GameStatus.battleScreen;
@@ -1180,6 +1185,10 @@ namespace GameProject566
 
             //reset the party
             //characters.Clear();
+			CurrentDisplayCharacter = new int[4] {1, 1, 1, 1};
+			currentCharacter = 1;
+			pointsRemainingforCharacter = new int[4] {10, 10, 10, 10};
+
             party.Clear();
 
 			party.Add(new PlayerChar());
@@ -1208,11 +1217,7 @@ namespace GameProject566
             party[0].xGridLocation = 6;
             party[0].yGridLocation = 5;
 
-
-
-
-
-            //Make starting room.
+		            //Make starting room.
             Tile[,] startingRoom = world.makeStartingRoom(party[0]);
 
             //place the room on the world grid.

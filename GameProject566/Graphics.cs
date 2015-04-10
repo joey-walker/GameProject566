@@ -101,8 +101,18 @@ namespace GameProject566
         static int partyXlocation;
         static int partyYlocation;
 
+        static int statXlocation;
+        static int statYlocation;
+
+        static int tableStatXLocation = 100;
+        static int tableStatYLocation = 20;
+
         static int monsterXlocation = 500;
         static int monsterYlocation = 500;
+
+        //sprites for stats table
+        static string statTable = "..\\..\\sprites\\battlescreenstats.png";
+        static Texture TstatTable;
 
         //device9.Clear (ClearFlags.Target, Color.Black, 1.0f, 0);
 		static System.Drawing.Font BattleScreenfont = new System.Drawing.Font (FontFamily.GenericSansSerif, 12);
@@ -351,6 +361,7 @@ namespace GameProject566
             partyXlocation = 100;
             partyYlocation = 400;
 
+            
 
             sprite.Transform = Matrix.Translation(0, 0, 0);
             switch (level)
@@ -369,18 +380,41 @@ namespace GameProject566
                     break;
             }
 
+            //move stats to the table
+            
+            statYlocation = tableStatYLocation + 100;
+
+            //sprite.Transform = Matrix.Translation(100, 0, 0);
+            sprite.Transform = Matrix.Scaling(.8f, .8f, 0) + Matrix.Translation(tableStatXLocation, tableStatYLocation, 0);
+            sprite.Draw(TstatTable, color);
             foreach (PlayerChar character in party)
             {
+                statXlocation = tableStatXLocation;
                 //character.texture = character.right;
                 character.xLocation = partyXlocation;
                 character.yLocation = partyYlocation;
                 partyYlocation += 80;
                 sprite.Transform = Matrix.Translation(character.xLocation, character.yLocation, 0);
                 sprite.Draw(character.texture, color);
-                sprite.Transform = Matrix.Translation(character.xLocation, character.yLocation - 20, 0);
-                BattleTextDrawing.DrawString(sprite, "Health: " + character.health, 0, 0, color);
-                //character.texture = character.right;
+                    sprite.Transform = Matrix.Scaling(3f, 3f, 0) + Matrix.Translation(statXlocation, statYlocation, 0);
+                    BattleTextDrawing.DrawString(sprite, character.name, 0, 0, color);
+
+                    statXlocation += 250;
+                    sprite.Transform = Matrix.Scaling(3f, 3f, 0) + Matrix.Translation(statXlocation, statYlocation, 0);
+                    BattleTextDrawing.DrawString(sprite, ""+character.health, 0, 0, color);
+
+                    statXlocation += 250;
+                    sprite.Transform = Matrix.Scaling(3f, 3f, 0) + Matrix.Translation(statXlocation, statYlocation, 0);
+                    BattleTextDrawing.DrawString(sprite, ""+character.characterClass, 0, 0, color);
+
+                    statXlocation += 250;
+                    sprite.Transform = Matrix.Scaling(3f, 3f, 0) + Matrix.Translation(statXlocation, statYlocation, 0);
+                    BattleTextDrawing.DrawString(sprite, ""+character.level, 0, 0, color);
+
+                    statYlocation += 85;
+                 //character.texture = character.right;
             }
+
             
 
             sprite.Transform = Matrix.Translation(monsterXlocation, monsterYlocation, 0);
@@ -388,11 +422,15 @@ namespace GameProject566
 
             //device9.Clear(ClearFlags.Target, Color.Black, 1.0f, 0);
 
+            sprite.Transform = Matrix.Scaling(3f, 3f, 0) + Matrix.Translation(1500, 20, 0);
+            sprite.Draw(TTextBox, color);
+            sprite.Transform = Matrix.Scaling(2.5f, 2.5f, 0) + Matrix.Translation(1515, 50, 0);
+            BattleTextDrawing.DrawString(sprite, "Monster Health: " + monster.health, 0, 0, color);
 
-            sprite.Transform = Matrix.Translation(monsterXlocation, monsterYlocation - 20, 0);
-            BattleTextDrawing.DrawString(sprite, "Health: " + monster.health, 0, 0, color);
-
-
+            sprite.Transform = Matrix.Scaling(1.2f, 1.2f, 0) + Matrix.Translation(400, 1350, 0);
+            sprite.Draw(TTextBox, color);
+            sprite.Transform = Matrix.Scaling(3f, 3f, 0) + Matrix.Translation(450, 1350, 0);
+            BattleTextDrawing.DrawString(sprite, "Attack!", 0, 0, color);
         }
 
         public static void createBattleScreenTextures(Device device9)
@@ -403,6 +441,8 @@ namespace GameProject566
             battlebgT2 = createTexture(device9, battlebg2);
             battlebgT3 = createTexture(device9, battlebg3);
             battlebgT4 = createTexture(device9, battlebg4);
+
+            TstatTable = createTexture(device9, statTable);
             device9.Clear(ClearFlags.Target, Color.Black, 1.0f, 0);
 
             BattleTextDrawing = new SlimDX.Direct3D9.Font(device9, BattleScreenfont);
@@ -763,6 +803,7 @@ namespace GameProject566
             battlebgT3.Dispose();
             battlebgT4.Dispose();
 
+            TstatTable.Dispose();
             //monsterT.Dispose();
 
             BattleScreenfont.Dispose();
