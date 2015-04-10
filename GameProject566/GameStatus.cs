@@ -13,7 +13,8 @@ namespace GameProject566
 		battleScreen,
         win,
         lose,
-        stats
+        stats,
+		credits
 	}
 }
 

@@ -18,6 +18,7 @@ using System.Collections.Generic;
 using SlimDX.XInput;
 using SlimDX.DirectInput;
 using NUnit.Framework;
+using SlimDX.Direct2D;
 
 namespace GameProject566
 {
@@ -178,6 +179,10 @@ namespace GameProject566
         static DirectSound directsound;
         static WaveStream wave;
 
+		//music
+
+		static bool playingCredits = false;
+
 		public static void Main ()
 		{
 			//using allows cleanup of form afterwards
@@ -287,13 +292,13 @@ namespace GameProject566
 			}
 		}
 
-        public static void playMusic()
+		public static void playMusic(String musicLoc)
         {
             //SOUND STUFF/////////////////
             directsound = new DirectSound();
             directsound.IsDefaultPool = false;
             directsound.SetCooperativeLevel(form.Handle, SlimDX.DirectSound.CooperativeLevel.Priority);
-            wave = new WaveStream("..\\..\\sprites\\music1.wav");
+			wave = new WaveStream(musicLoc);
 
             SoundBufferDescription description = new SoundBufferDescription();
             description.Format = wave.Format;
@@ -328,8 +333,17 @@ namespace GameProject566
 
 		private static void GameLogic ()
 		{
-			//z += 0.0001f;
-			//This is where would place game logic for a game
+			if (status == GameStatus.credits) {
+				if (playingCredits == false) {
+					playMusic ("..\\..\\sprites\\Music\\Credits_Song.wav");
+					playingCredits = true;
+				}
+			} else {
+				if (playingCredits==true) {
+					music.Stop ();
+					playingCredits = false;
+				}
+			}
 		}
 
 
@@ -391,6 +405,12 @@ namespace GameProject566
             {
                 Graphics.renderStatsScreen(color, device9, sprite, party, playerparty);
             }
+
+			if (status == GameStatus.credits) {
+				Graphics.renderCredits (device9, sprite, color);
+			}
+
+
 			//end render
 			sprite.End ();
 			sprite2.End ();
@@ -529,7 +549,11 @@ namespace GameProject566
 					//start tutorial
 					status = GameStatus.tutorial;
 
-				}
+				} else if (m.ButtonFlags == MouseButtonFlags.LeftDown && cursorX >= 900 && cursorY >= 700 && cursorX <= 990 && cursorY <= 730) {
+					//start credits
+					status = GameStatus.credits;
+
+				} 
 			}
 
             if (status == GameStatus.createCharacter)
@@ -904,6 +928,14 @@ namespace GameProject566
                 }
             }
 
+			if (status == GameStatus.credits) {
+				if (m.ButtonFlags == MouseButtonFlags.LeftDown) {
+					if (cursorX >= 85 && cursorX <= 245 && cursorY >= 500 && cursorY <= 540)
+						status = GameStatus.mainMenu;
+				}
+
+			}
+
 
 		}
 
@@ -931,10 +963,10 @@ namespace GameProject566
 
 				level++;
 				if (level > 3) {
-					//credits here, exit game.
+					status = GameStatus.credits;
+				} else {
+					nextLevel ();
 				}
-				nextLevel ();
-
 			}
 
 			if (worldTiles [party [0].xGridLocation + 1, party [0].yGridLocation].worldObject.isBoss){
@@ -1228,6 +1260,15 @@ namespace GameProject566
 				}
 
 			}
+
+			if (status == GameStatus.credits) {
+				if (e.State == KeyState.Pressed) {
+					if (e.Key == Keys.Escape) {
+						status = GameStatus.mainMenu;
+					}
+				}
+			}
+
 		}
 
 		//reset health and position for player
