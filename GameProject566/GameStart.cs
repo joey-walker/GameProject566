@@ -552,7 +552,6 @@ namespace GameProject566
 				} else if (m.ButtonFlags == MouseButtonFlags.LeftDown && cursorX >= 900 && cursorY >= 700 && cursorX <= 990 && cursorY <= 730) {
 					//start credits
 					status = GameStatus.credits;
-
 				} 
 			}
 
@@ -831,15 +830,18 @@ namespace GameProject566
 
                     int choseChar = rand.Next(party.Count);
 
+					monsterCurrentlyFighting.health -= party[choseChar].attack(rand);
+
                     //party[choseChar].texture = party[choseChar].att;
-					party[choseChar].health -= monsterCurrentlyFighting.attack(rand);
+					if (monsterCurrentlyFighting.health > 0)
+						party[choseChar].health -= monsterCurrentlyFighting.attack(rand);
                     //party[0].health -= 10;
 
                     //assigning experience to character
                     //party[choseChar].experience += (int)(monsters[randomMon].health * 1.5);
 
                     //attack monster
-					monsterCurrentlyFighting.health -= party[choseChar].attack(rand);
+
 
                     //assign experience to character
                     //party[choseChar].experience -= (int)(monsters[randomMon].health * 1.5);
@@ -865,14 +867,7 @@ namespace GameProject566
                         }
                         party.Remove(party[choseChar]);
                     }
-
-                    //Console.WriteLine("Player: " + party[0].health + "\n" + "Monster: " + m1.health + "\nChar1: " + party[1].health + "\nChar2: " + party[2].health + "\nChar3: " + party[3].health);
-                    int i = 1;
-                    /*foreach (PlayerChar alive in party)
-                    {
-                        Console.WriteLine("Character " + i + ": " + alive.experience);
-                        i++;
-                    }
+						
                     //Console.WriteLine("Monster: " + m1.health + "\n");*/
                     if (party.Count == 0)
                         isEveryoneDead = true;
@@ -905,8 +900,8 @@ namespace GameProject566
                     Graphics.switchMenuButton(true);
                     if (m.ButtonFlags == MouseButtonFlags.LeftDown)
                     {
-                        status = GameStatus.mainMenu;
-                        reset();
+						reset();
+						status = GameStatus.mainMenu;                        
                     }
                 }
                 else 
@@ -964,6 +959,7 @@ namespace GameProject566
 				level++;
 				if (level > 3) {
 					status = GameStatus.credits;
+					reset();
 				} else {
 					nextLevel ();
 				}
@@ -1314,6 +1310,8 @@ namespace GameProject566
 			//create world grid
 
 
+			level = 1;
+
             worldTiles = world.makeWorld(WORLDSIZE);
 
 			//////////
@@ -1339,7 +1337,7 @@ namespace GameProject566
             foreach (PlayerChar member in party)
             {
                 member.texture = member.right;
-                member.health = 300;
+                member.health = 500;
             }
 				
             //create battlescreen textures
