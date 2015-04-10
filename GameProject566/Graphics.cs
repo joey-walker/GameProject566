@@ -998,8 +998,11 @@ namespace GameProject566
         public static List<Monsterchar> createBosses(Device device9, List<Monsterchar> bosses)
         {
             bosses[0].texture= createTexture(device9, boss1);
+			bosses[0].left= createTexture(device9, boss1);
             bosses[1].texture = createTexture(device9, boss2);
+			bosses[1].left= createTexture(device9, boss2);
             bosses[2].texture = createTexture(device9, boss3);
+			bosses[2].left= createTexture(device9, boss3);
 
             return bosses;
         }

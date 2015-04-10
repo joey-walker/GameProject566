@@ -63,6 +63,10 @@ namespace GameProject566
 		//fileLocation for tiles
 		static string tiles = "..\\..\\sprites\\tile1.png";
 		static string wall = "..\\..\\sprites\\Wall.png";
+		static string tiles2 = "..\\..\\sprites\\Tiles2\\tile.png";
+		static string wall2 = "..\\..\\sprites\\Tiles2\\border.png";
+		static string tiles3 = "..\\..\\sprites\\Tiles3\\tile.png";
+		static string wall3 = "..\\..\\sprites\\Tiles3\\border.png";
 		static string exitTile = "..\\..\\sprites\\Exit\\Black_hole.png";
 		static string shopTile = "..\\..\\sprites\\shopTile\\Shop.png";
 
@@ -522,13 +526,6 @@ namespace GameProject566
             if (status == GameStatus.createCharacter)
             {
 				
-
-				//CREATECHAR
-                //if (m.ButtonFlags == MouseButtonFlags.LeftDown && cursorX >= 500 && cursorY >= 470 && cursorX <= 1000 && cursorY <= 580)
-                //{
-                  
-                    
-                //}
 				foreach(PlayerChar character in party){
 					if (character.big == null) {
 						character.big = characters [0].big;
@@ -828,7 +825,7 @@ namespace GameProject566
                     {
                         if (party[choseChar] == party[0])
 						{
-							if (party.Count >= 1) {
+							if (party.Count > 1) {
 								party [choseChar + 1].xGridLocation = party [choseChar].xGridLocation;
 								party [choseChar + 1].yGridLocation = party [choseChar].yGridLocation;
 							}
@@ -921,9 +918,56 @@ namespace GameProject566
 				}
 			}
 
+			if (worldTiles [party [0].xGridLocation + 1, party [0].yGridLocation].worldObject.isExit) {
+
+				level++;
+				if (level > 3) {
+					//credits here, exit game.
+				}
+				nextLevel ();
+
+			}
+
+			if (worldTiles [party [0].xGridLocation + 1, party [0].yGridLocation].worldObject.isBoss){
+
+				characterX = party [0].xLocation;
+				characterY = party [0].yLocation;
+
+				worldTiles [party [0].xGridLocation+1, party [0].yGridLocation].worldObject = new WorldObject();
+			
+
+				monsterCurrentlyFighting = bosses.ElementAt (level - 1);
+				status = GameStatus.battleScreen;
+
+			}else if(worldTiles [party [0].xGridLocation, party [0].yGridLocation+1].worldObject.isBoss)
+			{
+
+				characterX = party [0].xLocation;
+				characterY = party [0].yLocation;
+
+				worldTiles [party [0].xGridLocation, party [0].yGridLocation + 1].worldObject = new WorldObject();
+
+				monsterCurrentlyFighting = bosses.ElementAt (level - 1);
+
+
+				status = GameStatus.battleScreen;
+
+			}else if(worldTiles [party [0].xGridLocation, party [0].yGridLocation-1].worldObject.isBoss) {
+				//boss fight
+				characterX = party [0].xLocation;
+				characterY = party [0].yLocation;
+
+				worldTiles [party [0].xGridLocation, party [0].yGridLocation - 1].worldObject = new WorldObject();
+
+				monsterCurrentlyFighting = bosses.ElementAt (level - 1);
+
+				status = GameStatus.battleScreen;
+
+			}
+
 			if (e.State == KeyState.Pressed && status == GameStatus.map) {
 				//Console.WriteLine("X: " + party[0].xGridLocation + " Y: " + party[0].yGridLocation);
-				if (e.Key == Keys.Down && worldTiles [party [0].xGridLocation, party [0].yGridLocation - 1].worldObject.health == 0
+				if (e.Key == Keys.Down && worldTiles [party [0].xGridLocation, party [0].yGridLocation - 1].worldObject.health ==0
 				    && worldTiles [party [0].xGridLocation, party [0].yGridLocation - 1].worldObject != null) {
 
 					tileY2 -= 60f;
@@ -1239,7 +1283,7 @@ namespace GameProject566
             foreach (PlayerChar member in party)
             {
                 member.texture = member.right;
-                member.health = 100;
+                member.health = 300;
             }
 				
             //create battlescreen textures
@@ -1247,6 +1291,58 @@ namespace GameProject566
 
 
         }
+
+
+		public static void nextLevel()
+		{
+			//reset monster and character location
+			characterX = 420;
+			characterY = 300;
+
+			tileX = 0;
+			tileY = 0;
+
+			tileX2 = 0;
+			tileY2 = 0;
+		
+			//clear monsters
+			monstersOnMap.Clear();
+
+			//Intialize the world
+			World world = new World();
+			if (level == 2) {
+				world.wall = Graphics.createTexture (device9, wall2);
+				world.tile = Graphics.createTexture (device9, tiles2);
+			} else {
+				world.wall = Graphics.createTexture (device9, wall3);
+				world.tile = Graphics.createTexture (device9, tiles3);
+			}
+
+			world.exit = Graphics.createTexture (device9, exitTile);
+			world.shop = Graphics.createTexture (device9, shopTile);
+
+			//create world grid
+
+			worldTiles = world.makeWorld(WORLDSIZE);
+
+			//////////
+
+			//Player's initial position on the grid.
+
+			party[0].xGridLocation = 6;
+			party[0].yGridLocation = 5;
+
+			//Make starting room.
+			Tile[,] startingRoom = world.makeStartingRoom(party[0]);
+
+			//place the room on the world grid.
+			worldTiles = world.PlaceRoomOnWorld(worldTiles, startingRoom, 15, 50);
+
+			worldTiles = world.generateLevel(worldTiles, world, MAXROOMS, monsterTypes, bosses, ref monstersOnMap, level);
+
+			changePlayerBack = !changePlayerBack;
+		}
+
 
         //Dispose unused
 		private static void Cleanup ()

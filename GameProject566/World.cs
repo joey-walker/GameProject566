@@ -849,16 +849,17 @@ namespace GameProject566
 
 			//place bosses and exit
 
-			tiles[8,5].worldObject = listOfBosses.ElementAt (whatLevelAreWeOn - 1);
+			tiles[7,5].worldObject = listOfBosses.ElementAt (whatLevelAreWeOn - 1);
+			tiles [7, 5].worldObject.isBoss = true;
 				
 			WorldObject levelExit = new WorldObject ();
 			levelExit.isExit = true;
 			levelExit.texture = exit;
 
-			tiles [9, 5].worldObject = levelExit;
+			tiles [8, 5].worldObject = levelExit;
 			//Block player entering from side.
-			tiles [9, 4].worldObject = wall;
-			tiles [9, 6].worldObject = wall;
+			tiles [8, 4].worldObject = wall;
+			tiles [8, 6].worldObject = wall;
 
 			return tiles;
 		}

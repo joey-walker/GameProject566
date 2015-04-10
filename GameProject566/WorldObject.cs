@@ -40,12 +40,14 @@ namespace GameProject566
 		public bool isExit { set; get; }
 		public bool isShop { set; get; }
 		public bool isPlayer { set; get; }
+		public bool isBoss { get; set; }
 
         public WorldObject()
         { 
 			this.isExit = false;
 			this.isShop = false;
 			this.isPlayer = false;
+			this.isBoss = false;
 		}
 
 		public WorldObject (Texture charTexture, float xLocation, float yLocation, int xGridLocation, int yGridLocation)

@@ -10,7 +10,7 @@ namespace GameProject566
 		public int level { get; set; }
 		public int strength { get; set; }
 		public int agility { get; set; }
-		public bool isBoss { get; set; }
+
 
         public Monsterchar()
         { 
