@@ -8,6 +8,7 @@ using System;
 using System.Windows.Forms;
 using SlimDX.RawInput;
 using SlimDX.Direct3D9;
+using System.Configuration;
 
 namespace GameProject566
 {
@@ -36,8 +37,16 @@ namespace GameProject566
         public Texture att { set; get; }
         public Texture big { set; get; }
 
+		public bool isExit { set; get; }
+		public bool isShop { set; get; }
+		public bool isPlayer { set; get; }
+
         public WorldObject()
-        { }
+        { 
+			this.isExit = false;
+			this.isShop = false;
+			this.isPlayer = false;
+		}
 
 		public WorldObject (Texture charTexture, float xLocation, float yLocation, int xGridLocation, int yGridLocation)
         {

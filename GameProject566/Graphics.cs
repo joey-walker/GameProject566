@@ -950,7 +950,7 @@ namespace GameProject566
             monsters[3].back2 = createTexture(device9, m4Back1);
             monsters[3].left2 = createTexture(device9, m4Left1);
             monsters[3].right2 = createTexture(device9, m4Right1);
-            monsters[3].texture = monsters[0].left;
+            monsters[3].texture = monsters[3].left;
             return monsters;
         }
 
