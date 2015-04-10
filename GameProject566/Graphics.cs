@@ -336,6 +336,11 @@ namespace GameProject566
 			//create the quit button and move it into spot.
 			sprite.Transform = Matrix.Translation(500, 460, 0);
 			sprite.Draw (CurrentQuit, color);
+
+
+			sprite.Transform = Matrix.Translation(900, 700, 0);
+			textDrawing.DrawString (sprite, "Credits", 0, 0, color);
+
 		}
 
 		public static void createMainMenuTextures(Device device9){
@@ -669,6 +674,35 @@ namespace GameProject566
 			TCharacterAppearance = TCharacter1Display;
 
 		}
+
+		public static void renderCredits(Device device9, Sprite sprite, SlimDX.Color4 color){
+
+			device9.Clear (ClearFlags.Target, Color.Black, 1.0f, 0);
+			sprite.Transform = Matrix.Translation(350, 100, 0);
+			textDrawing.DrawString (sprite, "Programming: Joseph walker", 0, 0, color);
+
+			sprite.Transform = Matrix.Translation(350, 200, 0);
+			textDrawing.DrawString (sprite, "Programming: Sarthak Khatiwada", 0, 0, color);
+
+			sprite.Transform = Matrix.Translation(350, 300, 0);
+			textDrawing.DrawString (sprite, "Design: Deep Patel", 0, 0, color);
+
+			sprite.Transform = Matrix.Translation(350, 400, 0);
+			textDrawing.DrawString (sprite, "Design: Ori Maci", 0, 0, color);
+
+			sprite.Transform = Matrix.Translation(350, 500, 0);
+			textDrawing.DrawString (sprite, "Tester: Chaskarandeep Singh", 0, 0, color);
+
+			sprite.Transform = Matrix.Translation(175, 1000, 0) + Matrix.Scaling(1.5f,1.5f,1f);
+			sprite.Draw (TTextBox, color);
+
+			sprite.Transform = Matrix.Translation (100, 500, 0);
+			textDrawing.DrawString (sprite, "Main Menu", 0, 0, color);
+
+
+		}
+
+
 
 		public static void disposeCharacterScreenTextures(){
 			TCharacterCreationLeftArrow.Dispose ();
