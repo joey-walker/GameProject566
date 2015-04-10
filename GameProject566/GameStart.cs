@@ -827,8 +827,8 @@ namespace GameProject566
                     if (party[choseChar].health < 1)
                     {
                         if (party[choseChar] == party[0])
-                        {
-							if (choseChar != 0) {
+						{
+							if (party.Count >= 1) {
 								party [choseChar + 1].xGridLocation = party [choseChar].xGridLocation;
 								party [choseChar + 1].yGridLocation = party [choseChar].yGridLocation;
 							}
@@ -987,9 +987,9 @@ namespace GameProject566
 
 					worldTiles [party [0].xGridLocation, party [0].yGridLocation].worldObject = party [0];
 
-				} else if (e.Key == Keys.Right && worldTiles [party [0].xGridLocation + 1, party [0].yGridLocation].worldObject.health == 0
-				           && worldTiles [party [0].xGridLocation + 1, party [0].yGridLocation].worldObject != null) {
-
+				} else if (e.Key == Keys.Right && 
+				           worldTiles [party [0].xGridLocation + 1, party [0].yGridLocation].worldObject != null) {
+					if(worldTiles [party [0].xGridLocation + 1, party [0].yGridLocation].worldObject.health == 0){						
 					tileX2 -= 60f;
 					foreach (Monsterchar monster in monstersOnMap) {
 						if (monster.health > 0 && monster.isPlayerNearMe (worldTiles))
@@ -1006,8 +1006,9 @@ namespace GameProject566
 					party [0].xGridLocation = worldTiles [party [0].xGridLocation + 1, party [0].yGridLocation].xGrid;
 
 					worldTiles [party [0].xGridLocation, party [0].yGridLocation].worldObject = party [0];
-
+						}
 				}
+
 				foreach (Monsterchar monster in monstersOnMap) {
 					if ((monster.health > 0 && status == GameStatus.map && isAdjacent (party [0].xGridLocation, party [0].yGridLocation, monster.xGridLocation, monster.yGridLocation))) {
 						//save party[0]'s location
@@ -1025,7 +1026,7 @@ namespace GameProject566
 
 				foreach (Monsterchar monster in monstersOnMap) {
 					if (arrowOrNot (e) && monster.health > 0 && status == GameStatus.map && monster.isPlayerNearMe(worldTiles)) {
-						int XorY = rand.Next (1, 3);
+						int XorY = rand.Next (0, 2);
 						//Console.WriteLine(XorY);
 						if (XorY == 1) {
 							if ((monster.xGridLocation > party [0].xGridLocation) && (worldTiles [monster.xGridLocation - 1, monster.yGridLocation].worldObject.texture == null)) {
@@ -1197,6 +1198,11 @@ namespace GameProject566
 			party.Add(new PlayerChar());
 
             playerparty.party = party;
+
+
+			//clear monsters
+			monstersOnMap.Clear();
+			isEveryoneDead = false;
 
             //Intialize the world
             World world = new World();

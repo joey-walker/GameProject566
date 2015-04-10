@@ -53,8 +53,8 @@ namespace GameProject566
 			int range = 7;
 
 			//search 7 tiles around me to see if player is there.
-			for (int i = range; i > 0; i--) {
-				for(int j = range; j > 0; j--){
+			for (int i = range; i >= 0; i--) {
+				for(int j = range; j >= 0; j--){
 					if (worldTiles [this.xGridLocation + i, this.yGridLocation + j].worldObject != null) {
 						if (worldTiles [this.xGridLocation + i, this.yGridLocation + j].worldObject.isPlayer) {
 							return true;
@@ -63,8 +63,8 @@ namespace GameProject566
 				}
 			}
 
-			for (int i = range; i > 0; i--) {
-				for(int j = range; j > 0; j--){
+			for (int i = range; i >= 0; i--) {
+				for(int j = range; j >= 0; j--){
 					if (worldTiles [this.xGridLocation + i, this.yGridLocation - j].worldObject != null) {
 						if (worldTiles [this.xGridLocation + i, this.yGridLocation - j].worldObject.isPlayer) {
 							return true;
@@ -73,8 +73,8 @@ namespace GameProject566
 				}
 			}
 
-			for (int i = range; i > 0; i--) {
-				for(int j = range; j > 0; j--){
+			for (int i = range; i >= 0; i--) {
+				for(int j = range; j >= 0; j--){
 					if (worldTiles [this.xGridLocation - i, this.yGridLocation + j].worldObject != null) {
 						if (worldTiles [this.xGridLocation - i, this.yGridLocation + j].worldObject.isPlayer) {
 							return true;
@@ -83,8 +83,8 @@ namespace GameProject566
 				}
 			}
 
-			for (int i = range; i > 0; i--) {
-				for(int j = range; j > 0; j--){
+			for (int i = range; i >= 0; i--) {
+				for(int j = range; j >= 0; j--){
 					if (worldTiles [this.xGridLocation - i, this.yGridLocation - j].worldObject != null) {
 						if (worldTiles [this.xGridLocation - i, this.yGridLocation - j].worldObject.isPlayer) {
 							return true;
