@@ -390,10 +390,10 @@ namespace GameProject566
                     sprite.Draw(battlebgT2, color);
                     break;
                 case 3:
-                    sprite.Draw(battlebgT3, color);
+                    sprite.Draw(battlebgT4, color);
                     break;
                 case 4:
-                    sprite.Draw(battlebgT4, color);
+                    sprite.Draw(battlebgT3, color);
                     break;
             }
 
