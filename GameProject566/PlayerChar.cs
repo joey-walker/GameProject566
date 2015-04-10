@@ -86,11 +86,11 @@ namespace GameProject566
 			if (this.experience >= this.level * 100) {
 				this.level++;
 				//stat increases here
-				this.strength = this.strength + rand.Next(10, this.level*10);
-				this.intelligence = this.intelligence + rand.Next(10, this.level*10);
-				this.agility = this.agility + rand.Next(10, this.level*10);
-				this.wisdom = this.wisdom + rand.Next(10, this.level*10);
-				this.health = this.health + rand.Next(10, this.level*10);
+				this.strength = this.strength + rand.Next(2, 2 + this.level*3);
+				this.intelligence = this.intelligence + rand.Next(2, 2+ this.level*3);
+				this.agility = this.agility + rand.Next(2, 2 + this.level*3);
+				this.wisdom = this.wisdom + rand.Next(2, 2 + this.level*3);
+				this.health = this.health + rand.Next(2, 2 + this.level*3);
 				//
 
 				this.experience -= this.level * 100;

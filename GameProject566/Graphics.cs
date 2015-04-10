@@ -282,7 +282,11 @@ namespace GameProject566
         static string boss1 = "..\\..\\sprites\\Sub_boss_1.png";
         static string boss2 = "..\\..\\sprites\\Sub_boss_2.png";
         static string boss3 = "..\\..\\sprites\\FinalBoss.png";
-        //static string boss4;
+
+		static string boss1big = "..\\..\\sprites\\Sub_boss__big1.png";
+		static string boss2big = "..\\..\\sprites\\Sub_boss_2big.png";
+		static string boss3big = "..\\..\\sprites\\FinalBoss_big.png";
+
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         /////////////////////////////////////////////    STAT SCREEEN    ///////////////////////////////////////////////
@@ -1089,15 +1093,20 @@ namespace GameProject566
             monsters[3].back2 = createTexture(device9, m4Back1);
             monsters[3].left2 = createTexture(device9, m4Left1);
             monsters[3].right2 = createTexture(device9, m4Right1);
-            monsters[3].texture = monsters[0].left;
+            monsters[3].texture = monsters[3].left;
             return monsters;
         }
 
         public static List<Monsterchar> createBosses(Device device9, List<Monsterchar> bosses)
         {
-            bosses[0].texture= bosses[0].left = createTexture(device9, boss1);
-            bosses[1].texture = bosses[1].left = createTexture(device9, boss2);
-            bosses[2].texture = bosses[2].left = createTexture(device9, boss3);
+            bosses[0].texture = createTexture(device9, boss1);
+            bosses[1].texture = createTexture(device9, boss2);
+            bosses[2].texture = createTexture(device9, boss3);
+
+
+			bosses [0].left = createTexture (device9, boss1big);
+			bosses[1].left = createTexture (device9, boss2big);
+			bosses [2].left = createTexture (device9, boss3big);
 
             return bosses;
         }
