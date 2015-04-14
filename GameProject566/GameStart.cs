@@ -954,53 +954,64 @@ namespace GameProject566
 				}
 			}
 
-			if (worldTiles [party [0].xGridLocation + 1, party [0].yGridLocation].worldObject.isExit) {
+            if (status == GameStatus.map)
+            {
+                if (worldTiles[party[0].xGridLocation + 1, party[0].yGridLocation].worldObject.isExit)
+                {
 
-				level++;
-				if (level > 3) {
-					status = GameStatus.credits;
-					reset();
-				} else {
-					nextLevel ();
-				}
-			}
+                    level++;
+                    if (level > 3)
+                    {
+                        status = GameStatus.credits;
+                        reset();
+                    }
+                    else
+                    {
+                        nextLevel();
+                    }
+                }
 
-			if (worldTiles [party [0].xGridLocation + 1, party [0].yGridLocation].worldObject.isBoss){
+                if (worldTiles[party[0].xGridLocation + 1, party[0].yGridLocation].worldObject.isBoss)
+                {
 
-				characterX = party [0].xLocation;
-				characterY = party [0].yLocation;
+                    characterX = party[0].xLocation;
+                    characterY = party[0].yLocation;
 
-				worldTiles [party [0].xGridLocation+1, party [0].yGridLocation].worldObject = new WorldObject();
-			
-
-				monsterCurrentlyFighting = bosses.ElementAt (level - 1);
-				status = GameStatus.battleScreen;
-
-			}else if(worldTiles [party [0].xGridLocation, party [0].yGridLocation+1].worldObject.isBoss)
-			{
-
-				characterX = party [0].xLocation;
-				characterY = party [0].yLocation;
-
-				worldTiles [party [0].xGridLocation, party [0].yGridLocation + 1].worldObject = new WorldObject ();
-
-				monsterCurrentlyFighting = bosses.ElementAt (level - 1);
+                    worldTiles[party[0].xGridLocation + 1, party[0].yGridLocation].worldObject = new WorldObject();
 
 
-				status = GameStatus.battleScreen;
+                    monsterCurrentlyFighting = bosses.ElementAt(level - 1);
+                    status = GameStatus.battleScreen;
 
-			} else if (worldTiles [party [0].xGridLocation, party [0].yGridLocation - 1].worldObject.isBoss) {
-				//boss fight
-				characterX = party [0].xLocation;
-				characterY = party [0].yLocation;
+                }
+                else if (worldTiles[party[0].xGridLocation, party[0].yGridLocation + 1].worldObject.isBoss)
+                {
 
-				worldTiles [party [0].xGridLocation, party [0].yGridLocation - 1].worldObject = new WorldObject ();
+                    characterX = party[0].xLocation;
+                    characterY = party[0].yLocation;
 
-				monsterCurrentlyFighting = bosses.ElementAt (level - 1);
+                    worldTiles[party[0].xGridLocation, party[0].yGridLocation + 1].worldObject = new WorldObject();
 
-				status = GameStatus.battleScreen;
+                    monsterCurrentlyFighting = bosses.ElementAt(level - 1);
 
-			}
+
+                    status = GameStatus.battleScreen;
+
+                }
+                else if (worldTiles[party[0].xGridLocation, party[0].yGridLocation - 1].worldObject.isBoss)
+                {
+                    //boss fight
+                    characterX = party[0].xLocation;
+                    characterY = party[0].yLocation;
+
+                    worldTiles[party[0].xGridLocation, party[0].yGridLocation - 1].worldObject = new WorldObject();
+
+                    monsterCurrentlyFighting = bosses.ElementAt(level - 1);
+
+                    status = GameStatus.battleScreen;
+
+                }
+            }
 
 			if (e.State == KeyState.Pressed && status == GameStatus.map && e.Key == Keys.P)
 				status = GameStatus.stats;
