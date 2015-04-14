@@ -1250,8 +1250,17 @@ namespace GameProject566
 						builder.Append (party.ElementAt (currentCharacter - 1).name);
 						builder.Append (e.Key);
 						party.ElementAt (currentCharacter - 1).name = builder.ToString();
+
+						if (party.ElementAt (currentCharacter - 1).name.Equals (" DSURESH")) {
+							party.ElementAt (currentCharacter - 1).health = 600;
+						} else {
+							party.ElementAt (currentCharacter - 1).health = 100;
+						}
+
 						builder.Clear ();
 					}
+
+
 
 				}
 
