@@ -982,19 +982,19 @@ namespace GameProject566
 				characterX = party [0].xLocation;
 				characterY = party [0].yLocation;
 
-				worldTiles [party [0].xGridLocation, party [0].yGridLocation + 1].worldObject = new WorldObject();
+				worldTiles [party [0].xGridLocation, party [0].yGridLocation + 1].worldObject = new WorldObject ();
 
 				monsterCurrentlyFighting = bosses.ElementAt (level - 1);
 
 
 				status = GameStatus.battleScreen;
 
-			}else if(worldTiles [party [0].xGridLocation, party [0].yGridLocation-1].worldObject.isBoss) {
+			} else if (worldTiles [party [0].xGridLocation, party [0].yGridLocation - 1].worldObject.isBoss) {
 				//boss fight
 				characterX = party [0].xLocation;
 				characterY = party [0].yLocation;
 
-				worldTiles [party [0].xGridLocation, party [0].yGridLocation - 1].worldObject = new WorldObject();
+				worldTiles [party [0].xGridLocation, party [0].yGridLocation - 1].worldObject = new WorldObject ();
 
 				monsterCurrentlyFighting = bosses.ElementAt (level - 1);
 
@@ -1002,15 +1002,15 @@ namespace GameProject566
 
 			}
 
-            if (e.State == KeyState.Pressed && status == GameStatus.map && e.Key == Keys.P)
-                status = GameStatus.stats;
+			if (e.State == KeyState.Pressed && status == GameStatus.map && e.Key == Keys.P)
+				status = GameStatus.stats;
 
-            if (e.State == KeyState.Pressed && status == GameStatus.stats && e.Key == Keys.Escape)
-                status = GameStatus.map;
+			if (e.State == KeyState.Pressed && status == GameStatus.stats && e.Key == Keys.Escape)
+				status = GameStatus.map;
 
 			if (e.State == KeyState.Pressed && status == GameStatus.map) {
 				//Console.WriteLine("X: " + party[0].xGridLocation + " Y: " + party[0].yGridLocation);
-				if (e.Key == Keys.Down && worldTiles [party [0].xGridLocation, party [0].yGridLocation - 1].worldObject.health ==0
+				if (e.Key == Keys.Down && worldTiles [party [0].xGridLocation, party [0].yGridLocation - 1].worldObject.health == 0
 				    && worldTiles [party [0].xGridLocation, party [0].yGridLocation - 1].worldObject != null) {
 
 					tileY2 -= 60f;
@@ -1074,26 +1074,26 @@ namespace GameProject566
 
 					worldTiles [party [0].xGridLocation, party [0].yGridLocation].worldObject = party [0];
 
-				} else if (e.Key == Keys.Right && 
+				} else if (e.Key == Keys.Right &&
 				           worldTiles [party [0].xGridLocation + 1, party [0].yGridLocation].worldObject != null) {
-					if(worldTiles [party [0].xGridLocation + 1, party [0].yGridLocation].worldObject.health == 0){						
-					tileX2 -= 60f;
-					foreach (Monsterchar monster in monstersOnMap) {
-						if (monster.health > 0 && monster.isPlayerNearMe (worldTiles))
-							monster.moveVisually (-60f, 0);
-					}
-
-					if (changePlayerRight)
-						party [0].texture = party [0].right2; //(Graphics.createTexture (device9, pright1));
-                    else
-						party [0].texture = party [0].right; //(Graphics.createTexture(device9, pright));
-					changePlayerRight = !changePlayerRight;
-
-					worldTiles [party [0].xGridLocation, party [0].yGridLocation].worldObject = new WorldObject ();
-					party [0].xGridLocation = worldTiles [party [0].xGridLocation + 1, party [0].yGridLocation].xGrid;
-
-					worldTiles [party [0].xGridLocation, party [0].yGridLocation].worldObject = party [0];
+					if (worldTiles [party [0].xGridLocation + 1, party [0].yGridLocation].worldObject.health == 0) {						
+						tileX2 -= 60f;
+						foreach (Monsterchar monster in monstersOnMap) {
+							if (monster.health > 0 && monster.isPlayerNearMe (worldTiles))
+								monster.moveVisually (-60f, 0);
 						}
+
+						if (changePlayerRight)
+							party [0].texture = party [0].right2; //(Graphics.createTexture (device9, pright1));
+                    else
+							party [0].texture = party [0].right; //(Graphics.createTexture(device9, pright));
+						changePlayerRight = !changePlayerRight;
+
+						worldTiles [party [0].xGridLocation, party [0].yGridLocation].worldObject = new WorldObject ();
+						party [0].xGridLocation = worldTiles [party [0].xGridLocation + 1, party [0].yGridLocation].xGrid;
+
+						worldTiles [party [0].xGridLocation, party [0].yGridLocation].worldObject = party [0];
+					}
 				}
 
 				foreach (Monsterchar monster in monstersOnMap) {
@@ -1121,7 +1121,7 @@ namespace GameProject566
 								//change monster Texture
 								if (changeM1Left)
 									monster.texture = monster.left;//(Graphics.createTexture (device9, m1Left));
-                            else
+                         	   else
 									monster.texture = monster.left2;//(Graphics.createTexture(device9, monsters[randomMon]Left1));
 
 								changeM1Left = !changeM1Left;
@@ -1191,7 +1191,7 @@ namespace GameProject566
 								//change monster texture
 								if (changeM1Front)
 									monster.texture = monster.back;//(Graphics.createTexture (device9, monsters[randomMon]Back));
-							else
+								else
 									monster.texture = monster.back2; //(Graphics.createTexture (device9, monsters[randomMon]Back1));
 
 								changeM1Front = !changeM1Front;
@@ -1337,7 +1337,7 @@ namespace GameProject566
             foreach (PlayerChar member in party)
             {
                 member.texture = member.right;
-                member.health = 500;
+                member.health = 100;
             }
 				
             //create battlescreen textures
