@@ -351,11 +351,11 @@ namespace GameProject566
 			newMonster.right2 = selectType.right2;
 			newMonster.xGridLocation = xplace;
 			newMonster.yGridLocation = yplace;
-			monstersOnMap.Add (newMonster);
+
 
 			tiles [xplace, yplace].worldObject = newMonster;
 
-
+			monstersOnMap.Add (newMonster);
 
 			//TopExit
 			RoomExit exit = new RoomExit (tiles [3,6], true);
@@ -439,7 +439,6 @@ namespace GameProject566
 			newMonster.right2 = selectType.right2;
 			newMonster.xGridLocation = xplace;
 			newMonster.yGridLocation = yplace;
-			monstersOnMap.Add (newMonster);
 
 			tiles [xplace, yplace].worldObject = newMonster;
 
@@ -520,7 +519,6 @@ namespace GameProject566
 			newMonster.right2 = selectType.right2;
 			newMonster.xGridLocation = xplace;
 			newMonster.yGridLocation = yplace;
-			monstersOnMap.Add (newMonster);
 
 			tiles [xplace, yplace].worldObject = newMonster;
 
@@ -619,7 +617,6 @@ namespace GameProject566
 			newMonster.right2 = selectType.right2;
 			newMonster.xGridLocation = xplace;
 			newMonster.yGridLocation = yplace;
-			monstersOnMap.Add (newMonster);
 
 			tiles [xplace, yplace].worldObject = newMonster;
 
@@ -737,7 +734,6 @@ namespace GameProject566
 			newMonster.right2 = selectType.right2;
 			newMonster.xGridLocation = xplace;
 			newMonster.yGridLocation = yplace;
-			monstersOnMap.Add (newMonster);
 
 			tiles [xplace, yplace].worldObject = newMonster;
 
@@ -1015,7 +1011,6 @@ namespace GameProject566
 			newMonster.right2 = selectType.right2;
 			newMonster.xGridLocation = xplace;
 			newMonster.yGridLocation = yplace;
-			monstersOnMap.Add (newMonster);
 
 			tiles [xplace, yplace].worldObject = newMonster;
 
@@ -1086,7 +1081,6 @@ namespace GameProject566
 			newMonster.right2 = selectType.right2;
 			newMonster.xGridLocation = xplace;
 			newMonster.yGridLocation = yplace;
-			monstersOnMap.Add (newMonster);
 
 			tiles [xplace, yplace].worldObject = newMonster;
 
