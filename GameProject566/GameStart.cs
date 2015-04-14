@@ -1250,8 +1250,17 @@ namespace GameProject566
 						builder.Append (party.ElementAt (currentCharacter - 1).name);
 						builder.Append (e.Key);
 						party.ElementAt (currentCharacter - 1).name = builder.ToString();
+
+						if (party.ElementAt (currentCharacter - 1).name.Equals (" DSURESH")) {
+							party.ElementAt (currentCharacter - 1).health = 600;
+						} else {
+							party.ElementAt (currentCharacter - 1).health = 100;
+						}
+
 						builder.Clear ();
 					}
+
+
 
 				}
 
@@ -1306,7 +1315,7 @@ namespace GameProject566
             world.tile = Graphics.createTexture(device9, tiles);
 			world.exit = Graphics.createTexture (device9, exitTile);
 			world.shop = Graphics.createTexture (device9, shopTile);
-
+			world.rand = new Random ();
 			//create world grid
 
 
@@ -1374,7 +1383,7 @@ namespace GameProject566
 
 			world.exit = Graphics.createTexture (device9, exitTile);
 			world.shop = Graphics.createTexture (device9, shopTile);
-
+			world.rand = new Random ();
 			//create world grid
 
 			worldTiles = world.makeWorld(WORLDSIZE);
