@@ -1315,7 +1315,7 @@ namespace GameProject566
             world.tile = Graphics.createTexture(device9, tiles);
 			world.exit = Graphics.createTexture (device9, exitTile);
 			world.shop = Graphics.createTexture (device9, shopTile);
-
+			world.rand = new Random ();
 			//create world grid
 
 
@@ -1383,7 +1383,7 @@ namespace GameProject566
 
 			world.exit = Graphics.createTexture (device9, exitTile);
 			world.shop = Graphics.createTexture (device9, shopTile);
-
+			world.rand = new Random ();
 			//create world grid
 
 			worldTiles = world.makeWorld(WORLDSIZE);

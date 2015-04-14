@@ -15,7 +15,7 @@ namespace GameProject566
 {
 	public class World
 	{
-
+		
 		public Texture tile { get; set; }
 		public Texture wall { get; set; }
 		public Texture exit { get; set; } 
@@ -23,7 +23,12 @@ namespace GameProject566
 		public Queue<RoomExit> roomExit { get; set;}
 		//world sections
 
+		public Random rand { get; set; }
+
 		const int initialRoomSize = 13;
+
+
+
 
 		//Make the whole world.
 		public Tile[,] makeWorld(int size)
@@ -313,8 +318,6 @@ namespace GameProject566
 			int xplace;
 			int yplace;
 			int limiter = 0; // guarantee while loop doesn't go on forever
-			Random rand = new Random ();
-			rand.Next ();
 
 			int determineWhichObjectIsPlaced = rand.Next (0, 10);
 
@@ -346,7 +349,7 @@ namespace GameProject566
 				tiles [xplace, yplace].worldObject = newMonster;
 
 				monstersOnMap.Add (newMonster);
-			} else if (determineWhichObjectIsPlaced < 2) {
+			} else if (determineWhichObjectIsPlaced < 1) {
 				//place shop
 				WorldObject shop = new WorldObject();
 				shop.isShop = true;
@@ -411,8 +414,6 @@ namespace GameProject566
 			int xplace;
 			int yplace;
 			int limiter = 0; // guarantee while loop doesn't go on forever
-			Random rand = new Random ();
-			rand.Next ();
 
 			int determineWhichObjectIsPlaced = rand.Next (0, 10);
 
@@ -422,7 +423,7 @@ namespace GameProject566
 				limiter++;
 			} while(tiles [xplace, yplace].texture == null && limiter < 20 && tiles [xplace, yplace].worldObject.health != 0);
 
-			if (determineWhichObjectIsPlaced > 2) {
+			if (determineWhichObjectIsPlaced > 3) {
 				Monsterchar selectType = monsterTypes.ElementAt (rand.Next (0, monsterTypes.Count));
 				Monsterchar newMonster = new Monsterchar ();
 				newMonster.level = selectType.level;
@@ -444,7 +445,7 @@ namespace GameProject566
 				tiles [xplace, yplace].worldObject = newMonster;
 
 				monstersOnMap.Add (newMonster);
-			} else if (determineWhichObjectIsPlaced < 3) {
+			} else if (determineWhichObjectIsPlaced < 1) {
 				// place shop
 				WorldObject shop = new WorldObject();
 				shop.isShop = true;
@@ -501,8 +502,6 @@ namespace GameProject566
 			int xplace;
 			int yplace;
 			int limiter = 0; // guarantee while loop doesn't go on forever
-			Random rand = new Random ();
-			rand.Next ();
 
 			int determineWhichObjectIsPlaced = rand.Next (0, 10);
 
@@ -604,8 +603,6 @@ namespace GameProject566
 			int xplace;
 			int yplace;
 			int limiter = 0; // guarantee while loop doesn't go on forever
-			Random rand = new Random ();
-			rand.Next ();
 
 			int determineWhichObjectIsPlaced = rand.Next (0, 10);
 
@@ -615,7 +612,7 @@ namespace GameProject566
 				limiter++;
 			} while(tiles [xplace, yplace].texture == null && limiter < 20 && tiles [xplace, yplace].worldObject.health != 0);
 
-			if (determineWhichObjectIsPlaced > 2) {
+			if (determineWhichObjectIsPlaced > 3) {
 				Monsterchar selectType = monsterTypes.ElementAt (rand.Next (0, monsterTypes.Count));
 				Monsterchar newMonster = new Monsterchar ();
 				newMonster.level = selectType.level;
@@ -637,7 +634,7 @@ namespace GameProject566
 				tiles [xplace, yplace].worldObject = newMonster;
 
 				monstersOnMap.Add (newMonster);
-			} else if (determineWhichObjectIsPlaced < 3){
+			} else if (determineWhichObjectIsPlaced < 1){
 				//place shop
 				WorldObject shop = new WorldObject();
 				shop.isShop = true;
@@ -732,8 +729,6 @@ namespace GameProject566
 			int xplace;
 			int yplace;
 			int limiter = 0; // guarantee while loop doesn't go on forever
-			Random rand = new Random ();
-			rand.Next ();
 
 			int determineWhichObjectIsPlaced = rand.Next (0, 10);
 
@@ -743,7 +738,7 @@ namespace GameProject566
 				limiter++;
 			} while(tiles [xplace, yplace].texture == null && limiter < 20 && tiles [xplace, yplace].worldObject.health != 0);
 
-			if (determineWhichObjectIsPlaced < 3) {
+			if (determineWhichObjectIsPlaced > 3) {
 				Monsterchar selectType = monsterTypes.ElementAt (rand.Next (0, monsterTypes.Count));
 				Monsterchar newMonster = new Monsterchar ();
 				newMonster.level = selectType.level;
@@ -765,7 +760,7 @@ namespace GameProject566
 				tiles [xplace, yplace].worldObject = newMonster;
 
 				monstersOnMap.Add (newMonster);
-			} else if (determineWhichObjectIsPlaced > 2) {
+			} else if (determineWhichObjectIsPlaced < 1) {
 				//place shop
 				WorldObject shop = new WorldObject();
 				shop.isShop = true;
@@ -788,9 +783,6 @@ namespace GameProject566
 		//create the level
 		public Tile[,] generateLevel(Tile[,] worldTiles,World world ,int roomCount, 
 			List<Monsterchar> monsterTypes, List<Monsterchar> bosses, ref List<Monsterchar> monstersOnMap, int level){
-
-			Random rand = new Random ();
-			rand.Next ();
 
 			for (int i = 0; i < roomCount; i++) {
 
@@ -1020,8 +1012,6 @@ namespace GameProject566
 			int xplace;
 			int yplace;
 			int limiter = 0; // guarantee while loop doesn't go on forever
-			Random rand = new Random ();
-			rand.Next ();
 
 			do {
 				xplace = rand.Next (0, 4);
@@ -1091,10 +1081,6 @@ namespace GameProject566
 			int xplace;
 			int yplace;
 			int limiter = 0; // guarantee while loop doesn't go on forever
-			Random rand = new Random ();
-			rand.Next ();
-
-
 			int determineWhichObjectIsPlaced = rand.Next (0, 10);
 
 			do {
@@ -1103,7 +1089,7 @@ namespace GameProject566
 				limiter++;
 			} while(tiles [xplace, yplace].texture == null && limiter < 20 && tiles [xplace, yplace].worldObject.health != 0);
 
-			if (determineWhichObjectIsPlaced > 2) {
+			if (determineWhichObjectIsPlaced > 3) {
 				Monsterchar selectType = monsterTypes.ElementAt (rand.Next (0, monsterTypes.Count));
 				Monsterchar newMonster = new Monsterchar ();
 				newMonster.level = selectType.level;
@@ -1125,7 +1111,7 @@ namespace GameProject566
 				tiles [xplace, yplace].worldObject = newMonster;
 
 				monstersOnMap.Add (newMonster);
-			} else if (determineWhichObjectIsPlaced < 3) {
+			} else if (determineWhichObjectIsPlaced < 1) {
 				//place shop
 				WorldObject shop = new WorldObject();
 				shop.isShop = true;
@@ -1142,9 +1128,6 @@ namespace GameProject566
 
 		//create the level
 		public Tile[,] generateDownwards(Tile[,] worldTiles,World world,List<Monsterchar> monsterTypes, ref List<Monsterchar> monstersOnMap){
-
-			Random rand = new Random ();
-			rand.Next ();
 
 			int verticalRoomCount = rand.Next (1, 5);
 
