@@ -753,13 +753,16 @@ namespace GameProject566
 				sprite.Transform = Matrix.Translation (500, yplacement + 50, 0);
 				textDrawing.DrawString (sprite, "Agility: " + character.agility.ToString(), 0, 0, color);
 
+				sprite.Transform = Matrix.Translation (200, yplacement + 80, 0);
+				textDrawing.DrawString (sprite, "intelligence: " + character.intelligence.ToString(), 0, 0, color);
+
 				yplacement += 150;
 			}
 
 			//gold amount
 
 			sprite.Transform = Matrix.Translation (25, 10, 0);
-			textDrawing.DrawString (sprite, "Money: " + partyInfo.gold, 0, 0, color);
+			textDrawing.DrawString (sprite, "Money: $" + partyInfo.gold, 0, 0, color);
 
 			//leave button
 			sprite.Transform = Matrix.Translation (600, 10, 0);
@@ -770,7 +773,27 @@ namespace GameProject566
 
 			//buy stuff
 
+			//but stuff
 
+			//health
+			sprite.Transform = Matrix.Translation (650, 200, 0);
+			textDrawing.DrawString (sprite, "Buy 20 Health: $20", 0, 0, color);
+
+			//strength
+			sprite.Transform = Matrix.Translation (650, 300, 0);
+			textDrawing.DrawString (sprite, "Buy 1 Strength: $10", 0, 0, color);
+
+			//wisdom
+			sprite.Transform = Matrix.Translation (650, 400, 0);
+			textDrawing.DrawString (sprite, "Buy 1 Intelligence: $10", 0, 0, color);
+
+			//intelligence
+			sprite.Transform = Matrix.Translation (650, 500, 0);
+			textDrawing.DrawString (sprite, "Buy 1 Wisdom: $10", 0, 0, color);
+
+			//wisdom
+			sprite.Transform = Matrix.Translation (650, 600, 0);
+			textDrawing.DrawString (sprite, "Buy 1 Agility: $10", 0, 0, color);
 
 		}
 

@@ -14,6 +14,7 @@ using SlimDX.DirectSound;
 
 using System.Text;
 using System.Collections.Generic;
+
 //using SlimDX.DirectInput;
 using SlimDX.XInput;
 using SlimDX.DirectInput;
@@ -73,28 +74,28 @@ namespace GameProject566
 		static string shopTile = "..\\..\\sprites\\shopTile\\Shop.png";
 
 
-        //characters from player's party
-        static PlayerChar char1 = new PlayerChar(null, characterX, characterY, 0, 0);
-        static PlayerChar char2 = new PlayerChar(null, characterX, characterY, 0, 0);
-        static PlayerChar char3 = new PlayerChar(null, characterX, characterY, 0, 0);
-        static PlayerChar char4 = new PlayerChar(null, characterX, characterY, 0, 0);
-        static PlayerChar char5 = new PlayerChar(null, characterX, characterY, 0, 0);
-        static PlayerChar char6 = new PlayerChar(null, characterX, characterY, 0, 0);
-        static PlayerChar char7 = new PlayerChar(null, characterX, characterY, 0, 0);
-        static PlayerChar char8 = new PlayerChar(null, characterX, characterY, 0, 0);
+		//characters from player's party
+		static PlayerChar char1 = new PlayerChar (null, characterX, characterY, 0, 0);
+		static PlayerChar char2 = new PlayerChar (null, characterX, characterY, 0, 0);
+		static PlayerChar char3 = new PlayerChar (null, characterX, characterY, 0, 0);
+		static PlayerChar char4 = new PlayerChar (null, characterX, characterY, 0, 0);
+		static PlayerChar char5 = new PlayerChar (null, characterX, characterY, 0, 0);
+		static PlayerChar char6 = new PlayerChar (null, characterX, characterY, 0, 0);
+		static PlayerChar char7 = new PlayerChar (null, characterX, characterY, 0, 0);
+		static PlayerChar char8 = new PlayerChar (null, characterX, characterY, 0, 0);
 
-        //arraylist for all the characters
-        static List<PlayerChar> characters = new List<PlayerChar>();
+		//arraylist for all the characters
+		static List<PlayerChar> characters = new List<PlayerChar> ();
 
 		//arraylist for player's party
-        static List <PlayerChar> party = new List<PlayerChar>();
+		static List <PlayerChar> party = new List<PlayerChar> ();
 
-		static PlayerParty playerparty = new PlayerParty();
+		static PlayerParty playerparty = new PlayerParty ();
 
 
 
-        //boolean to check health
-        static bool isEveryoneDead = false;
+		//boolean to check health
+		static bool isEveryoneDead = false;
 
 		//Determines which way the player is facing.
 		static bool changePlayerBack = false;
@@ -110,26 +111,26 @@ namespace GameProject566
 		static int level = 1;
 
 		//object representing the different monsters
-		static Monsterchar m1 = new Monsterchar (null, 0, 0, 0, 0,level);
-		static Monsterchar m2 = new Monsterchar(null, 0, 0, 0, 0,level);
-		static Monsterchar m3 = new Monsterchar(null, 0, 0, 0, 0,level);
-		static Monsterchar m4 = new Monsterchar(null, 0, 0, 0, 0,level);
+		static Monsterchar m1 = new Monsterchar (null, 0, 0, 0, 0, level);
+		static Monsterchar m2 = new Monsterchar (null, 0, 0, 0, 0, level);
+		static Monsterchar m3 = new Monsterchar (null, 0, 0, 0, 0, level);
+		static Monsterchar m4 = new Monsterchar (null, 0, 0, 0, 0, level);
 
-        //objects representing the bosses
-        static Monsterchar boss1 = new Monsterchar(null, 0, 0, 0, 0, 5);
-        static Monsterchar boss2 = new Monsterchar(null,0, 0, 0, 0,10);
-        static Monsterchar boss3 = new Monsterchar(null, 0, 0, 0, 0,15);
+		//objects representing the bosses
+		static Monsterchar boss1 = new Monsterchar (null, 0, 0, 0, 0, 5);
+		static Monsterchar boss2 = new Monsterchar (null, 0, 0, 0, 0, 10);
+		static Monsterchar boss3 = new Monsterchar (null, 0, 0, 0, 0, 15);
 
-        //list containing all the monster types
-		static List<Monsterchar> monsterTypes = new List<Monsterchar>();
+		//list containing all the monster types
+		static List<Monsterchar> monsterTypes = new List<Monsterchar> ();
 
-		static List<Monsterchar> monstersOnMap = new List <Monsterchar>();
+		static List<Monsterchar> monstersOnMap = new List <Monsterchar> ();
 
 		static Monsterchar monsterCurrentlyFighting;
 
 
-        //list containing all the bosses
-        static List <Monsterchar> bosses = new List<Monsterchar>();
+		//list containing all the bosses
+		static List <Monsterchar> bosses = new List<Monsterchar> ();
 
 
 		//Determines which way the monster is facing.
@@ -162,19 +163,19 @@ namespace GameProject566
 
 
 		//Character creation to determine the current selection. Max 4
-		static int[] CurrentDisplayCharacter = new int[4] {1, 1, 1, 1};
+		static int[] CurrentDisplayCharacter = new int[4] { 1, 1, 1, 1 };
 		static int currentCharacter = 1;
-		static int[] pointsRemainingforCharacter = new int[4] {10, 10, 10, 10};
+		static int[] pointsRemainingforCharacter = new int[4] { 10, 10, 10, 10 };
 		//
 		//Universal string builder
 		static StringBuilder builder = new StringBuilder ();
 
-        //icon
-        static Icon icon;
+		//icon
+		static Icon icon;
 
-        //sound stuff
-        static DirectSound directsound;
-        static WaveStream wave;
+		//sound stuff
+		static DirectSound directsound;
+		static WaveStream wave;
 
 		//music
 
@@ -206,65 +207,65 @@ namespace GameProject566
 				//Create our device, textures and sprites
 				device9 = graphics.initializeGraphics (form);
 
-                //add all the characters to the character list
-                characters.Add(char1);
-                characters.Add(char2);
-                characters.Add(char3);
-                characters.Add(char4);
-                characters.Add(char5);
-                characters.Add(char6);
-                characters.Add(char7);
-                characters.Add(char8);
-                //initialize all the character's texture
-                characters = Graphics.createCharacterTextures(device9, characters);
+				//add all the characters to the character list
+				characters.Add (char1);
+				characters.Add (char2);
+				characters.Add (char3);
+				characters.Add (char4);
+				characters.Add (char5);
+				characters.Add (char6);
+				characters.Add (char7);
+				characters.Add (char8);
+				//initialize all the character's texture
+				characters = Graphics.createCharacterTextures (device9, characters);
 
-                //add all the monsters to the list
-                monsterTypes.Add(m1);
-                monsterTypes.Add(m2);
-                monsterTypes.Add(m3);
-                monsterTypes.Add(m4);
+				//add all the monsters to the list
+				monsterTypes.Add (m1);
+				monsterTypes.Add (m2);
+				monsterTypes.Add (m3);
+				monsterTypes.Add (m4);
 
-                //add all the bosses to the list
-                bosses.Add(boss1);
-                bosses.Add(boss2);
-                bosses.Add(boss3);
+				//add all the bosses to the list
+				bosses.Add (boss1);
+				bosses.Add (boss2);
+				bosses.Add (boss3);
 
-                //initialize all the monsters and bosses texture
-                monsterTypes = Graphics.createMonsters(device9, monsterTypes);
-                bosses = Graphics.createBosses(device9, bosses);
+				//initialize all the monsters and bosses texture
+				monsterTypes = Graphics.createMonsters (device9, monsterTypes);
+				bosses = Graphics.createBosses (device9, bosses);
 
-                //initialize character screen textures
-                Graphics.createCharacterScreenTextures(device9);
-                //background for map
-                mapBg = Graphics.createTexture(device9, bg);
+				//initialize character screen textures
+				Graphics.createCharacterScreenTextures (device9);
+				//background for map
+				mapBg = Graphics.createTexture (device9, bg);
 
-                //create stat texture
-                Graphics.createStatTexture(device9);
+				//create stat texture
+				Graphics.createStatTexture (device9);
 
-                //background for menu
-                //menuBGTex = Graphics.createTexture(device9, menuBG)
+				//background for menu
+				//menuBGTex = Graphics.createTexture(device9, menuBG)
 
-                sprite = new Sprite(device9);
-                sprite2 = new Sprite(device9);
-                sprite3 = new Sprite(device9);
+				sprite = new Sprite (device9);
+				sprite2 = new Sprite (device9);
+				sprite3 = new Sprite (device9);
 
-                //play music
-                //playMusic();
+				//play music
+				//playMusic();
 
 
 
-                //create main menu textures
+				//create main menu textures
 
-                Graphics.createMainMenuTextures(device9);
+				Graphics.createMainMenuTextures (device9);
 
-                //create tutorial textures
+				//create tutorial textures
 
-                Graphics.createTutorialTextures(device9);
+				Graphics.createTutorialTextures (device9);
 
-                //create message textures
-                Graphics.createMessageScreenTexture(device9);
+				//create message textures
+				Graphics.createMessageScreenTexture (device9);
 
-                reset();
+				reset ();
 
                
 
@@ -278,7 +279,7 @@ namespace GameProject566
 
 
 				//Create characterScreen textures
-				Graphics.createCharacterScreenTextures(device9);
+				Graphics.createCharacterScreenTextures (device9);
 
 				//Application loop
 
@@ -289,32 +290,32 @@ namespace GameProject566
 			}
 		}
 
-		public static void playMusic(String musicLoc)
-        {
-            //SOUND STUFF/////////////////
-            directsound = new DirectSound();
-            directsound.IsDefaultPool = false;
-            directsound.SetCooperativeLevel(form.Handle, SlimDX.DirectSound.CooperativeLevel.Priority);
-			wave = new WaveStream(musicLoc);
+		public static void playMusic (String musicLoc)
+		{
+			//SOUND STUFF/////////////////
+			directsound = new DirectSound ();
+			directsound.IsDefaultPool = false;
+			directsound.SetCooperativeLevel (form.Handle, SlimDX.DirectSound.CooperativeLevel.Priority);
+			wave = new WaveStream (musicLoc);
 
-            SoundBufferDescription description = new SoundBufferDescription();
-            description.Format = wave.Format;
-            description.SizeInBytes = (int)wave.Length;
-            description.Flags = BufferFlags.ControlVolume;
+			SoundBufferDescription description = new SoundBufferDescription ();
+			description.Format = wave.Format;
+			description.SizeInBytes = (int)wave.Length;
+			description.Flags = BufferFlags.ControlVolume;
 
-            // Create the buffer.
-            music = new SecondarySoundBuffer(directsound, description);
+			// Create the buffer.
+			music = new SecondarySoundBuffer (directsound, description);
 
-            byte[] data = new byte[description.SizeInBytes];
-            wave.Read(data, 0, (int)wave.Length);
-            music.Write(data, 0, SlimDX.DirectSound.LockFlags.None);
+			byte[] data = new byte[description.SizeInBytes];
+			wave.Read (data, 0, (int)wave.Length);
+			music.Write (data, 0, SlimDX.DirectSound.LockFlags.None);
 
 
-            //music.Volume = 0;
-            music.Play(0, PlayFlags.Looping);
+			//music.Volume = 0;
+			music.Play (0, PlayFlags.Looping);
 
-            ////////////////////////////////////
-        }
+			////////////////////////////////////
+		}
 
 		private static void GameLoop ()
 		{
@@ -336,7 +337,7 @@ namespace GameProject566
 					playingCredits = true;
 				}
 			} else {
-				if (playingCredits==true) {
+				if (playingCredits == true) {
 					music.Stop ();
 					playingCredits = false;
 				}
@@ -366,16 +367,15 @@ namespace GameProject566
 
 			//Change to Main Menu
 			if (status == GameStatus.mainMenu) {
-                //reset();
+				//reset();
 				Graphics.renderMainMenu (color, device9, sprite);
 			}
 
-            //change to party screen
-            if (status == GameStatus.createCharacter)
-            {
-				Graphics.renderCharacterCreationWindow(color, device9, sprite,
-					CurrentDisplayCharacter[currentCharacter-1],currentCharacter,pointsRemainingforCharacter[currentCharacter-1], party.ElementAt(currentCharacter-1));
-            }
+			//change to party screen
+			if (status == GameStatus.createCharacter) {
+				Graphics.renderCharacterCreationWindow (color, device9, sprite,
+					CurrentDisplayCharacter [currentCharacter - 1], currentCharacter, pointsRemainingforCharacter [currentCharacter - 1], party.ElementAt (currentCharacter - 1));
+			}
 
 			//Change to the game map.
 			if (status == GameStatus.map) {
@@ -391,27 +391,25 @@ namespace GameProject566
 			//render battle screen. About to get serious now :O
 			if (status == GameStatus.battleScreen) {
 				//renderBattleScreen (color);
-				Graphics.renderBattleScreen(color, device9, sprite, level, party, monsterCurrentlyFighting);
+				Graphics.renderBattleScreen (color, device9, sprite, level, party, monsterCurrentlyFighting);
 			}
 
-            //render final message screen. At this point the game is over
-            if (status == GameStatus.win || status == GameStatus.lose)
-            {
-                Graphics.renderMessage(color, device9, sprite, status);
-            }
+			//render final message screen. At this point the game is over
+			if (status == GameStatus.win || status == GameStatus.lose) {
+				Graphics.renderMessage (color, device9, sprite, status);
+			}
 
-            //render stats screen
-            if (status == GameStatus.stats)
-            {
-                Graphics.renderStatsScreen(color, device9, sprite, party, playerparty);
-            }
+			//render stats screen
+			if (status == GameStatus.stats) {
+				Graphics.renderStatsScreen (color, device9, sprite, party, playerparty);
+			}
 
 			if (status == GameStatus.credits) {
 				Graphics.renderCredits (device9, sprite, color);
 			}
 
 			if (status == GameStatus.shopScreen) {
-				Graphics.renderShopScreen (device9, sprite, color, party, playerparty,currentCharacter);
+				Graphics.renderShopScreen (device9, sprite, color, party, playerparty, currentCharacter);
 			}
 
 			//end render
@@ -437,8 +435,8 @@ namespace GameProject566
 			//player.xLocation = characterX;
 			//player.yLocation = characterY;
 
-            party[0].xLocation = characterX;
-            party[0].yLocation = characterY;
+			party [0].xLocation = characterX;
+			party [0].yLocation = characterY;
 
 			//render bg
 			sprite.Transform = Matrix.Translation (0, 0, 0);
@@ -448,8 +446,8 @@ namespace GameProject566
 			makeTiles (sprite, color);
 
 			//renders player texture
-			sprite.Transform = Matrix.Translation (party[0].xLocation, party[0].yLocation, 0);
-			sprite.Draw (party[0].texture, color);
+			sprite.Transform = Matrix.Translation (party [0].xLocation, party [0].yLocation, 0);
+			sprite.Draw (party [0].texture, color);
 
 
 			//should monster
@@ -504,13 +502,13 @@ namespace GameProject566
 			return false;
 		}
 
-        private static Boolean isMonsterAdjacent(int playerX, int playerY, int monsterX, int monsterY)
-        {
-            if ((playerX == monsterX || playerX - 1 == monsterX || playerX + 1 == monsterX) && (playerY == monsterY || playerY - 1 == monsterY || playerY + 1 == monsterY))
-                return true;
+		private static Boolean isMonsterAdjacent (int playerX, int playerY, int monsterX, int monsterY)
+		{
+			if ((playerX == monsterX || playerX - 1 == monsterX || playerX + 1 == monsterX) && (playerY == monsterY || playerY - 1 == monsterY || playerY + 1 == monsterY))
+				return true;
 
-            return false;
-        }
+			return false;
+		}
 
 		public static void Device_mouseInput (object sender, MouseInputEventArgs m)
 		{
@@ -558,127 +556,126 @@ namespace GameProject566
 				} 
 			}
 
-            if (status == GameStatus.createCharacter)
-            {
+			if (status == GameStatus.createCharacter) {
 				
-				foreach(PlayerChar character in party){
+				foreach (PlayerChar character in party) {
 					if (character.big == null) {
 						character.big = characters [0].big;
 					}
 				}
 
 
-				switch(CurrentDisplayCharacter[currentCharacter-1]){
+				switch (CurrentDisplayCharacter [currentCharacter - 1]) {
 				case 1:
-					party.ElementAt (currentCharacter-1).att = characters [0].att;
-					party.ElementAt (currentCharacter-1).back = characters [0].back;
-					party.ElementAt (currentCharacter-1).back2 = characters [0].back2;
-					party.ElementAt (currentCharacter-1).big = characters [0].big;
-					party.ElementAt (currentCharacter-1).front = characters [0].front;
-					party.ElementAt (currentCharacter-1).front2 = characters [0].front2;
-					party.ElementAt (currentCharacter-1).left = characters [0].left;
-					party.ElementAt (currentCharacter-1).left2 = characters [0].left2;
-					party.ElementAt (currentCharacter-1).right = characters [0].right;
-					party.ElementAt (currentCharacter-1).right2 = characters [0].right2;
-					party.ElementAt (currentCharacter-1).texture = characters [0].back;
+					party.ElementAt (currentCharacter - 1).att = characters [0].att;
+					party.ElementAt (currentCharacter - 1).back = characters [0].back;
+					party.ElementAt (currentCharacter - 1).back2 = characters [0].back2;
+					party.ElementAt (currentCharacter - 1).big = characters [0].big;
+					party.ElementAt (currentCharacter - 1).front = characters [0].front;
+					party.ElementAt (currentCharacter - 1).front2 = characters [0].front2;
+					party.ElementAt (currentCharacter - 1).left = characters [0].left;
+					party.ElementAt (currentCharacter - 1).left2 = characters [0].left2;
+					party.ElementAt (currentCharacter - 1).right = characters [0].right;
+					party.ElementAt (currentCharacter - 1).right2 = characters [0].right2;
+					party.ElementAt (currentCharacter - 1).texture = characters [0].back;
 					break;
 
-					case 2:
-					party.ElementAt (currentCharacter-1).att = characters [1].att;
-					party.ElementAt (currentCharacter-1).back = characters [1].back;
-					party.ElementAt (currentCharacter-1).back2 = characters [1].back2;
-					party.ElementAt (currentCharacter-1).big = characters [1].big;
-					party.ElementAt (currentCharacter-1).front = characters [1].front;
-					party.ElementAt (currentCharacter-1).front2 = characters [1].front2;
-					party.ElementAt (currentCharacter-1).left = characters [1].left;
-					party.ElementAt (currentCharacter-1).left2 = characters [1].left2;
-					party.ElementAt (currentCharacter-1).right = characters [1].right;
-					party.ElementAt (currentCharacter-1).right2 = characters [1].right2;
-					party.ElementAt (currentCharacter-1).texture = characters [1].back;
+				case 2:
+					party.ElementAt (currentCharacter - 1).att = characters [1].att;
+					party.ElementAt (currentCharacter - 1).back = characters [1].back;
+					party.ElementAt (currentCharacter - 1).back2 = characters [1].back2;
+					party.ElementAt (currentCharacter - 1).big = characters [1].big;
+					party.ElementAt (currentCharacter - 1).front = characters [1].front;
+					party.ElementAt (currentCharacter - 1).front2 = characters [1].front2;
+					party.ElementAt (currentCharacter - 1).left = characters [1].left;
+					party.ElementAt (currentCharacter - 1).left2 = characters [1].left2;
+					party.ElementAt (currentCharacter - 1).right = characters [1].right;
+					party.ElementAt (currentCharacter - 1).right2 = characters [1].right2;
+					party.ElementAt (currentCharacter - 1).texture = characters [1].back;
 					break;
 
-					case 3:
-					party.ElementAt (currentCharacter-1).att = characters [2].att;
-					party.ElementAt (currentCharacter-1).back = characters [2].back;
-					party.ElementAt (currentCharacter-1).back2 = characters [2].back2;
-					party.ElementAt (currentCharacter-1).big = characters [2].big;
-					party.ElementAt (currentCharacter-1).front = characters [2].front;
-					party.ElementAt (currentCharacter-1).front2 = characters [2].front2;
-					party.ElementAt (currentCharacter-1).left = characters [2].left;
-					party.ElementAt (currentCharacter-1).left2 = characters [2].left2;
-					party.ElementAt (currentCharacter-1).right = characters [2].right;
-					party.ElementAt (currentCharacter-1).right2 = characters [2].right2;
-					party.ElementAt (currentCharacter-1).texture = characters [2].back;
+				case 3:
+					party.ElementAt (currentCharacter - 1).att = characters [2].att;
+					party.ElementAt (currentCharacter - 1).back = characters [2].back;
+					party.ElementAt (currentCharacter - 1).back2 = characters [2].back2;
+					party.ElementAt (currentCharacter - 1).big = characters [2].big;
+					party.ElementAt (currentCharacter - 1).front = characters [2].front;
+					party.ElementAt (currentCharacter - 1).front2 = characters [2].front2;
+					party.ElementAt (currentCharacter - 1).left = characters [2].left;
+					party.ElementAt (currentCharacter - 1).left2 = characters [2].left2;
+					party.ElementAt (currentCharacter - 1).right = characters [2].right;
+					party.ElementAt (currentCharacter - 1).right2 = characters [2].right2;
+					party.ElementAt (currentCharacter - 1).texture = characters [2].back;
 					break;
 
-					case 4:
-					party.ElementAt (currentCharacter-1).att = characters [3].att;
-					party.ElementAt (currentCharacter-1).back = characters [3].back;
-					party.ElementAt (currentCharacter-1).back2 = characters [3].back2;
-					party.ElementAt (currentCharacter-1).big = characters [3].big;
-					party.ElementAt (currentCharacter-1).front = characters [3].front;
-					party.ElementAt (currentCharacter-1).front2 = characters [3].front2;
-					party.ElementAt (currentCharacter-1).left = characters [3].left;
-					party.ElementAt (currentCharacter-1).left2 = characters [3].left2;
-					party.ElementAt (currentCharacter-1).right = characters [3].right;
-					party.ElementAt (currentCharacter-1).right2 = characters [3].right2;
-					party.ElementAt (currentCharacter-1).texture = characters [3].back;
+				case 4:
+					party.ElementAt (currentCharacter - 1).att = characters [3].att;
+					party.ElementAt (currentCharacter - 1).back = characters [3].back;
+					party.ElementAt (currentCharacter - 1).back2 = characters [3].back2;
+					party.ElementAt (currentCharacter - 1).big = characters [3].big;
+					party.ElementAt (currentCharacter - 1).front = characters [3].front;
+					party.ElementAt (currentCharacter - 1).front2 = characters [3].front2;
+					party.ElementAt (currentCharacter - 1).left = characters [3].left;
+					party.ElementAt (currentCharacter - 1).left2 = characters [3].left2;
+					party.ElementAt (currentCharacter - 1).right = characters [3].right;
+					party.ElementAt (currentCharacter - 1).right2 = characters [3].right2;
+					party.ElementAt (currentCharacter - 1).texture = characters [3].back;
 					break;
 
-					case 5:
-					party.ElementAt (currentCharacter-1).att = characters [4].att;
-					party.ElementAt (currentCharacter-1).back = characters [4].back;
-					party.ElementAt (currentCharacter-1).back2 = characters [4].back2;
-					party.ElementAt (currentCharacter-1).big = characters [4].big;
-					party.ElementAt (currentCharacter-1).front = characters [4].front;
-					party.ElementAt (currentCharacter-1).front2 = characters [4].front2;
-					party.ElementAt (currentCharacter-1).left = characters [4].left;
-					party.ElementAt (currentCharacter-1).left2 = characters [4].left2;
-					party.ElementAt (currentCharacter-1).right = characters [4].right;
-					party.ElementAt (currentCharacter-1).right2 = characters [4].right2;
-					party.ElementAt (currentCharacter-1).texture = characters [4].back;
+				case 5:
+					party.ElementAt (currentCharacter - 1).att = characters [4].att;
+					party.ElementAt (currentCharacter - 1).back = characters [4].back;
+					party.ElementAt (currentCharacter - 1).back2 = characters [4].back2;
+					party.ElementAt (currentCharacter - 1).big = characters [4].big;
+					party.ElementAt (currentCharacter - 1).front = characters [4].front;
+					party.ElementAt (currentCharacter - 1).front2 = characters [4].front2;
+					party.ElementAt (currentCharacter - 1).left = characters [4].left;
+					party.ElementAt (currentCharacter - 1).left2 = characters [4].left2;
+					party.ElementAt (currentCharacter - 1).right = characters [4].right;
+					party.ElementAt (currentCharacter - 1).right2 = characters [4].right2;
+					party.ElementAt (currentCharacter - 1).texture = characters [4].back;
 					break;
 
-					case 6:
-					party.ElementAt (currentCharacter-1).att = characters [5].att;
-					party.ElementAt (currentCharacter-1).back = characters [5].back;
-					party.ElementAt (currentCharacter-1).back2 = characters [5].back2;
-					party.ElementAt (currentCharacter-1).big = characters [5].big;
-					party.ElementAt (currentCharacter-1).front = characters[5].front;
-					party.ElementAt (currentCharacter-1).front2 = characters [5].front2;
-					party.ElementAt (currentCharacter-1).left = characters [5].left;
-					party.ElementAt (currentCharacter-1).left2 = characters [5].left2;
-					party.ElementAt (currentCharacter-1).right = characters [5].right;
-					party.ElementAt (currentCharacter-1).right2 = characters [5].right2;
-					party.ElementAt (currentCharacter-1).texture = characters [5].back;
+				case 6:
+					party.ElementAt (currentCharacter - 1).att = characters [5].att;
+					party.ElementAt (currentCharacter - 1).back = characters [5].back;
+					party.ElementAt (currentCharacter - 1).back2 = characters [5].back2;
+					party.ElementAt (currentCharacter - 1).big = characters [5].big;
+					party.ElementAt (currentCharacter - 1).front = characters [5].front;
+					party.ElementAt (currentCharacter - 1).front2 = characters [5].front2;
+					party.ElementAt (currentCharacter - 1).left = characters [5].left;
+					party.ElementAt (currentCharacter - 1).left2 = characters [5].left2;
+					party.ElementAt (currentCharacter - 1).right = characters [5].right;
+					party.ElementAt (currentCharacter - 1).right2 = characters [5].right2;
+					party.ElementAt (currentCharacter - 1).texture = characters [5].back;
 					break;
 
-					case 7:
-					party.ElementAt (currentCharacter-1).att = characters [6].att;
-					party.ElementAt (currentCharacter-1).back = characters [6].back;
-					party.ElementAt (currentCharacter-1).back2 = characters [6].back2;
-					party.ElementAt (currentCharacter-1).big = characters [6].big;
-					party.ElementAt (currentCharacter-1).front = characters[6].front;
-					party.ElementAt (currentCharacter-1).front2 = characters [6].front2;
-					party.ElementAt (currentCharacter-1).left = characters [6].left;
-					party.ElementAt (currentCharacter-1).left2 = characters [6].left2;
-					party.ElementAt (currentCharacter-1).right = characters [6].right;
-					party.ElementAt (currentCharacter-1).right2 = characters [6].right2;
-					party.ElementAt (currentCharacter-1).texture = characters [6].back;
+				case 7:
+					party.ElementAt (currentCharacter - 1).att = characters [6].att;
+					party.ElementAt (currentCharacter - 1).back = characters [6].back;
+					party.ElementAt (currentCharacter - 1).back2 = characters [6].back2;
+					party.ElementAt (currentCharacter - 1).big = characters [6].big;
+					party.ElementAt (currentCharacter - 1).front = characters [6].front;
+					party.ElementAt (currentCharacter - 1).front2 = characters [6].front2;
+					party.ElementAt (currentCharacter - 1).left = characters [6].left;
+					party.ElementAt (currentCharacter - 1).left2 = characters [6].left2;
+					party.ElementAt (currentCharacter - 1).right = characters [6].right;
+					party.ElementAt (currentCharacter - 1).right2 = characters [6].right2;
+					party.ElementAt (currentCharacter - 1).texture = characters [6].back;
 					break;
 
-					case 8:
-					party.ElementAt (currentCharacter-1).att = characters [7].att;
-					party.ElementAt (currentCharacter-1).back = characters [7].back;
-					party.ElementAt (currentCharacter-1).back2 = characters [7].back2;
-					party.ElementAt (currentCharacter-1).big = characters [7].big;
-					party.ElementAt (currentCharacter-1).front = characters[7].front;
-					party.ElementAt (currentCharacter-1).front2 = characters [7].front2;
-					party.ElementAt (currentCharacter-1).left = characters [7].left;
-					party.ElementAt (currentCharacter-1).left2 = characters [7].left2;
-					party.ElementAt (currentCharacter-1).right = characters [7].right;
-					party.ElementAt (currentCharacter-1).right2 = characters [7].right2;
-					party.ElementAt (currentCharacter-1).texture = characters [7].back;
+				case 8:
+					party.ElementAt (currentCharacter - 1).att = characters [7].att;
+					party.ElementAt (currentCharacter - 1).back = characters [7].back;
+					party.ElementAt (currentCharacter - 1).back2 = characters [7].back2;
+					party.ElementAt (currentCharacter - 1).big = characters [7].big;
+					party.ElementAt (currentCharacter - 1).front = characters [7].front;
+					party.ElementAt (currentCharacter - 1).front2 = characters [7].front2;
+					party.ElementAt (currentCharacter - 1).left = characters [7].left;
+					party.ElementAt (currentCharacter - 1).left2 = characters [7].left2;
+					party.ElementAt (currentCharacter - 1).right = characters [7].right;
+					party.ElementAt (currentCharacter - 1).right2 = characters [7].right2;
+					party.ElementAt (currentCharacter - 1).texture = characters [7].back;
 					break;
 				}
 
@@ -691,12 +688,12 @@ namespace GameProject566
 				if (m.ButtonFlags == MouseButtonFlags.LeftDown) {
 					//display of character
 					//Left arrow
-					if ((cursorX >= 39 && cursorX <= 115) && (cursorY >= 240 && cursorY <= 288) && CurrentDisplayCharacter[currentCharacter-1] > 1) {
-						CurrentDisplayCharacter[currentCharacter-1]--;
+					if ((cursorX >= 39 && cursorX <= 115) && (cursorY >= 240 && cursorY <= 288) && CurrentDisplayCharacter [currentCharacter - 1] > 1) {
+						CurrentDisplayCharacter [currentCharacter - 1]--;
 					}
 					//Right arrow
-					if ((cursorX >= 160 && cursorX <= 225) && (cursorY >= 240 && cursorY <= 288) && CurrentDisplayCharacter[currentCharacter-1] < 8) {
-						CurrentDisplayCharacter[currentCharacter-1]++;
+					if ((cursorX >= 160 && cursorX <= 225) && (cursorY >= 240 && cursorY <= 288) && CurrentDisplayCharacter [currentCharacter - 1] < 8) {
+						CurrentDisplayCharacter [currentCharacter - 1]++;
 					}
 
 					//currently selected character
@@ -734,80 +731,80 @@ namespace GameProject566
 
 					//Class selection
 					//left arrow
-					if ((cursorX >= 37 && cursorX <= 110) && (cursorY >= 463 && cursorY <= 515) && !(party.ElementAt (currentCharacter - 1).characterClass.Equals("Warrior"))) {
-						if(party.ElementAt (currentCharacter - 1).characterClass.Equals("Rogue")){
+					if ((cursorX >= 37 && cursorX <= 110) && (cursorY >= 463 && cursorY <= 515) && !(party.ElementAt (currentCharacter - 1).characterClass.Equals ("Warrior"))) {
+						if (party.ElementAt (currentCharacter - 1).characterClass.Equals ("Rogue")) {
 							party.ElementAt (currentCharacter - 1).characterClass = "Warrior";
-						}else{
+						} else {
 							party.ElementAt (currentCharacter - 1).characterClass = "Rogue";
 						}
 					}
 
 					//Right arrow
-					if ((cursorX >= 250 && cursorX <= 335) && (cursorY >= 463 && cursorY <= 515) && !(party.ElementAt (currentCharacter - 1).characterClass.Equals("Wizard"))) {
-						if(party.ElementAt (currentCharacter - 1).characterClass.Equals("Rogue")){
+					if ((cursorX >= 250 && cursorX <= 335) && (cursorY >= 463 && cursorY <= 515) && !(party.ElementAt (currentCharacter - 1).characterClass.Equals ("Wizard"))) {
+						if (party.ElementAt (currentCharacter - 1).characterClass.Equals ("Rogue")) {
 							party.ElementAt (currentCharacter - 1).characterClass = "Wizard";
-						}else{
+						} else {
 							party.ElementAt (currentCharacter - 1).characterClass = "Rogue";
 						}
 					}
 
 					//strength +
 
-					if ((cursorX >= 700 && cursorX <= 715) && (cursorY >= 259 && cursorY <= 272) && (pointsRemainingforCharacter[(currentCharacter - 1)] > 0)) {
+					if ((cursorX >= 700 && cursorX <= 715) && (cursorY >= 259 && cursorY <= 272) && (pointsRemainingforCharacter [(currentCharacter - 1)] > 0)) {
 						party.ElementAt (currentCharacter - 1).strength++;
-						pointsRemainingforCharacter[currentCharacter-1]--;
+						pointsRemainingforCharacter [currentCharacter - 1]--;
 					}
 					//Strength -
 
 					if ((cursorX >= 745 && cursorX <= 752) && (cursorY >= 264 && cursorY <= 272) && party.ElementAt (currentCharacter - 1).strength > 1) {
 						party.ElementAt (currentCharacter - 1).strength--;
-						pointsRemainingforCharacter[currentCharacter-1]++;
+						pointsRemainingforCharacter [currentCharacter - 1]++;
 					}
 
 					//intelligence +
 
-					if ((cursorX >= 700 && cursorX <= 715) && (cursorY >= 310 && cursorY <= 322) && (pointsRemainingforCharacter[(currentCharacter - 1)] > 0)) {
+					if ((cursorX >= 700 && cursorX <= 715) && (cursorY >= 310 && cursorY <= 322) && (pointsRemainingforCharacter [(currentCharacter - 1)] > 0)) {
 						party.ElementAt (currentCharacter - 1).intelligence++;
-						pointsRemainingforCharacter[currentCharacter-1]--;
+						pointsRemainingforCharacter [currentCharacter - 1]--;
 					}
 					//intelligence -
 
 					if ((cursorX >= 745 && cursorX <= 752) && (cursorY >= 310 && cursorY <= 322) && party.ElementAt (currentCharacter - 1).intelligence > 1) {
 						party.ElementAt (currentCharacter - 1).intelligence--;
-						pointsRemainingforCharacter[currentCharacter-1]++;
+						pointsRemainingforCharacter [currentCharacter - 1]++;
 					}
 
 					//Agility +
 
-					if ((cursorX >= 700 && cursorX <= 715) && (cursorY >= 357 && cursorY <= 372) && (pointsRemainingforCharacter[(currentCharacter - 1)] > 0)) {
+					if ((cursorX >= 700 && cursorX <= 715) && (cursorY >= 357 && cursorY <= 372) && (pointsRemainingforCharacter [(currentCharacter - 1)] > 0)) {
 						party.ElementAt (currentCharacter - 1).agility++;
-						pointsRemainingforCharacter[currentCharacter-1]--;
+						pointsRemainingforCharacter [currentCharacter - 1]--;
 					}
 					//Agility -
 
 					if ((cursorX >= 745 && cursorX <= 752) && (cursorY >= 357 && cursorY <= 372) && party.ElementAt (currentCharacter - 1).agility > 1) {
 						party.ElementAt (currentCharacter - 1).agility--;
-						pointsRemainingforCharacter[currentCharacter-1]++;
+						pointsRemainingforCharacter [currentCharacter - 1]++;
 					}
 
 					//Wisdom +
 
-					if ((cursorX >= 700 && cursorX <= 715) && (cursorY >= 411 && cursorY <= 423) && (pointsRemainingforCharacter[(currentCharacter - 1)] > 0)) {
+					if ((cursorX >= 700 && cursorX <= 715) && (cursorY >= 411 && cursorY <= 423) && (pointsRemainingforCharacter [(currentCharacter - 1)] > 0)) {
 						party.ElementAt (currentCharacter - 1).wisdom++;
-						pointsRemainingforCharacter[currentCharacter-1]--;
+						pointsRemainingforCharacter [currentCharacter - 1]--;
 					}
 					//Wisdom -
 
 					if ((cursorX >= 745 && cursorX <= 752) && (cursorY >= 411 && cursorY <= 423) && party.ElementAt (currentCharacter - 1).wisdom > 1) {
 						party.ElementAt (currentCharacter - 1).wisdom--;
-						pointsRemainingforCharacter[currentCharacter-1]++;
+						pointsRemainingforCharacter [currentCharacter - 1]++;
 					}
 						
 				}
 
 
 					
-            }
+			}
 
 			if (status == GameStatus.tutorial) {
 
@@ -831,100 +828,88 @@ namespace GameProject566
 				//Console.WriteLine("Monster Location: " + m1.xLocation + " , " + m1.yLocation);
 				if (m.ButtonFlags == MouseButtonFlags.LeftDown && cursorX >= 200 && cursorX <= 340 && cursorY >= 675 && cursorY <= 710) {
 
-                    int choseChar = rand.Next(party.Count);
+					int choseChar = rand.Next (party.Count);
 
-					monsterCurrentlyFighting.health -= party[choseChar].attack(rand);
+					monsterCurrentlyFighting.health -= party [choseChar].attack (rand);
 
-                    //party[choseChar].texture = party[choseChar].att;
+					//party[choseChar].texture = party[choseChar].att;
 					if (monsterCurrentlyFighting.health > 0)
-						party[choseChar].health -= monsterCurrentlyFighting.attack(rand);
-                    //party[0].health -= 10;
+						party [choseChar].health -= monsterCurrentlyFighting.attack (rand);
+					//party[0].health -= 10;
 
-                    //assigning experience to character
-                    //party[choseChar].experience += (int)(monsters[randomMon].health * 1.5);
+					//assigning experience to character
+					//party[choseChar].experience += (int)(monsters[randomMon].health * 1.5);
 
-                    //attack monster
+					//attack monster
 
 
-                    //assign experience to character
-                    //party[choseChar].experience -= (int)(monsters[randomMon].health * 1.5);
-                    foreach (PlayerChar p in party)
-                    {
-                        if (p == party[choseChar]) party[choseChar].texture = Graphics.switchBattleCharTexture(true, party[choseChar]);
-                        else p.texture = Graphics.switchBattleCharTexture(false, p);
+					//assign experience to character
+					//party[choseChar].experience -= (int)(monsters[randomMon].health * 1.5);
+					foreach (PlayerChar p in party) {
+						if (p == party [choseChar])
+							party [choseChar].texture = Graphics.switchBattleCharTexture (true, party [choseChar]);
+						else
+							p.texture = Graphics.switchBattleCharTexture (false, p);
 
-                        //p.experience = party[choseChar].experience;
-                    }
+						//p.experience = party[choseChar].experience;
+					}
 
                     
                     
 
-                    if (party[choseChar].health < 1)
-                    {
-                        if (party[choseChar] == party[0])
-						{
+					if (party [choseChar].health < 1) {
+						if (party [choseChar] == party [0]) {
 							if (party.Count > 1) {
 								party [choseChar + 1].xGridLocation = party [choseChar].xGridLocation;
 								party [choseChar + 1].yGridLocation = party [choseChar].yGridLocation;
 							}
-                        }
-                        party.Remove(party[choseChar]);
-                    }
+						}
+						party.Remove (party [choseChar]);
+					}
 						
-                    //Console.WriteLine("Monster: " + m1.health + "\n");*/
-                    if (party.Count == 0)
-                        isEveryoneDead = true;
+					//Console.WriteLine("Monster: " + m1.health + "\n");*/
+					if (party.Count == 0)
+						isEveryoneDead = true;
 
-                    if (isEveryoneDead)
-                        status = GameStatus.lose;
-					else if (monsterCurrentlyFighting.health < 1)
-                    {
-                        //party[0].texture = party[0].back;
-                        foreach (PlayerChar c in party)
-                        {
-                            c.experience += 100;
-                            c.LevelUp();
-                        }
+					if (isEveryoneDead)
+						status = GameStatus.lose;
+					else if (monsterCurrentlyFighting.health < 1) {
+						//party[0].texture = party[0].back;
+						foreach (PlayerChar c in party) {
+							c.experience += 100;
+							c.LevelUp ();
+						}
 
-                        playerparty.gold += rand.Next(10,21);
-                        status = GameStatus.map;
-                        //status = GameStatus.win;
-                    }
+						playerparty.gold += rand.Next (10, 21);
+						status = GameStatus.map;
+						//status = GameStatus.win;
+					}
 				}
 			}
 
-            if (status == GameStatus.lose || status == GameStatus.win)
-            {
-                //win lose messages go here 
-                //if (m.ButtonFlags == MouseButtonFlags.LeftDown)
-                    //Console.Write (cursorX + "," + cursorY);
-                if (cursorX >= 200 && cursorX <= 450 && cursorY >= 525 && cursorY <= 620)
-                {
-                    Graphics.switchMenuButton(true);
-                    if (m.ButtonFlags == MouseButtonFlags.LeftDown)
-                    {
-						reset();
+			if (status == GameStatus.lose || status == GameStatus.win) {
+				//win lose messages go here 
+				//if (m.ButtonFlags == MouseButtonFlags.LeftDown)
+				//Console.Write (cursorX + "," + cursorY);
+				if (cursorX >= 200 && cursorX <= 450 && cursorY >= 525 && cursorY <= 620) {
+					Graphics.switchMenuButton (true);
+					if (m.ButtonFlags == MouseButtonFlags.LeftDown) {
+						reset ();
 						status = GameStatus.mainMenu;                        
-                    }
-                }
-                else 
-                {
-                    Graphics.switchMenuButton(false);
-                }
+					}
+				} else {
+					Graphics.switchMenuButton (false);
+				}
 
-                if (cursorX >= 550 && cursorX <= 770 && cursorY >= 525 && cursorY <= 620)
-                {
-                    Graphics.switchMQuitButton(true);
-                    if (m.ButtonFlags == MouseButtonFlags.LeftDown)
-                    {
-                        Cleanup();
-                    }
-                }
-                else
-                {
-                    Graphics.switchMQuitButton(false);
-                }
-            }
+				if (cursorX >= 550 && cursorX <= 770 && cursorY >= 525 && cursorY <= 620) {
+					Graphics.switchMQuitButton (true);
+					if (m.ButtonFlags == MouseButtonFlags.LeftDown) {
+						Cleanup ();
+					}
+				} else {
+					Graphics.switchMQuitButton (false);
+				}
+			}
 
 			if (status == GameStatus.credits) {
 				if (m.ButtonFlags == MouseButtonFlags.LeftDown) {
@@ -937,7 +922,7 @@ namespace GameProject566
 			if (status == GameStatus.shopScreen) {
 				if (m.ButtonFlags == MouseButtonFlags.LeftDown) {
 
-					Console.WriteLine("X Position: " + cursorX + " Y Position: " + cursorY);
+					Console.WriteLine ("X Position: " + cursorX + " Y Position: " + cursorY);
 
 					//character selection
 					int yCoordsSelection = 150;
@@ -958,7 +943,37 @@ namespace GameProject566
 						status = GameStatus.map;
 					}
 
+					//buy stuff
 
+					//health
+					if (cursorY > 205 && cursorY < 225 && cursorX > 650 && cursorX < 880 && playerparty.gold >= 20) {
+						party.ElementAt (currentCharacter - 1).health += 20;
+						playerparty.gold -= 20;
+					}
+
+					//Strength
+					if (cursorY > 300 && cursorY < 330 && cursorX > 650 && cursorX < 890 && playerparty.gold >= 10) {
+						party.ElementAt (currentCharacter - 1).strength += 1;
+						playerparty.gold -= 10;
+					}
+
+					//Intelligence
+					if (cursorY > 400 && cursorY < 430 && cursorX > 650 && cursorX < 925 && playerparty.gold >= 10) {
+						party.ElementAt (currentCharacter - 1).intelligence += 1;
+						playerparty.gold -= 10;
+					}
+
+					//Wisdom
+					if (cursorY > 500 && cursorY < 530 && cursorX > 650 && cursorX < 885 && playerparty.gold >= 10) {
+						party.ElementAt (currentCharacter - 1).wisdom += 1;
+						playerparty.gold -= 10;
+					}
+
+					//Agility
+					if (cursorY > 600 && cursorY < 630 && cursorX > 650 && cursorX < 860 && playerparty.gold >= 10) {
+						party.ElementAt (currentCharacter - 1).agility += 1;
+						playerparty.gold -= 10;
+					}
 				}
 			}
 
@@ -988,8 +1003,8 @@ namespace GameProject566
 					status = GameStatus.shopScreen;
 					worldTiles [party [0].xGridLocation, party [0].yGridLocation + 1].worldObject = new WorldObject ();
 
-				}else if (worldTiles [party [0].xGridLocation, party [0].yGridLocation - 1].worldObject.isShop) { //down
-					currentCharacter =1;
+				} else if (worldTiles [party [0].xGridLocation, party [0].yGridLocation - 1].worldObject.isShop) { //down
+					currentCharacter = 1;
 					status = GameStatus.shopScreen;
 					worldTiles [party [0].xGridLocation, party [0].yGridLocation - 1].worldObject = new WorldObject ();
 				}
@@ -1003,7 +1018,7 @@ namespace GameProject566
 					characterX = party [0].xLocation;
 					characterY = party [0].yLocation;
 
-					worldTiles [monster.xGridLocation, monster.yGridLocation].worldObject = new WorldObject();
+					worldTiles [monster.xGridLocation, monster.yGridLocation].worldObject = new WorldObject ();
 
 					monsterCurrentlyFighting = monster;
 
@@ -1011,64 +1026,54 @@ namespace GameProject566
 				}
 			}
 
-            if (status == GameStatus.map)
-            {
-                if (worldTiles[party[0].xGridLocation + 1, party[0].yGridLocation].worldObject.isExit)
-                {
+			if (status == GameStatus.map) {
+				if (worldTiles [party [0].xGridLocation + 1, party [0].yGridLocation].worldObject.isExit) {
 
-                    level++;
-                    if (level > 3)
-                    {
-                        status = GameStatus.credits;
-                        reset();
-                    }
-                    else
-                    {
-                        nextLevel();
-                    }
-                }
+					level++;
+					if (level > 3) {
+						status = GameStatus.credits;
+						reset ();
+					} else {
+						nextLevel ();
+					}
+				}
 					
-                if (worldTiles[party[0].xGridLocation + 1, party[0].yGridLocation].worldObject.isBoss)
-                {
+				if (worldTiles [party [0].xGridLocation + 1, party [0].yGridLocation].worldObject.isBoss) {
 
-                    characterX = party[0].xLocation;
-                    characterY = party[0].yLocation;
+					characterX = party [0].xLocation;
+					characterY = party [0].yLocation;
 
-                    worldTiles[party[0].xGridLocation + 1, party[0].yGridLocation].worldObject = new WorldObject();
-
-
-                    monsterCurrentlyFighting = bosses.ElementAt(level - 1);
-                    status = GameStatus.battleScreen;
-
-                }
-                else if (worldTiles[party[0].xGridLocation, party[0].yGridLocation + 1].worldObject.isBoss)
-                {
-
-                    characterX = party[0].xLocation;
-                    characterY = party[0].yLocation;
-
-                    worldTiles[party[0].xGridLocation, party[0].yGridLocation + 1].worldObject = new WorldObject();
-
-                    monsterCurrentlyFighting = bosses.ElementAt(level - 1);
+					worldTiles [party [0].xGridLocation + 1, party [0].yGridLocation].worldObject = new WorldObject ();
 
 
-                    status = GameStatus.battleScreen;
+					monsterCurrentlyFighting = bosses.ElementAt (level - 1);
+					status = GameStatus.battleScreen;
 
-                }
-                else if (worldTiles[party[0].xGridLocation, party[0].yGridLocation - 1].worldObject.isBoss)
-                {
-                    //boss fight
-                    characterX = party[0].xLocation;
-                    characterY = party[0].yLocation;
+				} else if (worldTiles [party [0].xGridLocation, party [0].yGridLocation + 1].worldObject.isBoss) {
 
-                    worldTiles[party[0].xGridLocation, party[0].yGridLocation - 1].worldObject = new WorldObject();
+					characterX = party [0].xLocation;
+					characterY = party [0].yLocation;
 
-                    monsterCurrentlyFighting = bosses.ElementAt(level - 1);
+					worldTiles [party [0].xGridLocation, party [0].yGridLocation + 1].worldObject = new WorldObject ();
 
-                    status = GameStatus.battleScreen;
+					monsterCurrentlyFighting = bosses.ElementAt (level - 1);
 
-                }
-            }
+
+					status = GameStatus.battleScreen;
+
+				} else if (worldTiles [party [0].xGridLocation, party [0].yGridLocation - 1].worldObject.isBoss) {
+					//boss fight
+					characterX = party [0].xLocation;
+					characterY = party [0].yLocation;
+
+					worldTiles [party [0].xGridLocation, party [0].yGridLocation - 1].worldObject = new WorldObject ();
+
+					monsterCurrentlyFighting = bosses.ElementAt (level - 1);
+
+					status = GameStatus.battleScreen;
+
+				}
+			}
 
 			if (e.State == KeyState.Pressed && status == GameStatus.map && e.Key == Keys.P)
 				status = GameStatus.stats;
@@ -1077,9 +1082,6 @@ namespace GameProject566
 				status = GameStatus.map;
 
 		
-
-
-
 			if (e.State == KeyState.Pressed && status == GameStatus.map) {
 				//Console.WriteLine("X: " + party[0].xGridLocation + " Y: " + party[0].yGridLocation);
 				if (e.Key == Keys.Down && worldTiles [party [0].xGridLocation, party [0].yGridLocation - 1].worldObject.health == 0
@@ -1176,7 +1178,7 @@ namespace GameProject566
 						//monsters[randomMon].texture = monsters[randomMon].left;
 						//party[0].texture = Graphics.createTexture (device9, pright);
 						//monsters[randomMon].texture = Graphics.createTexture (device9, monsters[randomMon]Left);
-						worldTiles [monster.xGridLocation, monster.yGridLocation].worldObject = new WorldObject();
+						worldTiles [monster.xGridLocation, monster.yGridLocation].worldObject = new WorldObject ();
 						monsterCurrentlyFighting = monster;
                    
 						status = GameStatus.battleScreen;
@@ -1184,7 +1186,7 @@ namespace GameProject566
 				}
 
 				foreach (Monsterchar monster in monstersOnMap) {
-					if (arrowOrNot (e) && monster.health > 0 && status == GameStatus.map && monster.isPlayerNearMe(worldTiles)) {
+					if (arrowOrNot (e) && monster.health > 0 && status == GameStatus.map && monster.isPlayerNearMe (worldTiles)) {
 						int XorY = rand.Next (0, 2);
 						//Console.WriteLine(XorY);
 						if (XorY == 1) {
@@ -1313,7 +1315,7 @@ namespace GameProject566
 			if (status == GameStatus.createCharacter) {
 
 				//name input
-				if(e.State == KeyState.Pressed ){
+				if (e.State == KeyState.Pressed) {
 
 					if ((e.Key == Keys.Back) && party.ElementAt (currentCharacter - 1).name.Length != 0) {
 						party.ElementAt (currentCharacter - 1).name = party.ElementAt (currentCharacter - 1).name.Substring (0, party.ElementAt (currentCharacter - 1).name.Length - 1);
@@ -1321,7 +1323,7 @@ namespace GameProject566
 					if (!(e.Key == Keys.Back) && !(e.Key == Keys.ShiftKey) && (party.ElementAt (currentCharacter - 1).name.Length <= 10)) {
 						builder.Append (party.ElementAt (currentCharacter - 1).name);
 						builder.Append (e.Key);
-						party.ElementAt (currentCharacter - 1).name = builder.ToString();
+						party.ElementAt (currentCharacter - 1).name = builder.ToString ();
 
 						if (party.ElementAt (currentCharacter - 1).name.Equals (" DSURESH")) {
 							party.ElementAt (currentCharacter - 1).health = 600;
@@ -1349,42 +1351,43 @@ namespace GameProject566
 		}
 
 		//reset health and position for player
-        public static void reset()
-        {
-            //reset monster and character location
-            characterX = 420;
-            characterY = 300;
+		public static void reset ()
+		{
+			//reset monster and character location
+			characterX = 420;
+			characterY = 300;
 
-            tileX = 0;
-            tileY = 0;
+			tileX = 0;
+			tileY = 0;
 
-            tileX2 = 0;
-            tileY2 = 0;
+			tileX2 = 0;
+			tileY2 = 0;
 
-            //reset the party
-            //characters.Clear();
-			CurrentDisplayCharacter = new int[4] {1, 1, 1, 1};
+			//reset the party
+			//characters.Clear();
+			CurrentDisplayCharacter = new int[4] { 1, 1, 1, 1 };
 			currentCharacter = 1;
-			pointsRemainingforCharacter = new int[4] {10, 10, 10, 10};
+			pointsRemainingforCharacter = new int[4] { 10, 10, 10, 10 };
 
-            party.Clear();
+			party.Clear ();
 
-			party.Add(new PlayerChar());
-			party.Add(new PlayerChar());
-			party.Add(new PlayerChar());
-			party.Add(new PlayerChar());
+			party.Add (new PlayerChar ());
+			party.Add (new PlayerChar ());
+			party.Add (new PlayerChar ());
+			party.Add (new PlayerChar ());
 
-            playerparty.party = party;
+			playerparty.party = party;
 
+			playerparty.gold = 0;
 
 			//clear monsters
-			monstersOnMap.Clear();
+			monstersOnMap.Clear ();
 			isEveryoneDead = false;
 
-            //Intialize the world
-            World world = new World();
-            world.wall = Graphics.createTexture(device9, wall);
-            world.tile = Graphics.createTexture(device9, tiles);
+			//Intialize the world
+			World world = new World ();
+			world.wall = Graphics.createTexture (device9, wall);
+			world.tile = Graphics.createTexture (device9, tiles);
 			world.exit = Graphics.createTexture (device9, exitTile);
 			world.shop = Graphics.createTexture (device9, shopTile);
 			world.rand = new Random ();
@@ -1393,42 +1396,41 @@ namespace GameProject566
 
 			level = 1;
 
-            worldTiles = world.makeWorld(WORLDSIZE);
+			worldTiles = world.makeWorld (WORLDSIZE);
 
 			//////////
 
-            //Player's initial position on the grid.
+			//Player's initial position on the grid.
 
-            party[0].xGridLocation = 6;
-            party[0].yGridLocation = 5;
+			party [0].xGridLocation = 6;
+			party [0].yGridLocation = 5;
 
-		            //Make starting room.
-            Tile[,] startingRoom = world.makeStartingRoom(party[0]);
+			//Make starting room.
+			Tile[,] startingRoom = world.makeStartingRoom (party [0]);
 
-            //place the room on the world grid.
-            worldTiles = world.PlaceRoomOnWorld(worldTiles, startingRoom, 15, 50);
+			//place the room on the world grid.
+			worldTiles = world.PlaceRoomOnWorld (worldTiles, startingRoom, 15, 50);
 
-			worldTiles = world.generateLevel(worldTiles, world, MAXROOMS, monsterTypes, bosses, ref monstersOnMap, level);
+			worldTiles = world.generateLevel (worldTiles, world, MAXROOMS, monsterTypes, bosses, ref monstersOnMap, level);
 
-            changePlayerBack = !changePlayerBack;
-            //initialize monster
+			changePlayerBack = !changePlayerBack;
+			//initialize monster
 
-            //set initial health for player and monster and it's party
+			//set initial health for player and monster and it's party
 
-            foreach (PlayerChar member in party)
-            {
-                member.texture = member.right;
-                member.health = 100;
-            }
+			foreach (PlayerChar member in party) {
+				member.texture = member.right;
+				member.health = 100;
+			}
 				
-            //create battlescreen textures
-            Graphics.createBattleScreenTextures(device9);
+			//create battlescreen textures
+			Graphics.createBattleScreenTextures (device9);
 
 
-        }
+		}
 
 
-		public static void nextLevel()
+		public static void nextLevel ()
 		{
 			//reset monster and character location
 			characterX = 420;
@@ -1441,10 +1443,10 @@ namespace GameProject566
 			tileY2 = 0;
 		
 			//clear monsters
-			monstersOnMap.Clear();
+			monstersOnMap.Clear ();
 
 			//Intialize the world
-			World world = new World();
+			World world = new World ();
 			if (level == 2) {
 				world.wall = Graphics.createTexture (device9, wall2);
 				world.tile = Graphics.createTexture (device9, tiles2);
@@ -1458,28 +1460,28 @@ namespace GameProject566
 			world.rand = new Random ();
 			//create world grid
 
-			worldTiles = world.makeWorld(WORLDSIZE);
+			worldTiles = world.makeWorld (WORLDSIZE);
 
 			//////////
 
 			//Player's initial position on the grid.
 
-			party[0].xGridLocation = 6;
-			party[0].yGridLocation = 5;
+			party [0].xGridLocation = 6;
+			party [0].yGridLocation = 5;
 
 			//Make starting room.
-			Tile[,] startingRoom = world.makeStartingRoom(party[0]);
+			Tile[,] startingRoom = world.makeStartingRoom (party [0]);
 
 			//place the room on the world grid.
-			worldTiles = world.PlaceRoomOnWorld(worldTiles, startingRoom, 15, 50);
+			worldTiles = world.PlaceRoomOnWorld (worldTiles, startingRoom, 15, 50);
 
-			worldTiles = world.generateLevel(worldTiles, world, MAXROOMS, monsterTypes, bosses, ref monstersOnMap, level);
+			worldTiles = world.generateLevel (worldTiles, world, MAXROOMS, monsterTypes, bosses, ref monstersOnMap, level);
 
 			changePlayerBack = !changePlayerBack;
 		}
 
 
-        //Dispose unused
+		//Dispose unused
 		private static void Cleanup ()
 		{
 
@@ -1489,27 +1491,27 @@ namespace GameProject566
 
 			Graphics.disposeMainMenu ();
 			Graphics.disposeTutorial ();
-            Graphics.disposeMessageScreen();
+			Graphics.disposeMessageScreen ();
 
-            Graphics.disposebattle();
+			Graphics.disposebattle ();
 			Graphics.disposeCharacterScreenTextures ();
 
-            party = Graphics.disposeCharacterTextures(party);
+			party = Graphics.disposeCharacterTextures (party);
 			characters = Graphics.disposeCharacterTextures (characters);
-            monsterTypes = Graphics.disposeCharacterTextures(monsterTypes);
-            bosses = Graphics.disposeCharacterTextures(bosses);
+			monsterTypes = Graphics.disposeCharacterTextures (monsterTypes);
+			bosses = Graphics.disposeCharacterTextures (bosses);
 
-            Graphics.disposeCharacterScreenTextures();
-            icon.Dispose();
-            mapBg.Dispose();
+			Graphics.disposeCharacterScreenTextures ();
+			icon.Dispose ();
+			mapBg.Dispose ();
 			//music.Dispose ();
-            //directsound.Dispose();
-            //wave.Dispose();
-            Graphics.disposeStatScreen();
+			//directsound.Dispose();
+			//wave.Dispose();
+			Graphics.disposeStatScreen ();
 
-                Application.Exit();
-                if (device9 != null)
-                    device9.Dispose();
+			Application.Exit ();
+			if (device9 != null)
+				device9.Dispose ();
 		}
 			
 	}
