@@ -14,7 +14,8 @@ namespace GameProject566
         win,
         lose,
         stats,
-		credits
+		credits,
+		shopScreen
 	}
 }
 
