@@ -934,6 +934,34 @@ namespace GameProject566
 
 			}
 
+			if (status == GameStatus.shopScreen) {
+				if (m.ButtonFlags == MouseButtonFlags.LeftDown) {
+
+					Console.WriteLine("X Position: " + cursorX + " Y Position: " + cursorY);
+
+					//character selection
+					int yCoordsSelection = 150;
+
+					foreach (PlayerChar character in characters) {
+
+						if (cursorY > yCoordsSelection && cursorY < yCoordsSelection + 30 && cursorX > 450 && cursorX < 580) {
+
+							currentCharacter = characters.IndexOf (character) + 1;
+							Console.WriteLine (currentCharacter);
+						}
+					
+						yCoordsSelection += 150;
+					}
+
+					//Exit
+					if (cursorY > 10 && cursorY < 40 && cursorX > 600 && cursorX < 730) {
+						status = GameStatus.map;
+					}
+
+
+				}
+			}
+
 
 		}
 

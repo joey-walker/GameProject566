@@ -710,30 +710,65 @@ namespace GameProject566
 		public static void renderShopScreen(Device device9, Sprite sprite, SlimDX.Color4 color,
 			List<PlayerChar> characters, PlayerParty partyInfo, int currentCharacter){
 
-			int yplacement = 100;
+			device9.Clear (ClearFlags.Target, Color.Black, 1.0f, 0);
+
+
+			sprite.Transform = Matrix.Translation (425, 10, 0);
+			textDrawing.DrawString (sprite, "Shop Screen" , 0, 0, color);
+
+			int yplacement = 150;
 
 			foreach (PlayerChar character in characters) {
 				
-				sprite.Transform = Matrix.Translation (100, 500 + yplacement, 0);
+				sprite.Transform = Matrix.Translation (25, yplacement, 0);
 				textDrawing.DrawString (sprite, character.name, 0, 0, color);
 
-				sprite.Transform = Matrix.Translation (150, 500 + yplacement, 0);
-				textDrawing.DrawString (sprite, character.characterClass, 0, 0, color);
+				sprite.Transform = Matrix.Translation (250, yplacement, 0);
+				textDrawing.DrawString (sprite, "Class: " + character.characterClass, 0, 0, color);
 
-				sprite.Transform = Matrix.Translation (200, 500 + yplacement, 0);
-				textDrawing.DrawString (sprite, character.health.ToString(), 0, 0, color);
+				sprite.Transform = Matrix.Translation (450, yplacement, 0);
+				sprite.Draw (TTextBox, color);
 
-				sprite.Transform = Matrix.Translation (200, 500 + yplacement, 0);
-				textDrawing.DrawString (sprite, character.strength.ToString(), 0, 0, color);
+				sprite.Transform = Matrix.Translation (460, yplacement, 0);
 
-				sprite.Transform = Matrix.Translation (200, 500 + yplacement, 0);
-				textDrawing.DrawString (sprite, character.wisdom.ToString(), 0, 0, color);
+				if (currentCharacter-1 == characters.IndexOf(character))
+				{
+					textDrawing.DrawString (sprite, "Selected", 0, 0, color);
+				} 
+				else 
+				{
+					sprite.Transform = Matrix.Translation (475, yplacement, 0);
+					textDrawing.DrawString (sprite, "Select", 0, 0, color);
+				}
 
-				sprite.Transform = Matrix.Translation (200, 500 + yplacement, 0);
-				textDrawing.DrawString (sprite, character.agility.ToString(), 0, 0, color);
+				sprite.Transform = Matrix.Translation (50, yplacement + 50, 0);
+				textDrawing.DrawString (sprite, "Health: " + character.health.ToString(), 0, 0, color);
 
-				yplacement += 100;
+				sprite.Transform = Matrix.Translation (200, yplacement + 50, 0);
+				textDrawing.DrawString (sprite, "Strength: " + character.strength.ToString(), 0, 0, color);
+
+				sprite.Transform = Matrix.Translation (350, yplacement + 50, 0);
+				textDrawing.DrawString (sprite, "Wisdom: " + character.wisdom.ToString(), 0, 0, color);
+
+				sprite.Transform = Matrix.Translation (500, yplacement + 50, 0);
+				textDrawing.DrawString (sprite, "Agility: " + character.agility.ToString(), 0, 0, color);
+
+				yplacement += 150;
 			}
+
+			//gold amount
+
+			sprite.Transform = Matrix.Translation (25, 10, 0);
+			textDrawing.DrawString (sprite, "Money: " + partyInfo.gold, 0, 0, color);
+
+			//leave button
+			sprite.Transform = Matrix.Translation (600, 10, 0);
+			sprite.Draw (TTextBox, color);
+
+			sprite.Transform = Matrix.Translation (625, 10, 0);
+			textDrawing.DrawString (sprite, "Leave", 0, 0, color);
+
+			//buy stuff
 
 
 
