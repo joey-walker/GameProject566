@@ -114,7 +114,13 @@ namespace GameProject566
 				}
 					
 			}
-				
+			//Shop debug mode
+			WorldObject shop = new WorldObject();
+			shop.isShop = true;
+			shop.texture = this.shop;
+
+			world [startPositionx + 3, startPositiony + 3].worldObject = shop;
+
 
 			return world;
 		}

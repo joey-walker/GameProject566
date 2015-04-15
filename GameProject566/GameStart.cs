@@ -19,6 +19,7 @@ using SlimDX.XInput;
 using SlimDX.DirectInput;
 using NUnit.Framework;
 using SlimDX.Direct2D;
+using System.Net;
 
 namespace GameProject566
 {
@@ -71,10 +72,6 @@ namespace GameProject566
 		static string exitTile = "..\\..\\sprites\\Exit\\Black_hole.png";
 		static string shopTile = "..\\..\\sprites\\shopTile\\Shop.png";
 
-
-
-		//object representing the player on the grid
-		static PlayerChar player = new PlayerChar (null, characterX, characterY, 0, 0);
 
         //characters from player's party
         static PlayerChar char1 = new PlayerChar(null, characterX, characterY, 0, 0);
@@ -344,6 +341,9 @@ namespace GameProject566
 					playingCredits = false;
 				}
 			}
+
+		
+
 		}
 
 
@@ -410,6 +410,9 @@ namespace GameProject566
 				Graphics.renderCredits (device9, sprite, color);
 			}
 
+			if (status == GameStatus.shopScreen) {
+				Graphics.renderShopScreen (device9, sprite, color, party, playerparty,currentCharacter);
+			}
 
 			//end render
 			sprite.End ();
@@ -476,7 +479,7 @@ namespace GameProject566
 						//System.Console.Out.WriteLine (worldTiles [x, y].xLocation + " y: " + worldTiles [x, y].yLocation);
 					}
 					if (worldTiles [x, y].worldObject != null) {
-						if (worldTiles [x, y].worldObject.texture != null && worldTiles [x, y].worldObject.texture != player.texture) {
+						if (worldTiles [x, y].worldObject.texture != null && worldTiles [x, y].worldObject.texture != party [0].texture) {
 							sprite.Transform = Matrix.Translation (worldTiles [x, y].xVisualLocation + tileX2, worldTiles [x, y].yVisualLocation + tileY2, 0);
 							sprite.Draw (worldTiles [x, y].worldObject.texture, color);
 						}
@@ -501,7 +504,7 @@ namespace GameProject566
 			return false;
 		}
 
-        private static Boolean isAdjacent(int playerX, int playerY, int monsterX, int monsterY)
+        private static Boolean isMonsterAdjacent(int playerX, int playerY, int monsterX, int monsterY)
         {
             if ((playerX == monsterX || playerX - 1 == monsterX || playerX + 1 == monsterX) && (playerY == monsterY || playerY - 1 == monsterY || playerY + 1 == monsterY))
                 return true;
@@ -936,12 +939,38 @@ namespace GameProject566
 
 		public static void  Device_keyboardInput (object sender, KeyboardInputEventArgs e)
 		{
-			//Runs twice for some reason....
-			//Console.Out.WriteLine ("Key pressed: " + e.Key + ". x value: " + p1.getXLocation() + ". y value: " + p1.getYLocation());
-			//First if is probably redundant but whatever
-			//Everything else is self explainatory.
+
+
+
+			if (status == GameStatus.map) {
+
+				//right
+				if (worldTiles [party [0].xGridLocation + 1, party [0].yGridLocation].worldObject != null && worldTiles [party [0].xGridLocation + 1, party [0].yGridLocation].worldObject.isShop) {
+					currentCharacter = 1;
+					status = GameStatus.shopScreen;
+					worldTiles [party [0].xGridLocation + 1, party [0].yGridLocation].worldObject = new WorldObject ();
+
+				} else if (worldTiles [party [0].xGridLocation - 1, party [0].yGridLocation].worldObject != null && worldTiles [party [0].xGridLocation - 1, party [0].yGridLocation].worldObject.isShop) { //left
+					currentCharacter = 1;
+					status = GameStatus.shopScreen;
+					worldTiles [party [0].xGridLocation - 1, party [0].yGridLocation].worldObject = new WorldObject ();
+
+				} else if (worldTiles [party [0].xGridLocation, party [0].yGridLocation + 1].worldObject.isShop) { //up
+					currentCharacter = 1;
+					status = GameStatus.shopScreen;
+					worldTiles [party [0].xGridLocation, party [0].yGridLocation + 1].worldObject = new WorldObject ();
+
+				}else if (worldTiles [party [0].xGridLocation, party [0].yGridLocation - 1].worldObject.isShop) { //down
+					currentCharacter =1;
+					status = GameStatus.shopScreen;
+					worldTiles [party [0].xGridLocation, party [0].yGridLocation - 1].worldObject = new WorldObject ();
+				}
+
+			}
+
+
 			foreach (Monsterchar monster in monstersOnMap) {
-				if ((monster.health > 0 && status == GameStatus.map && isAdjacent (party [0].xGridLocation, party [0].yGridLocation, monster.xGridLocation, monster.yGridLocation))) {
+				if ((monster.health > 0 && status == GameStatus.map && isMonsterAdjacent (party [0].xGridLocation, party [0].yGridLocation, monster.xGridLocation, monster.yGridLocation))) {
 					//save player's location
 					characterX = party [0].xLocation;
 					characterY = party [0].yLocation;
@@ -964,6 +993,7 @@ namespace GameProject566
 					nextLevel ();
 				}
 			}
+
 
 			if (worldTiles [party [0].xGridLocation + 1, party [0].yGridLocation].worldObject.isBoss){
 
@@ -1005,8 +1035,12 @@ namespace GameProject566
 			if (e.State == KeyState.Pressed && status == GameStatus.map && e.Key == Keys.P)
 				status = GameStatus.stats;
 
-			if (e.State == KeyState.Pressed && status == GameStatus.stats && e.Key == Keys.Escape)
+			if (e.State == KeyState.Pressed && (status == GameStatus.stats || status == GameStatus.shopScreen) && e.Key == Keys.Escape)
 				status = GameStatus.map;
+
+		
+
+
 
 			if (e.State == KeyState.Pressed && status == GameStatus.map) {
 				//Console.WriteLine("X: " + party[0].xGridLocation + " Y: " + party[0].yGridLocation);
@@ -1097,7 +1131,7 @@ namespace GameProject566
 				}
 
 				foreach (Monsterchar monster in monstersOnMap) {
-					if ((monster.health > 0 && status == GameStatus.map && isAdjacent (party [0].xGridLocation, party [0].yGridLocation, monster.xGridLocation, monster.yGridLocation))) {
+					if ((monster.health > 0 && status == GameStatus.map && isMonsterAdjacent (party [0].xGridLocation, party [0].yGridLocation, monster.xGridLocation, monster.yGridLocation))) {
 						//save party[0]'s location
 						characterX = party [0].xLocation;
 						characterY = party [0].yLocation;

@@ -707,6 +707,37 @@ namespace GameProject566
 		}
 
 
+		public static void renderShopScreen(Device device9, Sprite sprite, SlimDX.Color4 color,
+			List<PlayerChar> characters, PlayerParty partyInfo, int currentCharacter){
+
+			int yplacement = 100;
+
+			foreach (PlayerChar character in characters) {
+				
+				sprite.Transform = Matrix.Translation (100, 500 + yplacement, 0);
+				textDrawing.DrawString (sprite, character.name, 0, 0, color);
+
+				sprite.Transform = Matrix.Translation (150, 500 + yplacement, 0);
+				textDrawing.DrawString (sprite, character.characterClass, 0, 0, color);
+
+				sprite.Transform = Matrix.Translation (200, 500 + yplacement, 0);
+				textDrawing.DrawString (sprite, character.health.ToString(), 0, 0, color);
+
+				sprite.Transform = Matrix.Translation (200, 500 + yplacement, 0);
+				textDrawing.DrawString (sprite, character.strength.ToString(), 0, 0, color);
+
+				sprite.Transform = Matrix.Translation (200, 500 + yplacement, 0);
+				textDrawing.DrawString (sprite, character.wisdom.ToString(), 0, 0, color);
+
+				sprite.Transform = Matrix.Translation (200, 500 + yplacement, 0);
+				textDrawing.DrawString (sprite, character.agility.ToString(), 0, 0, color);
+
+				yplacement += 100;
+			}
+
+
+
+		}
 
 		public static void disposeCharacterScreenTextures(){
 			TCharacterCreationLeftArrow.Dispose ();
